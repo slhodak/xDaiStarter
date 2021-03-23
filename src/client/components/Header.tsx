@@ -1,4 +1,5 @@
 import React from 'react';
+import '../scss/style.scss';
 
 export default (props: any) => {
   const { selectPage } = props;

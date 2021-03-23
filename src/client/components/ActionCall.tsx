@@ -4,7 +4,7 @@ export default (props: { top: boolean }) => {
   const { top } = props;
   return (
     <div>
-      {top ? 
+      {top ?
         <section className="top_section">
           <div className="container">
             <div className="header_title">

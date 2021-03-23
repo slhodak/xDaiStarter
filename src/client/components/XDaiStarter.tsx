@@ -24,7 +24,7 @@ export default class XDaiStarter extends React.Component<MyProps, MyState>  {
     const { page } = this.state;
     if (page === 'Home') {
       return(<div className="XDaiStarter">
-          <Home selectPage={this.selectPage} /> 
+          <Home selectPage={this.selectPage} />
       </div>)
     } else if (page === 'About') {
       return(<div className="XDaiStarter">

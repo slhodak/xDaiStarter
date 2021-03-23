@@ -1,7 +1,7 @@
 import React from 'react';
 import Pool from './Pool';
 
-export default (props: { pools: Array<any> }) => {
+export default (props: { pools: any[] }) => {
   const { pools } = props;
   return (
     <section className="f_pools">

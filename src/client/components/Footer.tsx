@@ -8,11 +8,11 @@ export default () => {
 				<li><a href="#">Team</a></li>
 				<li><a href="#">Terms and Services</a></li>
 				<li><a href="#">Privacy Policy</a></li>
-			
+
 			</ul>
 		</div>
 		<div className="container">
-			<div className="coopyright">
+			<div className="copyright">
 				<p>@ All rights reserved</p>
 			</div>
 		</div>
