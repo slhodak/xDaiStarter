@@ -1,3 +1,4 @@
+import ActionCall from './ActionCall';
 import '../img/logo.png';
 
 export default (props: any) => {
@@ -11,12 +12,13 @@ export default (props: any) => {
           </div>
           <div className="header_links">
             <a onClick={() => selectPage('About')}>About</a>
-            <a onClick={() => selectPage('Application')}>Apply</a>
+            <a href="#">Stake</a>
             <a href="#">Pools</a>
             <a href="">Connect wallet</a>
             <button>Login</button>
           </div>
         </div>
+        <ActionCall top={true} selectPage={selectPage} />
       </div>
     </header>
   )

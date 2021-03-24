@@ -1,0 +1,20 @@
+.container_wrap {
+  max-width: 1350px;
+  width: 100%;
+}
+.call_to_action.btm {
+  padding-top: 150px;
+  width: 100%;
+  min-height: 734px;
+  background: url(../img/bg2.png) no-repeat;
+  background-size: cover;
+  .header_title {
+    max-width: 730px;
+    p {
+      max-width: 750px;
+    }
+  }
+  .header_btns {
+    justify-content: center;
+  }
+}

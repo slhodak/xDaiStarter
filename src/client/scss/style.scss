@@ -7,7 +7,9 @@
 @import "extensions/demo";
 
 // Sections - Дублирующиеся раздела сайта
-@import "sections/home.scss";
-@import "sections/page3.scss";
-@import "sections/forms.scss";
+@import "sections/action_call.scss";
+@import "sections/header.scss";
 @import "sections/footer.scss";
+@import "sections/pools.scss";
+@import "sections/about.scss";
+@import "sections/apply.scss";

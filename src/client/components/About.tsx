@@ -3,14 +3,13 @@ import Footer from './Footer';
 import '../img/way1.png';
 import '../img/way2.png';
 
-
 export default (props: any) => {
   const { selectPage } = props;
   return (
     <div>
       <Header selectPage={selectPage} />
       <div>
-        <section className="page3_text">
+        <section className="about_text">
           <div className="header_title">
             <h1>Community governed launchpad
               for <span>X</span>Dai <span>Starter</span></h1>

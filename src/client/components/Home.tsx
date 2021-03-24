@@ -1,18 +1,17 @@
 import Header from './Header';
 import Footer from './Footer';
-import ActionCall from './ActionCall';
 import Pools from './Pools';
+import ActionCall from './ActionCall';
 
-const testPools = ['a', 'b', 'c'];
+const testPools = ['a', 'b', 'c', 'd', 'e'];
 
-export default (props: any) => {
+export default (props: { selectPage: Function }) => {
   const { selectPage } = props;
   return (
     <div>
       <Header selectPage={selectPage} />
-      <ActionCall top={true} />
       <Pools pools={testPools} />
-      <ActionCall top={false} />
+      <ActionCall top={false} selectPage={selectPage}/>
       <Footer />
     </div>
   )
