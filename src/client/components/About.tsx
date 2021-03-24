@@ -1,6 +1,8 @@
-import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import '../img/way1.png';
+import '../img/way2.png';
+
 
 export default (props: any) => {
   const { selectPage } = props;

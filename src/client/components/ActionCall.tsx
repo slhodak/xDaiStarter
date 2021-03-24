@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default (props: { top: boolean }) => {
   const { top } = props;
   return (

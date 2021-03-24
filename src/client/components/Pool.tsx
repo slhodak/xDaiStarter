@@ -1,4 +1,8 @@
-import React from 'react';
+import '../scss/style.scss';
+import '../img/blockIcn.png';
+import '../img/like.png';
+import '../img/tg.png';
+import '../img/share.png';
 
 export default (props: any) => {
   return (

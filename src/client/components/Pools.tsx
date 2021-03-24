@@ -1,4 +1,3 @@
-import React from 'react';
 import Pool from './Pool';
 
 export default (props: { pools: any[] }) => {

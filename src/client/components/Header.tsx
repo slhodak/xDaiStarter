@@ -1,5 +1,4 @@
-import React from 'react';
-import '../scss/style.scss';
+import '../img/logo.png';
 
 export default (props: any) => {
   const { selectPage } = props;

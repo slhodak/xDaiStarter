@@ -1,3 +1,5 @@
+import '../img/tg2.png';
+
 export default () => {
   return (
     <footer className="footer">

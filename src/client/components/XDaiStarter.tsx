@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './Home';
 import About from './About';
 import Application from './Application';
+import '../scss/style.scss';
 
 type MyProps = {};
 type MyState = { page: string };

@@ -4,6 +4,3 @@ node_modules
 ### Development
 .env
 plans
-
-### dist
-dist

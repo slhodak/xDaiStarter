@@ -1,4 +1,4 @@
-import React from 'react';
+import '../img/rectangle.png';
 
 export default () => {
   return (
