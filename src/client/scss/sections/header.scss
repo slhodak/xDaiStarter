@@ -24,7 +24,8 @@
   align-items: center;
   button {
     cursor: default;
-    width: 112px;
+    white-space: nowrap;
+    padding: 0px 23px;
     height: 41px;
     background: #ffffff;
     border: none;

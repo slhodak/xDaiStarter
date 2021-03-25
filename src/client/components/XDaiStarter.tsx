@@ -1,6 +1,6 @@
 import React from 'react';
 import Home from './Home';
-import About from './About';
+import Litepaper from './Litepaper';
 import Application from './Application';
 import '../scss/style.scss';
 
@@ -27,9 +27,9 @@ export default class XDaiStarter extends React.Component<MyProps, MyState>  {
       return(<div className="XDaiStarter">
         <Home selectPage={this.selectPage} />
       </div>)
-    } else if (page === 'About') {
+    } else if (page === 'Litepaper') {
       return(<div className="XDaiStarter">
-        <About selectPage={this.selectPage} />
+        <Litepaper selectPage={this.selectPage} />
       </div>)
     } else if (page === 'Application') {
       // Have this open a new tab? Need react router for mpa?

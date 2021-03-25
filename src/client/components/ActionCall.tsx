@@ -5,14 +5,14 @@ export default (props: { top: boolean, selectPage: Function }) => {
       {top ?
         <section className="call_to_action top">
           <div className="large_title">
-            <h1>Community-<span className="highlighted_title_text">Governed Fund </span>
+            <h1>Community <span className="highlighted_title_text">Governed Fund </span>
               Raising For xDai Chain</h1>
-            <p>Filter through the messy landscape where rug pulls overshadow the great potential.</p>
+            <p>Filter through the messy landscape where rugs overshadow the great potential.</p>
           </div>
           <div className="action_call_btns">
             <div className="btns_container">
-              <button className="btn">View pools</button>
-              <button className="btn btn_scnd" onClick={() => selectPage('Application')}>Get Started</button>
+              <button className="btn" onClick={() => selectPage('Application')}>Buy XDST</button>
+              <button className="btn btn_scnd" onClick={() => selectPage('Litepaper')}>Litepaper</button>
             </div>
           </div>
         </section> :
