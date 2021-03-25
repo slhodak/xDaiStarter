@@ -10,6 +10,7 @@ export default (props: { selectPage: Function }) => {
   return (
     <div>
       <Header selectPage={selectPage} />
+      <ActionCall top={true} selectPage={selectPage}/>
       <Pools pools={testPools} />
       <ActionCall top={false} selectPage={selectPage}/>
       <Footer />

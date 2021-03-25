@@ -19,6 +19,11 @@ $screen-sm-max: ($screen-md-min - 1); // до 767
 $screen-md-max: ($screen-lg-min - 1); // до 991
 $screen-lg-max: ($screen-xlg-min - 1); // до 1199
 
+//colors vars
+$white: #fff;
+$black: #000;
+$xdsGreyBlue: #1b2c35;
+
 // position flex
 %flex-col {
   display: flex;
@@ -35,7 +40,7 @@ $screen-lg-max: ($screen-xlg-min - 1); // до 1199
 }
 
 .body {
-  background: #1b2c35;
+  background: $xdsGreyBlue;
 }
 
 .row_wrap{
@@ -48,10 +53,6 @@ $screen-lg-max: ($screen-xlg-min - 1); // до 1199
 .hidden {
   display: none;
 }
-
-//colors vars
-$white: #fff;
-$black: #000;
 
 // button settings
 button {

@@ -1,16 +1,18 @@
-.header {
-  &.about {
-    min-height: 180px;
-    background: #16272f;
-  }
+.about_page {
+  background-color: $xdsGreyBlue;
 }
-.body {
-  &.about {
-    background: #1b2c35;
-  }
+.about_title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 115px;
+}
+.about_main {
+  width: 75%;
+  margin: 0 auto;
 }
 .page_description {
-  //   padding-top: 75px;
+  padding-top: 50px;
   p {
     margin-top: 35px;
     font-family: Poppins;
@@ -38,7 +40,7 @@
   padding: 50px 40px;
 }
 .page_statistic-block1 {
-  width: 60%;
+  width: 55%;
   max-width: 640px;
 }
 .page_statistic-block2 {
@@ -65,7 +67,6 @@
     font-style: normal;
     font-weight: bold;
     font-size: 30px;
-    // line-height: 52px;
     letter-spacing: -0.04em;
     color: #3ec6c1;
   }
@@ -74,7 +75,6 @@
     font-size: 15px;
     font-style: normal;
     font-weight: 500;
-    // line-height: 52px;
     letter-spacing: -0.04em;
     color: #fffefe;
     opacity: 0.5;
