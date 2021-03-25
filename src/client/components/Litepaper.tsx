@@ -6,16 +6,16 @@ import '../img/way2.png';
 export default (props: { selectPage: Function }) => {
   const { selectPage } = props;
   return (
-    <div className="about_page">
+    <div className="litepaper_page">
       <Header selectPage={selectPage} />
-      <section className="about_title">
-        <div className="large_title">
+      <section className="litepaper_title">
+        <div className="large_title litepaper">
           <h1>
-            Community-governed launchpad for <span className="highlighted_title_text">X</span>Dai <span className="highlighted_title_text">Starter</span>
+            Community governed launchpad for <span className="highlighted_title_text">X</span>Dai <span className="highlighted_title_text">Starter</span>
           </h1>
         </div>
       </section>
-      <div className="about_main">
+      <div className="litepaper_main">
         <section className="page_description">
           <p>Innovation for bootstrapped projects has been grinding to a halt on the Ethereum blockchain. Exorbitant gas
             fees have nearly caused new project launches to stall and existing projects to lose user engagement -
