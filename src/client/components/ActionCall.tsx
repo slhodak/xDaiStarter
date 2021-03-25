@@ -18,8 +18,7 @@ export default (props: { top: boolean, selectPage: Function }) => {
         </section> :
         <section className="call_to_action btm">
           <div className="large_title">
-            <h1>Subscribe to <span className="highlighted_title_text">Get Alerts</span>
-              For New Pools</h1>
+            <h1>Subscribe to <span className="highlighted_title_text">Get Alerts </span>For New Pools</h1>
             <p>
               Subscribe to get notified about new pools and other relevant events.</p>
           </div>

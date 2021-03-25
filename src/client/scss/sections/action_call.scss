@@ -44,15 +44,12 @@
   }
 }
 .action_call_btns {
-  width: 100%;
+  align-self: center;
   margin-top: 25px;
   .btns_container {
-    max-width: 480px;
-    margin: auto;
+    width: 500px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     button {
       width: 227px;
       height: 68px;
