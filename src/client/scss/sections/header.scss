@@ -1,11 +1,14 @@
-.header_all {
-  background: url(../img/headerBg.png) no-repeat;
+.header_container {
+  background-color: $xdsDarkGreyBlue;
+}
+.header_background {
   padding: 50px 200px;
+  background: url(../img/headerBg.png) no-repeat;
   @media screen and (max-width: 1900px) {
     padding: 30px 120px;
   }
 }
-.header_center {
+.header_objects {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -1,7 +1,7 @@
 export default (props: { top: boolean, selectPage: Function }) => {
   const { top, selectPage } = props;
   return (
-    <div>
+    <div className="call_to_action_container">
       {top ?
         <section className="call_to_action top">
           <div className="large_title">
