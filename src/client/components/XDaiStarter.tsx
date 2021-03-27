@@ -2,6 +2,7 @@ import React from 'react';
 import Home from './Home';
 import Litepaper from './Litepaper';
 import Application from './Application';
+import DetailCard from './DetailCard';
 import '../scss/style.scss';
 
 type MyProps = {};
@@ -35,6 +36,10 @@ export default class XDaiStarter extends React.Component<MyProps, MyState>  {
       // Have this open a new tab? Need react router for mpa?
       return(<div className="XDaiStarter">
         <Application />
+      </div>)
+    } else if (page === 'DetailCard') {
+      return(<div className="XDaiStarter">
+        <DetailCard selectPage={this.selectPage} />
       </div>)
     }
   }

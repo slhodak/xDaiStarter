@@ -41,10 +41,10 @@
   margin-top: 65px;
   max-width: 402px;
   min-height: 344px;
-  background: #16272f;
-  border: 2px solid #3ec6c1;
+  background: $xdsVeryDarkBg;
+  border: 2px solid $xdsAccent;
   backdrop-filter: blur(4px);
-  border-radius: 22px;
+  border-radius: $xdsBorderRadius;
 }
 .pools_block-title {
   display: flex;
@@ -92,14 +92,14 @@
     height: 10px;
     top: 0;
     left: 0;
-    background: #3ec6c1;
+    background: $xdsAccent;
     border-radius: 100px;
     p {
       font-family: Poppins;
       font-size: 11px;
       font-style: normal;
       font-weight: 500;
-      color: #3ec6c1;
+      color: $xdsAccent;
       letter-spacing: -0.04em;
       text-align: right;
       margin-top: -20px;
@@ -127,7 +127,7 @@
     height: 10px;
     top: 0;
     left: 0;
-    background: #3ec6c1;
+    background: $xdsAccent;
     border-radius: 100px;
   }
   .progres_bar-red {
@@ -191,7 +191,7 @@
 .pools_like {
   width: 40.29px;
   height: 40.29px;
-  background: #3ec6c1;
+  background: $xdsAccent;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -231,7 +231,7 @@
       font-style: normal;
       font-weight: 700;
       letter-spacing: -0.04em;
-      color: #3ec6c1;
+      color: $xdsAccent;
     }
     p {
       font-family: Poppins;

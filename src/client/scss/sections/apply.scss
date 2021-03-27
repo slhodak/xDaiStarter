@@ -7,7 +7,7 @@
 .aside {
   width: 550px;
   height: 100%;
-  background: #16272f;
+  background: $xdsVeryDarkBg;
   border: 2px solid rgba(96, 96, 97, 0.3);
   border-radius: 10px;
   position: relative;
@@ -49,7 +49,7 @@
   transition: $transition;
   
   &:hover {
-    background: #3ec6c1;
+    background: $xdsAccent;
   }
 
   &:first-child {
@@ -72,7 +72,7 @@
 .forms_header {
   width: 100%;
   height: 111px;
-  background: #16272f;
+  background: $xdsVeryDarkBg;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,8 +194,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-bottom: 1px solid #16272f;
-  border-top: 1px solid #16272f;
+  border-bottom: 1px solid $xdsVeryDarkBg;
+  border-top: 1px solid $xdsVeryDarkBg;
   h4 {
     font-family: Poppins;
     font-style: normal;

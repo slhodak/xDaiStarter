@@ -1,5 +1,6 @@
 import Header from './Header';
 import Footer from './Footer';
+import Disclaimer from './Disclaimer';
 import '../img/way1.png';
 import '../img/way2.png';
 
@@ -122,14 +123,7 @@ export default (props: { selectPage: Function }) => {
             </div>
           </div>
         </section>
-        <section className="page_graph">
-          <div className="page_graph-disc">
-            <h2 className="pools-title">Disclaimer</h2>
-            <p className="pools-title-descr">The xDaiStarter team does not endorse, support or otherwise perform any due diligence on the projects listed on its platform.
-              As always, please DO YOUR OWN RESEARCH before investing any of your hard-earned BNB into these projects and never invest
-              more than you are willing to lose.</p>
-          </div>
-        </section>
+        <Disclaimer />
       </div>
       <Footer />
     </div>

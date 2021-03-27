@@ -37,8 +37,8 @@
 }
 .page_statistic-block {
   margin-top: 55px;
-  background: #16272f;
-  border-radius: 22px;
+  background: $xdsVeryDarkBg;
+  border-radius: $xdsBorderRadius;
   min-height: 325px;
   padding: 50px 40px;
 }
@@ -71,7 +71,7 @@
     font-weight: bold;
     font-size: 30px;
     letter-spacing: -0.04em;
-    color: #3ec6c1;
+    color: $xdsAccent;
   }
   p {
     font-family: Poppins;
@@ -112,9 +112,9 @@
   margin-bottom: 100px;
   padding: 33px;
   width: 100%;
-  background: #16272f;
-  border: 2px solid #3ec6c1;
-  border-radius: 22px;
+  background: $xdsVeryDarkBg;
+  border: 2px solid $xdsAccent;
+  border-radius: $xdsBorderRadius;
   .pools-title-descr{
       margin-top: 20px;
       line-height: 35px;

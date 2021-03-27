@@ -5,6 +5,7 @@ import '../img/tg.png';
 import '../img/share.png';
 
 export default (props: any) => {
+  const { selectPage } = props;
   return (
     <div className="pools_block col-md-4">
       <div className="pools_block-title">
@@ -50,7 +51,7 @@ export default (props: any) => {
             <img src="img/share.png" alt="img"/>
           </a>
         </div>
-        <button className="btn">
+        <button className="btn" onClick={() => selectPage('DetailCard')}>
           Open in 5 Days
         </button>
       </div>

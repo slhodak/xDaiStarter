@@ -1,0 +1,57 @@
+.pool_detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  border: $xdsAccentBorder;
+  .pool_detail_top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .pool_detail_middle {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .pool_detail_info_block {
+      padding: 10px;
+      .detail_block_title {
+        font-size: 0.9em;
+      }
+      .detail_block_value {
+        color: $xdsAccent;
+        font-size: 1.2em;
+        font-weight: 900;
+      }
+    }
+  }
+  .pool_detail_bottom {
+    .pool_detail_progress {
+      .progress_total {
+        display: flex;
+        justify-content: space-between;
+        .progress_total_title {
+          font-size: 0.9em;
+        }
+        .progress_total_value {
+          color: $xdsAccent;
+          font-size: 1.2em;
+          font-weight: 900;
+        }
+      }
+      .progress_participants {
+        color: $xdsAccent;
+        font-size: 1.2em;
+        font-weight: 900;
+      }
+    }
+    .progress_bar {
+      color: $xdsAccent;
+    }
+    .progress_percent_fraction {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9em;
+    }
+  }
+}
