@@ -1,57 +1,102 @@
-.pool_detail {
+.detail_card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  border: $xdsAccentBorder;
-  .pool_detail_top {
+  .pool_detail {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .pool_detail_middle {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    .pool_detail_info_block {
-      padding: 10px;
-      .detail_block_title {
-        font-size: 0.9em;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: $xdsAccentBorder;
+    border-radius: 22px;
+    background-color: $xdsVeryDarkBg;
+    padding: 53px;
+    .pool_detail_top {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0px 0px 40px 10px;
+      .pool_detail_top_left {
+        display: flex;
       }
-      .detail_block_value {
-        color: $xdsAccent;
-        font-size: 1.2em;
-        font-weight: 900;
+      .pool_detail_title {
+        padding: 0px 30px;
+        h4 {
+          color: #fffefe;
+          font-weight: 600;
+        }
+        p {
+          font-weight: 500;
+          color: $xdsAccent;
+        }
+      }
+      button {
+        white-space: nowrap;
+        width: 127px;
+        height: 52px;
+        color: #ffffff;
+        font-size: 0.8em;
+        font-weight: 500;
+        font-style: normal;
+        // line-height: 51.7px;
+        letter-spacing: -4%;
       }
     }
-  }
-  .pool_detail_bottom {
-    .pool_detail_progress {
-      .progress_total {
-        display: flex;
-        justify-content: space-between;
-        .progress_total_title {
-          font-size: 0.9em;
+    .pool_detail_middle {
+      display: flex;
+      flex-flow: row wrap;
+      width: 800px;
+      border-radius: 22px;
+      overflow: hidden;
+      .pool_detail_info_block {
+        padding: 20px 0px 20px 40px;
+        width: 200px;
+        background-color: $xdsGreyBlue;
+        .detail_block_title {
+          font-size: 0.7em;
+          color: #fffefe;
         }
-        .progress_total_value {
+        .detail_block_value {
           color: $xdsAccent;
           font-size: 1.2em;
           font-weight: 900;
         }
       }
-      .progress_participants {
-        color: $xdsAccent;
-        font-size: 1.2em;
-        font-weight: 900;
+      .light_border_bottom {
+        border-bottom: 1px solid rgba(223,248,247,0.1);
+      }
+      .light_border_right {
+        border-right: 1px solid rgba(223,248,247,0.1);
       }
     }
-    .progress_bar {
-      color: $xdsAccent;
-    }
-    .progress_percent_fraction {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.9em;
+    .pool_detail_bottom {
+      .pool_detail_progress {
+        .progress_total {
+          display: flex;
+          justify-content: space-between;
+          .progress_total_title {
+            font-size: 0.9em;
+          }
+          .progress_total_value {
+            color: $xdsAccent;
+            font-size: 1.2em;
+            font-weight: 900;
+          }
+        }
+        .progress_participants {
+          color: $xdsAccent;
+          font-size: 1.2em;
+          font-weight: 900;
+        }
+      }
+      .progress_bar {
+        color: $xdsAccent;
+      }
+      .progress_percent_fraction {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9em;
+      }
     }
   }
 }
