@@ -12,6 +12,14 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        test: /\.css$/i,
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
+        exclude: /node_modules/
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',
