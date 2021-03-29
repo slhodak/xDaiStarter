@@ -3,6 +3,18 @@
   flex-direction: column;
   align-items: center;
   .pool_detail {
+    .detail_title {
+      font-size: 0.6em;
+      font-weight: 300;
+      color: #fffefe;
+      margin-bottom: 10px;
+      opacity: 0.5;
+    }
+    .detail_value {
+      color: $xdsAccent;
+      font-weight: 700;
+      font-size: 1.1em;
+    }
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -26,7 +38,8 @@
           font-weight: 600;
         }
         p {
-          font-weight: 500;
+          font-weight: 400;
+          font-size: 0.65em;
           color: $xdsAccent;
         }
       }
@@ -49,18 +62,9 @@
       border-radius: 22px;
       overflow: hidden;
       .pool_detail_info_block {
-        padding: 20px 0px 20px 40px;
+        padding: 35px;
         width: 200px;
         background-color: $xdsGreyBlue;
-        .detail_block_title {
-          font-size: 0.7em;
-          color: #fffefe;
-        }
-        .detail_block_value {
-          color: $xdsAccent;
-          font-size: 1.2em;
-          font-weight: 900;
-        }
       }
       .light_border_bottom {
         border-bottom: 1px solid rgba(223,248,247,0.1);
@@ -70,32 +74,37 @@
       }
     }
     .pool_detail_bottom {
+      width: 100%;
+      margin-top: 41px;
       .pool_detail_progress {
-        .progress_total {
-          display: flex;
-          justify-content: space-between;
-          .progress_total_title {
-            font-size: 0.9em;
-          }
-          .progress_total_value {
-            color: $xdsAccent;
-            font-size: 1.2em;
-            font-weight: 900;
-          }
-        }
-        .progress_participants {
-          color: $xdsAccent;
-          font-size: 1.2em;
-          font-weight: 900;
-        }
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
       }
       .progress_bar {
+        margin-top: 35px;
         color: $xdsAccent;
+        .progress_bar-wrap {
+          width: 100%;
+          height: 1.2em;
+          background: #122026;
+          border-radius: 100px;
+          position: relative;
+          .progress_bar-green2 {
+            position: absolute;
+            width: 35%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: $xdsAccent;
+            border-radius: 100px;
+          }
+        }
       }
       .progress_percent_fraction {
         display: flex;
         justify-content: space-between;
-        font-size: 0.9em;
+        padding-top: 20px;        
       }
     }
   }

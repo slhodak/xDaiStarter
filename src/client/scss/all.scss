@@ -1,4 +1,6 @@
 html, body {
   background-color: $xdsGreyBlue;
   font-family: Poppins;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

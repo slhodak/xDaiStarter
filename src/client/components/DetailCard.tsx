@@ -31,19 +31,22 @@ export default (props: { selectPage: Function }) => {
           <div className="pool_detail_bottom">
             <div className="pool_detail_progress">
               <div className="progress_total">
-                <p className="progress_total_title">Total Raise</p>
-                <p className="progress_total_value">$330.000 XDAI Raised</p>
+                <p className="detail_title">Total Raise</p>
+                <p className="detail_value">$330.000 XDAI Raised</p>
               </div>
-              <div className="progress_participants">
+              <div className="detail_value">
                 0 Participants
               </div>
             </div>
             <div className="progress_bar">
-              progress bar
+              <div className="progress_bar-wrap">
+                <span className="progress_bar-green2">
+                </span>
+              </div>
             </div>
             <div className="progress_percent_fraction">
-              <p className="percent_value">20.0%</p>
-              <p className="fraction_value">0.00/2500.00XDAI</p>
+              <p className="detail_title">20.0%</p>
+              <p className="detail_title">0.00/2500.00XDAI</p>
             </div>
           </div>
         </div>

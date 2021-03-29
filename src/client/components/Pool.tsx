@@ -24,7 +24,6 @@ export default (props: any) => {
             <div className="progres_counter">
               <span>0.00/2500.00 XDAI </span>
             </div>
-
           </div>
           <button className="pools_like btn">
             <img src="img/like.png" alt="img"/>
