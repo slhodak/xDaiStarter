@@ -7,3 +7,10 @@ plans
 
 ### dist
 dist/*.tar.gz
+
+
+### public assets
+public/img
+public/fonts
+public/bundle.js
+
