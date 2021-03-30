@@ -4,3 +4,16 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.info_box {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: $xdsAccentBorder;
+  border-radius: 22px;
+  background-color: $xdsVeryDarkBg;
+  padding: 53px;
+  width: 80%;
+}

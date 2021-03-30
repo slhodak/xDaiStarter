@@ -1,7 +1,9 @@
 import Header from './Header';
+import Footer from './Footer';
 import Disclaimer from './Disclaimer';
 import DetailInfoBlock from './DetailInfoBlock';
 import InvestmentDetailBlock from './InvestmentDetailBlock';
+import ImportantLink from './ImportantLink';
 
 export default (props: { selectPage: Function }) => {
   const { selectPage } = props;
@@ -16,6 +18,14 @@ export default (props: { selectPage: Function }) => {
     { title: 'Your Token', value: 0, unit: '', button: { text: 'Claim Token', emphasis: 2 } },
     { title: 'Your XDAI Investment', value: 0, unit: '', button: { text: 'Vote', emphasis: 1 } },
     { image: '', button: { text: 'Lock Liq and List', emphasis: 2 } }
+  ];
+  const sampleLinks = [
+    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
+    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
+    { title: 'Connect', images: [ { image: '', link: '' }, { image: '', link: '' }, { image: '', link: '' }, { image: '', link: '' } ] },
+    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
+    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
+    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' }
   ];
   return (
     <div>
@@ -64,10 +74,14 @@ export default (props: { selectPage: Function }) => {
           </div>
         </section>
         <section className="important_links detail_section">
-          x
+          <h4>Important Links</h4>
+          <div className="important_links_blocks">
+            {sampleLinks.map(info => <ImportantLink info={info} />)}
+          </div>
         </section>
         <Disclaimer />
       </div>
+      <Footer />
     </div>
   );
 }

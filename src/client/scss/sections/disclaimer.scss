@@ -1,0 +1,11 @@
+// containing div ('info_box') is a flex container
+.disclaimer_title {
+  @extend .pools-title;
+  align-self: flex-start;
+  margin-bottom: 30px;
+}
+
+.disclaimer_descr {
+  @extend .pools-title-descr;
+  line-height: 2.5em;
+}
