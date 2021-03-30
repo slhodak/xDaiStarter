@@ -5,23 +5,19 @@ export default (props: { pools: any[], selectPage: Function }) => {
   return (
     <section className="pools">
       <div className="pools_section">
-        <div className="pools_wrap">
-          <h2 className="pools-title">Featured Pools</h2>
-        </div>
-        <div className="pools_blocks-wrap">
+        <h2 className="pools_section_title">Featured Pools</h2>
+        <div className="pools_blocks">
           {pools.map(pool => <Pool pool={pool} selectPage={selectPage}/>)}
         </div>
       </div>
       <div className="pools_section">
-        <div className="pools_wrap ">
-          <h2 className="pools-title">Pools in Voting</h2>
-        </div>
-        <div className="pools_blocks-wrap">
+        <h2 className="pools_section_title">Pools in Voting</h2>
+        <div className="pools_blocks">
           {pools.map(pool => <Pool pool={pool} selectPage={selectPage}/>)}
         </div>
       </div>
-      <div className="row_wrap">
-				<button className="btn all_posts-btn">View all pools</button>
+      <div className="pools_section">
+				<button className="btn all_pools_btn">View all pools</button>
 			</div>
     </section>
   )

@@ -4,6 +4,9 @@
   @media screen and (max-width: 1900px){
     padding-top: 80px;
   }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .pools_section {
   padding: 20px 180px;
@@ -11,10 +14,7 @@
     padding: 30px 80px;
   }
 }
-.pools_wrap {
-  width: 100%;
-}
-.pools-title {
+.pools_section_title {
   font-family: Poppins;
   font-size: 40px;
   font-style: normal;
@@ -22,43 +22,31 @@
   line-height: 52px;
   letter-spacing: -0.04em;
   color: #ffffff;
-  margin: 0;
+  margin: 0px 0px 35px 0px;
 }
-.pools-title-descr {
-  font-family: Poppins;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 500;
-  // line-height: 8px;
-  letter-spacing: -0.04em;
-  color: #fffefe;
-  opacity: 0.5;
-}
-
-.pools_blocks-wrap {
+.pools_blocks {
   width: 100%;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
 }
-.pools_block {
-  margin-top: 65px;
+.pool_block {
+  margin-top: 2%;
   max-width: 402px;
   min-height: 344px;
   background: $xdsVeryDarkBg;
   border: 2px solid $xdsAccent;
   backdrop-filter: blur(4px);
   border-radius: $xdsBorderRadius;
+  padding: 2% 1.5%;
 }
-.pools_block-title {
+.pool_block_title {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 20px;
-  margin-top: 10px;
+  padding: 0px 0px 10px 10px;
+  img {
+    margin-right: 10px;
+  }
   h4 {
     font-family: Poppins;
     font-size: 25px;
@@ -67,32 +55,30 @@
     line-height: 29px;
     letter-spacing: -0.04em;
     color: #ffffff;
-    margin-left: 10px;
   }
 }
-.pools_info {
+.pool_info {
   background: $xdsGreyBlue;
   border-radius: 10px;
-  width: 99%;
   margin: 0 auto;
   height: 161px;
-  padding: 10px 20px;
+  padding: 15px 20px 10px 20px;
 }
-.pools_info-top {
+.pool_info_top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.progres_bar-wrap {
+.progress_bar_wrap {
   width: 276px;
   height: 10px;
   background: #122026;
   border-radius: 100px;
   position: relative;
   // first progress
-  .progres_bar-green2 {
+  .progress_bar_green2 {
     position: absolute;
     width: 35%;
     height: 10px;
@@ -111,7 +97,7 @@
       margin-top: -20px;
     }
   }
-  .progres_counter {
+  .progress_counter {
     position: absolute;
     top: -22px;
     right: 0px;
@@ -194,7 +180,7 @@
   }
 }
 
-.pools_like {
+.pool_like {
   width: 40.29px;
   height: 40.29px;
   background: $xdsAccent;
@@ -217,39 +203,31 @@
     color: #ffffff;
   }
 }
-.pools_info-btm {
+.pool_info_btm {
   margin-top: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  div {
-    &:nth-child(1) {
-      text-align: left;
-    }
-    &:nth-child(2) {
-      text-align: right;
-    }
-    span {
-      font-family: Poppins;
-      font-size: 20px;
-      font-style: normal;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      color: $xdsAccent;
-    }
-    p {
-      font-family: Poppins;
-      font-size: 15px;
-      font-style: normal;
-      font-weight: 500;
-      letter-spacing: -0.04em;
-      color: #ffffff;
-    }
+  span {
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: $xdsAccent;
+  }
+  p {
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    color: #ffffff;
   }
 }
-.pools_links {
+.pool_links {
   width: 100%;
   margin-top: 15px;
   padding: 0 20px;
@@ -257,7 +235,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  .pools_share {
+  .pool_share {
     width: 120px;
     display: flex;
     flex-direction: row;
@@ -281,7 +259,7 @@
     height: 51px;
   }
 }
-.all_posts-btn {
+.all_pools_btn {
   width: 227px;
   height: 68px;
   margin: 0 auto;

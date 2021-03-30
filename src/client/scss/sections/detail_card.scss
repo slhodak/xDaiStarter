@@ -4,6 +4,13 @@
   align-items: center;
   .detail_section {
     @extend .info_box;
+    .detail_section_title {
+      @extend .pool_block_title;
+      align-self: flex-start;
+      h4 {
+        padding: 0px 0px 20px 25px;
+      }
+    }
     .detail_title {
       font-size: 0.7em;
       font-weight: 300;
@@ -116,15 +123,17 @@
     }
   }
   .your_investment {
-    h4 {
-      align-self: flex-start;
-      padding: 0px 0px 60px 15px;
+    .detail_section_title {
+      h4 {
+        padding: 0px 0px 20px 5px;
+      }
     }
     .investment_detail_middle {
       display: flex;
       width: 100%;
       border-radius: 22px;
       overflow: hidden;
+      margin-top: 20px;
       .investment_detail_info_block {
         display: flex;
         flex-direction: column;
@@ -140,10 +149,6 @@
   }
   .important_links {
     width: 80%;
-    h4 {
-      align-self: flex-start;
-      padding: 0px 0px 60px 15px;
-    }
     .important_links_blocks {
       display: flex;
       flex-flow: row wrap;

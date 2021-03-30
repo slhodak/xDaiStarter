@@ -68,13 +68,17 @@ export default (props: { selectPage: Function }) => {
           </div>
         </section>
         <section className="your_investment detail_section">
-          <h4>Your Investment</h4>
+          <div className="detail_section_title">
+            <h4>Your Investment</h4>
+          </div>
           <div className="investment_detail_middle">
             {sampleInvestment.map((info, index) => <InvestmentDetailBlock info={info} handleClick={() => {}} index={index} />)}
           </div>
         </section>
         <section className="important_links detail_section">
-          <h4>Important Links</h4>
+          <div className="detail_section_title">
+            <h4>Important Links</h4>
+          </div>
           <div className="important_links_blocks">
             {sampleLinks.map(info => <ImportantLink info={info} />)}
           </div>
