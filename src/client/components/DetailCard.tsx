@@ -14,7 +14,7 @@ export default (props: { selectPage: Function }) => {
     <div>
       <Header selectPage={selectPage} />
       <div className="detail_card">
-        <div className="pool_detail">
+        <section className="pool_detail detail_section">
           <div className="pool_detail_top">
             <div className="pool_detail_top_left">
               <img src="img/blockIcn.png" alt="icn"/>
@@ -49,9 +49,13 @@ export default (props: { selectPage: Function }) => {
               <p className="detail_title">0.00/2500.00XDAI</p>
             </div>
           </div>
-        </div>
-        <div className="your_investment"></div>
-        <div className="important_links"></div>
+        </section>
+        <section className="your_investment detail_section">
+          x
+        </section>
+        <section className="important_links detail_section">
+          x
+        </section>
         <Disclaimer />
       </div>
     </div>
