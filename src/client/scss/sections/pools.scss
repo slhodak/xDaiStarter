@@ -1,8 +1,14 @@
 .pools {
   background-color: $xdsGreyBlue;
-  padding: 70px 180px;
+  padding-top: 50px;
   @media screen and (max-width: 1900px){
-    padding: 110px 80px;
+    padding-top: 80px;
+  }
+}
+.pools_section {
+  padding: 20px 180px;
+  @media screen and (max-width: 1900px){
+    padding: 30px 80px;
   }
 }
 .pools_wrap {
