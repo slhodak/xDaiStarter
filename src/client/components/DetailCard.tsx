@@ -1,6 +1,7 @@
 import Header from './Header';
 import Disclaimer from './Disclaimer';
 import DetailInfoBlock from './DetailInfoBlock';
+import InvestmentDetailBlock from './InvestmentDetailBlock';
 
 export default (props: { selectPage: Function }) => {
   const { selectPage } = props;
@@ -9,6 +10,12 @@ export default (props: { selectPage: Function }) => {
     { title: 'Min Per Wallet', value: 1, unit: 'XDAI' },{ title: 'Max Per wallet', value: 1, unit: 'XDAI' },
     { title: 'Presale Rate', value: 0.00217, unit: 'XDAI' },{ title: 'Hard HoneySwap Listing Ratio', value: 0.00238, unit: 'XDAI' },
     { title: 'Liquidity Allocation', value: 100, unit: '%' },{ title: 'Liquidity Lock Duration', value: 90, unit: 'Days' }
+  ];
+  const sampleInvestment = [
+    { title: 'Softcap', value: 24, unit: 'XDAI', button: { text: 'Vote', emphasis: 0 } },
+    { title: 'Your Token', value: 0, unit: '', button: { text: 'Claim Token', emphasis: 2 } },
+    { title: 'Your XDAI Investment', value: 0, unit: '', button: { text: 'Vote', emphasis: 1 } },
+    { image: '', button: { text: 'Lock Liq and List', emphasis: 2 } }
   ];
   return (
     <div>
@@ -51,7 +58,10 @@ export default (props: { selectPage: Function }) => {
           </div>
         </section>
         <section className="your_investment detail_section">
-          x
+          <h4>Your Investment</h4>
+          <div className="investment_detail_middle">
+            {sampleInvestment.map((info, index) => <InvestmentDetailBlock info={info} handleClick={() => {}} index={index} />)}
+          </div>
         </section>
         <section className="important_links detail_section">
           x

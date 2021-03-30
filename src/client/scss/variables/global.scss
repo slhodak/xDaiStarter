@@ -25,7 +25,7 @@ $black: #000;
 $xdsGreyBlue: #1b2c35;
 $xdsDarkGreyBlue: #16272e;
 $xdsVeryDarkBg: #16272f; 
-$xdsAccent: #3ec6c1;
+$xdsAccent: #3fc6c1;
 $xdsAccentBorder: 2px solid $xdsAccent;
 $xdsBorderRadius: 22px;
 
@@ -77,11 +77,11 @@ $transition1s: 1s;
 
 // btns
 .btn {
-  background: rgb(63, 198, 193);
+  background: $xdsAccent;
   box-shadow: 0px 10px 20px rgba(62, 198, 193, 0.1);
   border-radius: 100px;
   transition: $transition;
-  border: 2px solid rgba(63, 198, 193, 0);
+  border: 1px solid #17504E;
   cursor: pointer;
   &_scnd {
     border: 2px solid rgb(63, 198, 193);

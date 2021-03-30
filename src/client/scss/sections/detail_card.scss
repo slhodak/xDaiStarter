@@ -24,6 +24,32 @@
       font-weight: 700;
       font-size: 1.1em;
     }
+    h4 {
+      color: #fffefe;
+      font-weight: 600;
+    }
+    .light_border_right {
+      border-right: 1px solid rgba(223,248,247,0.1);
+    }
+    button {
+      white-space: nowrap;
+      width: 127px;
+      height: 52px;
+      color: #ffffff;
+      font-size: 0.8em;
+      font-weight: 500;
+      font-style: normal;
+      letter-spacing: -4%;
+    }
+    .dull_button {
+      background-color: #3fc6c177;
+      box-shadow: 0px 5px 10px rgba(62, 198, 193, 0.1);
+    }
+    .dark_button {
+      background-color: #253438;
+      box-shadow: 0px 5px 10px rgba(62, 198, 193, 0.1);
+    }
+
   }
   .pool_detail {
     .pool_detail_top {
@@ -33,32 +59,17 @@
       padding: 0px 0px 40px 10px;
       .pool_detail_top_left {
         display: flex;
-      }
-      .pool_detail_title {
-        padding: 0px 30px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        h4 {
-          color: #fffefe;
-          font-weight: 600;
+        .pool_detail_title {
+          padding: 0px 30px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          p {
+            font-weight: 400;
+            font-size: 0.65em;
+            color: $xdsAccent;
+          }
         }
-        p {
-          font-weight: 400;
-          font-size: 0.65em;
-          color: $xdsAccent;
-        }
-      }
-      button {
-        white-space: nowrap;
-        width: 127px;
-        height: 52px;
-        color: #ffffff;
-        font-size: 0.8em;
-        font-weight: 500;
-        font-style: normal;
-        // line-height: 51.7px;
-        letter-spacing: -4%;
       }
     }
     .pool_detail_middle {
@@ -74,9 +85,6 @@
       }
       .light_border_bottom {
         border-bottom: 1px solid rgba(223,248,247,0.1);
-      }
-      .light_border_right {
-        border-right: 1px solid rgba(223,248,247,0.1);
       }
     }
     .pool_detail_bottom {
@@ -111,6 +119,28 @@
         display: flex;
         justify-content: space-between;
         padding-top: 20px;        
+      }
+    }
+  }
+  .your_investment {
+    h4 {
+      align-self: flex-start;
+      padding: 0px 0px 60px 15px;
+    }
+    .investment_detail_middle {
+      display: flex;
+      border-radius: 22px;
+      overflow: hidden;
+      .investment_detail_info_block {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        text-align: center;
+        padding: 35px;
+        height: 225px;
+        width: 200px;
+        background-color: $xdsGreyBlue;
       }
     }
   }
