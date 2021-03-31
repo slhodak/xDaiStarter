@@ -11,7 +11,7 @@ import {
 import '../scss/style.scss';
 
 type MyProps = {};
-type MyState = { page: string };
+type MyState = {};
 
 export default class XDaiStarter extends React.Component<MyProps, MyState>  {
   constructor(props: any) {
