@@ -4,50 +4,70 @@
   flex-direction: row;
   padding-bottom: 30px;
 }
+.apply_title {
+  font-family: Poppins;
+  font-size: 2em;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 52px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0px 0px 35px 0px;
+}
+.apply_descr {
+  font-family: Poppins;
+  font-size: 1.2em;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: #fffefe;
+  opacity: 0.5;
+  line-height: 1.5em;
+}
 .aside {
-  width: 550px;
+  ul {
+    padding: 0px;
+  }
+  width: 40%;
   height: 100%;
   background: $xdsVeryDarkBg;
   border: 2px solid rgba(96, 96, 97, 0.3);
   border-radius: 10px;
   position: relative;
-
+  overflow: hidden;
   .aside_decor {
     position: absolute;
     top: 0;
     left: 0;
   }
-  .pools_title {
+  .apply_main_title {
+    @extend .apply_title;
     margin-top: 65px;
-    margin-left: 40px;
+    padding: 0px 20px;
   }
-  .pools_title_descr {
-    margin: 0;
-    margin-top: 15px;
-    margin-left: 40px;
+  .apply_main_title_descr {
+    @extend .apply_descr;
+    padding: 0px 20px;
   }
 }
-.aside_btns-wrap {
+.aside_btns_wrap {
   width: 100%;
   margin-top: 50px;
   margin-bottom: 0;
   li{
     list-style: none;
-    a{
+    a {
       text-decoration: none;
     }
   }
 }
 .aside_btn {
-  width: 100%;
-  // height: 112px;
-  padding: 20px 40px;
+  padding: 20px 20px;
   border-top: 2px solid rgba(96, 96, 97, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: center;
   transition: $transition;
-  
   &:hover {
     background: $xdsAccent;
   }
@@ -55,14 +75,16 @@
   &:first-child {
     border-top: none;
   }
-  .pools_title_descr {
+  .apply_title {
+    @extend .apply_title;
+    margin: 0;
+    font-size: 30px;
+  }
+  .apply_title_descr {
+    @extend .apply_descr;
     margin: 0;
     padding-bottom: 10px;
     font-size: 21px;
-  }
-  .pools_title {
-    margin: 0;
-    font-size: 30px;
   }
 }
 
@@ -165,7 +187,8 @@
       }
     }
   }
-  .pools_title_descr {
+  .apply_title_descr {
+    @extend .apply_descr;
     margin-top: 20px;
   }
 }
@@ -214,7 +237,8 @@
     color: #979797;
   }
 }
-.pools_title_form {
+.apply_title_form {
+  @extend .apply_title;
   margin: 40px 0;
 }
 .form_date {
@@ -279,10 +303,8 @@
       border-radius: 10px;
       margin-bottom: 20px;
       li {
-        
         background: $xdsGreyBlue !important;
         border-top: 1px solid #606061;
-      
         padding: 20px 20px;
         font-family: Poppins;
         font-style: normal;
@@ -306,7 +328,6 @@
   align-items: center;
   justify-content: flex-start;
   margin-top: 30px;
-
   margin-bottom: 20px;
   p {
     font-family: Poppins;
