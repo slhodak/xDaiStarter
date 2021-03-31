@@ -22,6 +22,7 @@
       color: $xdsAccent;
       font-weight: 700;
       font-size: 1.1em;
+      margin: 0px;
     }
     h4 {
       font-size: 1.2em;
@@ -64,6 +65,9 @@
           display: flex;
           flex-direction: column;
           justify-content: space-around;
+          h4 {
+            margin: 0px;
+          }
           p {
             font-weight: 400;
             font-size: 0.65em;
@@ -73,14 +77,14 @@
       }
     }
     .pool_detail_middle {
-      display: flex;
-      flex-flow: row wrap;
+      display: grid;
+      grid-template-columns: 25% 25% 25% 25%;
+      grid-template-rows: 50% 50%;
       width: 100%;
       border-radius: 22px;
       overflow: hidden;
       .pool_detail_info_block {
-        padding: 35px;
-        width: 25%;
+        padding: 10% 20%;
         background-color: $xdsGreyBlue;
       }
       .light_border_bottom {
@@ -129,7 +133,8 @@
       }
     }
     .investment_detail_middle {
-      display: flex;
+      display: grid;
+      grid-template-columns: 25% 25% 25% 25%;
       width: 100%;
       border-radius: 22px;
       overflow: hidden;
@@ -141,17 +146,20 @@
         align-items: center;
         text-align: center;
         padding: 35px;
-        height: 225px;
-        width: 25%;
         background-color: $xdsGreyBlue;
+        .investment_detail_text {
+          margin-bottom: 20%;
+        }
       }
     }
   }
   .important_links {
     width: 80%;
     .important_links_blocks {
-      display: flex;
-      flex-flow: row wrap;
+      display: grid;
+      grid-template-columns: 33% 34% 33%;
+      grid-template-rows: 50% 50%;
+      width: 100%;
       .important_link_block {
         display: flex;
         flex-direction: column;
@@ -159,15 +167,17 @@
         justify-content: space-around;
         background-color: $xdsGreyBlue;
         border-radius: 22px;
-        height: 10vw;
-        width: 29%;
-        margin: 2%;
-        overflow: hidden;
+        margin: 5%;
+        height: 8vw;
         padding: 10px;
+        overflow: hidden;
         a {
           font-size: 0.8em;
           color: $xdsAccent;
           text-decoration: none;
+          width: 100%;
+          word-wrap: break-word;
+          text-align: center;
         }
       }
       .connect_links {

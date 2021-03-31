@@ -23,7 +23,7 @@ export default (props: {
     <div className={`investment_detail_info_block ${lbr ? 'light_border_right' : ''}`}>
       {info.image ?
         <img src={info.image} /> :
-        <div>
+        <div className="investment_detail_text">
           <p className="detail_title">{info.title}</p>
           <p className="detail_value">{info.value} {info.unit}</p>
         </div>}
