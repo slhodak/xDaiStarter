@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ProvidePlugin } = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -50,6 +51,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: resolve('src/client/template.html')
+    }),
+    new ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     })
   ],
   output: {
