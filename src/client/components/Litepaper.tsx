@@ -4,11 +4,10 @@ import Disclaimer from './Disclaimer';
 import '../img/way1.png';
 import '../img/way2.png';
 
-export default (props: { selectPage: Function }) => {
-  const { selectPage } = props;
+export default (props: any) => {
   return (
     <div className="litepaper_page">
-      <Header selectPage={selectPage} />
+      <Header />
       <section className="litepaper_title">
         <div className="large_title litepaper">
           <h1>
@@ -45,7 +44,7 @@ export default (props: { selectPage: Function }) => {
         <section className="page_statistic">
           <div className="page_statistic-row">
             <div className="page_statistic-block page_statistic-block1">
-              <h2 className="pools-title">XDP Tokenomics</h2>
+              <h2 className="pools_title">XDP Tokenomics</h2>
               <div className="statistic_block-content">
                 <div className="statistic_block-item">
                   <span>1m</span>
@@ -82,7 +81,7 @@ export default (props: { selectPage: Function }) => {
               </div>
             </div>
             <div className="page_statistic-block page_statistic-block2">
-              <h2 className="pools-title">XDP Token Offering</h2>
+              <h2 className="pools_title">XDP Token Offering</h2>
               <div className="statistic_block-content">
                 <div className="statistic_block-item">
                   <span>450k</span>
@@ -106,8 +105,8 @@ export default (props: { selectPage: Function }) => {
         </section>
         <section className="page_graph">
           <div className="page_graph-wrap">
-            <h2 className="pools-title">How It Works - Applying</h2>
-            <p className="pools-title-descr">Applying for a sale on xDaiStarter is very simple, and more importantly, very affordable! Here is how:</p>
+            <h2 className="pools_title">How It Works - Applying</h2>
+            <p className="pools_title_descr">Applying for a sale on xDaiStarter is very simple, and more importantly, very affordable! Here is how:</p>
             <div className="page_graph-banner page_graph-banner2">
               <img src="img/way2.png" alt="img"/>
             </div>
@@ -115,8 +114,8 @@ export default (props: { selectPage: Function }) => {
         </section>
         <section className="page_graph">
           <div className="page_graph-wrap">
-            <h2 className="pools-title">How It Works -Sale</h2>
-            <p className="pools-title-descr">Participating in a presale is a simple as 1.2.3! Just follow the steps
+            <h2 className="pools_title">How It Works -Sale</h2>
+            <p className="pools_title_descr">Participating in a presale is a simple as 1.2.3! Just follow the steps
               below.</p>
             <div className="page_graph-banner">
               <img src="img/way1.png" alt="img"/>

@@ -1,14 +1,14 @@
+import { Link } from 'react-router-dom';
 import '../img/logo.png';
 
-export default (props: { selectPage: Function }) => {
-  const { selectPage } = props;
+export default (props: any) => {
   return (
     <header className="header_container">
       <div className="header_background">
         <div className="header_objects">
-          <div onClick={() => selectPage('Home')} className="header_logo">
+          <Link className="header_logo" to='/'>
             <img src="img/logo.png" alt="img"/>
-          </div>
+          </Link>
           <div className="header_links">
             <a href="#">Pools</a>
             <a href="#">Stake</a>
