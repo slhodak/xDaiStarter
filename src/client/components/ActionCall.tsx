@@ -1,5 +1,7 @@
-export default (props: { top: boolean, selectPage: Function }) => {
-  const { top, selectPage } = props;
+import { Link } from 'react-router-dom';
+
+export default (props: { top: boolean }) => {
+  const { top } = props;
   return (
     <div className="call_to_action_container">
       {top ?
@@ -11,8 +13,8 @@ export default (props: { top: boolean, selectPage: Function }) => {
           </div>
           <div className="action_call_btns">
             <div className="btns_container">
-              <button className="btn" onClick={() => selectPage('Application')}>Buy XDST</button>
-              <button className="btn btn_scnd" onClick={() => selectPage('Litepaper')}>Litepaper</button>
+              <Link to='/apply'><button className="btn">Buy XDST</button></Link>
+              <Link to='/litepaper'><button className="btn btn_scnd">Litepaper</button></Link>
             </div>
           </div>
         </section> :

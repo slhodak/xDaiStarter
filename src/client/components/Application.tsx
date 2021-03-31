@@ -8,47 +8,47 @@ export default () => {
         <div className="aside_decor">
           <img src="img/rectangle.png" alt="img"/>
         </div>
-        <h2 className="pools-title">New Application</h2>
-        <p className="pools-title-descr">Moments away from the xdaistarter</p>
+        <h2 className="pools_title">New Application</h2>
+        <p className="pools_title_descr">Moments away from the xdaistarter</p>
 
         <ul className="aside_btns-wrap tabs">
           <li className="active">
             <a href="">
               <div className="aside_btn">
-                <p className="pools-title-descr">Step 1</p>
-                <h2 className="pools-title">Create Application</h2>
+                <p className="pools_title_descr">Step 1</p>
+                <h2 className="pools_title">Create Application</h2>
               </div>
             </a>
           </li>
           <li>
             <a href="">
               <div className="aside_btn">
-                <p className="pools-title-descr">Step 2</p>
-                <h2 className="pools-title">XDaiStarter Team Review</h2>
+                <p className="pools_title_descr">Step 2</p>
+                <h2 className="pools_title">XDaiStarter Team Review</h2>
               </div>
             </a>
           </li>
           <li>
             <a href="">
               <div className="aside_btn">
-                <p className="pools-title-descr">Step 3</p>
-                <h2 className="pools-title">Revision</h2>
+                <p className="pools_title_descr">Step 3</p>
+                <h2 className="pools_title">Revision</h2>
               </div>
             </a>
           </li>
           <li>
             <a href="">
               <div className="aside_btn">
-                <p className="pools-title-descr">Step 4</p>
-                <h2 className="pools-title">XDaiStarter Council Review</h2>
+                <p className="pools_title_descr">Step 4</p>
+                <h2 className="pools_title">XDaiStarter Council Review</h2>
               </div>
             </a>
           </li>
           <li>
             <a href="">
               <div className="aside_btn">
-                <p className="pools-title-descr">Step 5</p>
-                <h2 className="pools-title">Decisions and Next Steps</h2>
+                <p className="pools_title_descr">Step 5</p>
+                <h2 className="pools_title">Decisions and Next Steps</h2>
               </div>
             </a>
           </li>
@@ -60,8 +60,8 @@ export default () => {
         </div>
         <div className="forms_content-wrap">
           <div className="tabs-panel active" data-index="0">
-            <h2 className="pools-title">Contact information</h2>
-            <p className="pools-title-descr">We currently have the following contact information if we want to get in touch with you. Feel free to change it in user </p>
+            <h2 className="pools_title">Contact information</h2>
+            <p className="pools_title_descr">We currently have the following contact information if we want to get in touch with you. Feel free to change it in user </p>
             <div className="forms_info">
               <h4>Contact Name: </h4><span>Alex</span>
             </div>
@@ -71,7 +71,7 @@ export default () => {
             <div className="forms_info">
               <h4>Contact Email: </h4><span>mail#mail.com</span>
             </div>
-            <h2 className="pools-title pools-title_form ">Basic information</h2>
+            <h2 className="pools_title pools_title_form ">Basic information</h2>
             <form action="">
               <label htmlFor="">
                 <p>Project Name </p>
@@ -103,7 +103,7 @@ export default () => {
                   if application approved.</p>
               </div>
             </form>
-            <h2 className="pools-title pools-title_form ">Founder & progress information</h2>
+            <h2 className="pools_title pools_title_form ">Founder & progress information</h2>
             <form action="">
 
               <label className="textarea" htmlFor="">
@@ -124,7 +124,7 @@ export default () => {
                 <textarea name="" id="" placeholder="Examole 100k Seed,500k Private sale"></textarea>
               </label>
             </form>
-            <h2 className="pools-title pools-title_form ">Founder & progress information</h2>
+            <h2 className="pools_title pools_title_form ">Founder & progress information</h2>
             <form action="">
               <label htmlFor="" className="col">
                 <p>How much are you looking to raise with us? </p>

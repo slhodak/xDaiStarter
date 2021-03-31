@@ -5,14 +5,13 @@ import ActionCall from './ActionCall';
 
 const testPools = ['a', 'b', 'c', 'd', 'e'];
 
-export default (props: { selectPage: Function }) => {
-  const { selectPage } = props;
+export default (props: any) => {
   return (
     <div>
-      <Header selectPage={selectPage} />
-      <ActionCall top={true} selectPage={selectPage}/>
-      <Pools pools={testPools} selectPage={selectPage}/>
-      <ActionCall top={false} selectPage={selectPage}/>
+      <Header />
+      <ActionCall top={true}/>
+      <Pools pools={testPools}/>
+      <ActionCall top={false}/>
       <Footer />
     </div>
   )

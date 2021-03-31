@@ -5,8 +5,7 @@ import DetailInfoBlock from './DetailInfoBlock';
 import InvestmentDetailBlock from './InvestmentDetailBlock';
 import ImportantLink from './ImportantLink';
 
-export default (props: { selectPage: Function }) => {
-  const { selectPage } = props;
+export default (props: any) => {
   const sampleDetails = [
     { title: 'Softcap', value: 24, unit: 'XDAI' },{ title: 'Hardcap', value: 500, unit: 'XDAI' },
     { title: 'Min Per Wallet', value: 1, unit: 'XDAI' },{ title: 'Max Per wallet', value: 1, unit: 'XDAI' },
@@ -29,7 +28,7 @@ export default (props: { selectPage: Function }) => {
   ];
   return (
     <div>
-      <Header selectPage={selectPage} />
+      <Header />
       <div className="detail_card">
         <section className="pool_detail detail_section">
           <div className="pool_detail_top">

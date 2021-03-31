@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import '../scss/style.scss';
 import '../img/blockIcn.png';
 import '../img/like.png';
@@ -5,7 +6,6 @@ import '../img/tg.png';
 import '../img/share.png';
 
 export default (props: any) => {
-  const { selectPage } = props;
   return (
     <div className="pool_block">
       <div className="pool_block_title">
@@ -50,9 +50,7 @@ export default (props: any) => {
             <img src="img/share.png" alt="img"/>
           </a>
         </div>
-        <button className="btn" onClick={() => selectPage('DetailCard')}>
-          Open in 5 Days
-        </button>
+        <Link to='/pooldetail'><button className="btn">Open in 5 Days</button></Link>
       </div>
     </div>
   )
