@@ -62,7 +62,7 @@ export default class Application extends React.Component<{}, {}> {
             <div data-index="0">
               <div className="applicant_info_box">
                 <h2 className="apply_title">Contact information</h2>
-                <p>We currently have the following contact information if we want to get in touch with you. Feel free to change it in user </p>
+                <p className="apply_descriptor">We currently have the following contact information if we want to get in touch with you. Feel free to change it in user </p>
               </div>
               <div className="applicant_info">
                 <h4>Contact Name:</h4>
@@ -125,21 +125,29 @@ export default class Application extends React.Component<{}, {}> {
               </div>
               <div className="application_inputs">
                 <h2 className="apply_title">Founder & progress information</h2>
-                <div className="column_input">
-                  <p>How much are you looking to raise with us?</p>
-                  <input type="text" placeholder="eg:1000000 "/>
-                </div>
-                <div className="column_input">
-                  <p>When would you like to launch?</p>
-                  <div className="form_date">
-                    <label htmlFor="Year"></label>
-                    <input type="number" value="2021" onChange={() => {}} />
-                    <label htmlFor="Month"></label>
-                    <select className="input_select">
-                    </select>
-                    <label htmlFor="Day"></label>
-                    <select className="input_select">
-                    </select>
+                <div className="column_inputs">
+                  <div className="column_input">
+                    <p className="apply_descriptor">How much are you looking to raise with us?</p>
+                    <input type="text" placeholder="eg:1000000 "/>
+                  </div>
+                  <div className="column_input">
+                    <p className="apply_descriptor">When would you like to launch?</p>
+                    <div className="form_date">
+                      <div className="date_input">
+                        <label htmlFor="Year"></label>
+                        <input type="number" value="2021" onChange={() => {}} />
+                      </div>
+                      <div className="date_input">
+                        <label htmlFor="Month"></label>
+                        <select className="input_select">
+                        </select>
+                      </div>
+                      <div className="date_input">
+                        <label htmlFor="Day"></label>
+                        <select className="input_select">
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="form_btn-wrap">
