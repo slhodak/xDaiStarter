@@ -46,6 +46,7 @@
   }
   .apply_title, .apply_descriptor {
     padding: 0px 40px 0px 40px;
+    cursor: default;
   }
 }
 .aside_btns_wrap {
@@ -137,6 +138,7 @@
         line-height: 25px;
         color: #979797;
         outline: none;
+        cursor: text;
       }
       textarea {
         width: 80%;
