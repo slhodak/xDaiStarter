@@ -1,20 +1,14 @@
 // containing div ('info_box') is a flex container
-.disclaimer_title {
-  @extend .pool_block_title;
-  align-self: flex-start;
-  padding: 0px;
-  h4 {
-    padding-bottom: 30px;
+.disclaimer {
+  @extend .info_box;
+  align-items: flex-start;
+  padding: 33px;
+  margin-top: 66px;
+  .medium_title {
+    margin: 0 !important;
   }
-}
-
-.disclaimer_descr {
-  font-family: Poppins;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  color: #fffefe;
-  opacity: 0.5;
-  line-height: 2.5em;
+  .medium_descriptor {
+    line-height: 2.2em;
+    font-size: 1em;
+  }
 }

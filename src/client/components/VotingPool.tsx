@@ -17,18 +17,28 @@ export default (props: any) => {
       </div>
       <div className="pool_info">
         <div className="pool_info_top">
-          <div className="progress_bar_wrap">
-            <span className="progress_bar_green2">
-              <p>20%</p>
-            </span>
-            <div className="progress_counter">
-              <span>0.00/2500.00 XDAI </span>
+          <div className="progress_bar_container voting">
+            <div className="progress_bar_wrap">
+              <span className="progress_bar_green2"></span>
+              <span className="progress_bar_red"></span>
+              <div className="min">
+                <p>Min</p>
+                <span></span>
+              </div>
+              <div className="yes">
+                <p>Yes: <span>4306</span></p>
+              </div>
+              <div className="no">
+                <p>No: <span>4306</span>  </p>
+              </div>
             </div>
           </div>
-          <button className="pool_like btn">
-            <img src="img/like.png" alt="img"/>
-            <span>5%</span>
-          </button>
+          <div className="pool_like_container">
+            <button className="pool_like btn">
+              <img src="img/like.png" alt="img"/>
+              <span>5%</span>
+            </button>
+          </div>
         </div>
         <div className="pool_info_btm">
           <div>
@@ -37,7 +47,7 @@ export default (props: any) => {
           </div>
           <div>
             <span>40.00 XDAI</span>
-            <p>Maximum XDAI</p>
+            <p>Maximun XDAI</p>
           </div>
         </div>
       </div>

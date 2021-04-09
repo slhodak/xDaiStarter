@@ -5,31 +5,46 @@
   flex-direction: row;
   padding-bottom: 30px;
   font-style: normal;
+  @media (max-width: $screen-md) {
+    flex-direction: column;
+  }
 }
-.apply_title {
-  font-size: 2em;
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 52px;
-  color: #ffffff;
-  margin: 0;
-}
-.apply_descriptor {
-  font-size: 1.2em;
-  font-weight: 500;
-  color: #fffefe;
-  opacity: 0.6;
-  line-height: 25px;
-  margin: 0;
+.apply_main_header {
+  height: 111px;
+  background: $xdsVeryDarkBg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  @media (min-width: $screen-md) {
+    display: flex;
+  }
+  &.top {
+    display: none;
+    @media (max-width: $screen-md) {
+      display: flex;
+    }
+  }
+  h2 {
+    @extend .medium_title;
+    font-size: 2.5em;
+    font-weight: 400;
+    span {
+      color: #497c94;
+    }
+  }
 }
 .aside {
-  width: 40%;
+  width: 45%;
   height: 100%;
   background: $xdsVeryDarkBg;
   border: 2px solid rgba(96, 96, 97, 0.3);
   border-radius: 10px;
   position: relative;
   overflow: hidden;
+  @media (max-width: $screen-md) {
+    width: 100%;
+  }
   .aside_header {
     margin-bottom: 50px;
     .aside_decor {
@@ -37,14 +52,19 @@
       top: 0;
       left: 0;
     }
-    .apply_title {
+    .medium_title {
+      font-size: 2.5em;
       margin-top: 65px;
+    }
+    .medium_descriptor {
+      margin-top: 2%;
+      font-size: 1em;
     }
   }
   ul {
     padding: 0px;
   }
-  .apply_title, .apply_descriptor {
+  .medium_title, .medium_descriptor {
     padding: 0px 40px 0px 40px;
     cursor: default;
   }
@@ -69,30 +89,24 @@
     background: $xdsAccent;
   }
 }
-
 .apply_main {
   width: 100%;
-  .apply_main_header {
-    height: 111px;
-    background: $xdsVeryDarkBg;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    h2 {
-      @extend .apply_title;
-      font-size: 2.5em;
-      font-weight: 400;
-      span {
-        color: #497c94;
-      }
-    }
-  }
   .apply_form {
     .applicant_info_box {
-      padding: 40px 50px;
+      padding: 20px 50px;
       border-bottom: 1px solid $xdsVeryDarkBg;
-      .apply_descriptor {
+      p {
+        @extend .medium_descriptor;
         margin-top: 20px;
+        font-size: 1em;
+      }
+    }
+    .applicant_info_header {
+      @extend .applicant_info_box;
+      padding: 40px 50px 10px 50px;
+      h2 {
+        @extend .medium_title;
+        font-size: 2.5em;
       }
     }
     .applicant_info {
@@ -101,13 +115,14 @@
       flex-direction: row;
       align-items: center;
       h4 {
-        @extend .apply_title;
-        font-weight: 500;
+        @extend .medium_title;
+        font-size: 1.3em;
       }
       span {
-        @extend .apply_descriptor;
-        margin: 0px 0px 0px 2%;
+        @extend .medium_descriptor;
+        margin: 0px 0px 0px 1%;
         color: #979797;
+        opacity: 1;
       }
     }
     .application_inputs {
@@ -117,9 +132,16 @@
         justify-content: space-between;
         align-items: center;
         margin: 5% 0%;
+        @media (max-width: $screen-xlg) {
+          flex-direction: column;
+          align-items: flex-start;
+        }
         label {
-          @extend .apply_descriptor;
+          @extend .medium_descriptor;
           width: 18%;
+          @media (max-width: $screen-xlg) {
+            width: 100%;
+          }
           color: #fff;
           opacity: 1;
         }
@@ -139,6 +161,9 @@
         color: #979797;
         outline: none;
         cursor: text;
+        @media (max-width: $screen-xlg) {
+          margin-top: 2%;
+        }
       }
       textarea {
         width: 80%;
@@ -155,9 +180,12 @@
         line-height: 25px;
         color: #979797;
         outline: none;
+        @media (max-width: $screen-xlg) {
+          margin-top: 2%;
+        }
       }
       p {
-        @extend .apply_descriptor;
+        @extend .medium_descriptor;
         text-align: center;
       }
       .column_inputs {
@@ -167,7 +195,7 @@
           flex-direction: column;
           align-items: flex-start;
           margin: 0;
-          .apply_descriptor {
+          .medium_descriptor {
             opacity: 1;
             padding: 20px 0px;
             margin: 0;
@@ -180,8 +208,15 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+            @media (max-width: $screen-md) {
+              flex-direction: column;
+            }
             .date_input {
               width: 30%;
+              @media (max-width: $screen-md) {
+                width: 100%;
+                margin-top: 1%;
+              }
             }
             /* Chrome, Safari, Edge, Opera */
             input::-webkit-inner-spin-button {

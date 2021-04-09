@@ -1,19 +1,20 @@
-import Pool from './Pool';
+import VotingPool from './VotingPool';
+import FeaturedPool from './FeaturedPool';
 
 export default (props: { pools: any[] }) => {
   const { pools } = props;
   return (
     <section className="pools">
       <div className="pools_section">
-        <h2 className="pools_section_title">Featured Pools</h2>
+        <h2 className="section_title">Featured Pools</h2>
         <div className="pools_blocks">
-          {pools.map(pool => <Pool pool={pool} />)}
+          {pools.map(pool => <FeaturedPool pool={pool} />)}
         </div>
       </div>
       <div className="pools_section">
-        <h2 className="pools_section_title">Pools in Voting</h2>
+        <h2 className="section_title">Pools in Voting</h2>
         <div className="pools_blocks">
-          {pools.map(pool => <Pool pool={pool} />)}
+          {pools.map(pool => <VotingPool pool={pool} />)}
         </div>
       </div>
       <div className="pools_section">

@@ -2,8 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0px 15px;
   .detail_section {
     @extend .info_box;
+    @media (max-width: $screen-sm) {
+      padding: 20px;
+    }
     .detail_section_title {
       @extend .pool_block_title;
       align-self: flex-start;
@@ -17,12 +21,18 @@
       color: #fffefe;
       margin-bottom: 10px;
       opacity: 0.5;
+      @media (max-width: $screen-sm) {
+        font-size: 0.6em;
+      }
     }
     .detail_value {
       color: $xdsAccent;
       font-weight: 700;
       font-size: 1.1em;
       margin: 0px;
+      @media (max-width: $screen-sm) {
+        font-size: 1em;
+      }
     }
     h4 {
       font-size: 1.2em;
@@ -31,6 +41,10 @@
     }
     .light_border_right {
       border-right: 1px solid rgba(223,248,247,0.1);
+      @media (max-width: $screen-sm) {
+        border-right: none;
+        border-bottom: 1px solid rgba(223,248,247,0.1);
+      }
     }
     button {
       white-space: nowrap;
@@ -50,16 +64,18 @@
       background-color: #253438;
       box-shadow: 0px 5px 10px rgba(62, 198, 193, 0.1);
     }
-
   }
   .pool_detail {
     .pool_detail_top {
       display: flex;
       justify-content: space-between;
       width: 100%;
-      padding: 0px 0px 40px 10px;
       .pool_detail_top_left {
         display: flex;
+        img {
+          width: 53px;
+          height: 53px;
+        }
         .pool_detail_title {
           padding: 0px 30px;
           display: flex;
@@ -78,11 +94,15 @@
     }
     .pool_detail_middle {
       display: grid;
-      grid-template-columns: 25% 25% 25% 25%;
-      grid-template-rows: 50% 50%;
+      margin-top: 40px;
       width: 100%;
       border-radius: 22px;
       overflow: hidden;
+      grid-template-columns: 25% 25% 25% 25%;
+      grid-template-rows: 50% 50%;
+      @media (max-width: $screen-sm) {
+        margin-top: 20px;
+      }
       .pool_detail_info_block {
         padding: 10% 20%;
         background-color: $xdsGreyBlue;
@@ -94,6 +114,9 @@
     .pool_detail_bottom {
       width: 100%;
       margin-top: 41px;
+      @media (max-width: $screen-sm) {
+        margin-top: 20px;
+      }
       .pool_detail_progress {
         display: flex;
         justify-content: space-between;
@@ -102,6 +125,9 @@
       .progress_bar {
         margin-top: 35px;
         color: $xdsAccent;
+        @media (max-width: $screen-sm) {
+          margin-top: 17px;
+        }
         .progress_bar-wrap {
           width: 100%;
           height: 1.2em;
@@ -135,6 +161,9 @@
     .investment_detail_middle {
       display: grid;
       grid-template-columns: 25% 25% 25% 25%;
+      @media (max-width: $screen-md) {
+        grid-template-columns: 100%;
+      }
       width: 100%;
       border-radius: 22px;
       overflow: hidden;
@@ -154,12 +183,15 @@
     }
   }
   .important_links {
-    width: 80%;
     .important_links_blocks {
       display: grid;
+      width: 100%;
       grid-template-columns: 33% 34% 33%;
       grid-template-rows: 50% 50%;
-      width: 100%;
+      @media (max-width: $screen-md) {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 33% 34% 33%;
+      }
       .important_link_block {
         display: flex;
         flex-direction: column;

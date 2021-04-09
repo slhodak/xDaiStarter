@@ -2,29 +2,48 @@
   background-color: $xdsDarkGreyBlue;
 }
 .header_background {
-  padding: 50px 200px;
   background: url(../img/headerBg.png) no-repeat;
-  @media screen and (max-width: 1900px) {
-    padding: 30px 120px;
-  }
 }
 .header_objects {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 1900px) {
+    margin-left: 100px;
+  }
+  width: 80%;
+  @media (max-width: $screen-md) {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 0;
+    width: 100%;
+  }
 }
 .header_logo {
   &:hover {
     cursor: pointer;
   }
+  display: flex;
+  height: 120px;
+  align-items: center;
+  img {
+    position: relative;
+    bottom: 4px;
+  }
 }
 .header_links {
-  width: 50%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  max-width: 460px;
+  width: 100%;
+  @media (max-width: $screen-sm) {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 15px;
+  }
   button {
     cursor: default;
     white-space: nowrap;
@@ -34,7 +53,6 @@
     border: none;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.11);
     border-radius: 100px;
-    font-family: Poppins;
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -52,7 +70,7 @@
     font-family: Poppins;
     font-size: 16px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: -0.02em;
     color: #ffffff;
     text-decoration: none;
@@ -62,6 +80,9 @@
     &:hover {
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.11);
       background: $xdsAccent;
+    }
+    @media (max-width: $screen-sm) {
+      margin: 10px 5px;
     }
   }
 }

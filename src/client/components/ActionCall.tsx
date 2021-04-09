@@ -26,7 +26,9 @@ export default (props: { top: boolean }) => {
           </div>
           <div className="action_call_btns">
             <div className="btns_container">
-              <button className="btn">Subscribe Now</button>
+              <a href="">
+                <button className="btn">Subscribe Now</button>
+              </a>
             </div>
           </div>
         </section>

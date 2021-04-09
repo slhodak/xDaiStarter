@@ -3,6 +3,21 @@
 /* Document
    ========================================================================== */
 
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+p {
+  margin: 0 0 10px;
+  line-height: 1.42;
+  font-style: normal;
+}
+
+ul {
+  padding-left: 0;
+}
+
 /**
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
@@ -26,6 +41,10 @@ html {
 
 body {
   margin: 0;
+}
+
+div {
+  box-sizing: border-box;
 }
 
 /**

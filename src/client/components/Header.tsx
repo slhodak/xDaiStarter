@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import '../img/logo.png';
+import '../img/l2.png';
 
 export default (props: any) => {
   return (
@@ -7,7 +7,7 @@ export default (props: any) => {
       <div className="header_background">
         <div className="header_objects">
           <Link className="header_logo" to='/'>
-            <img src="img/logo.png" alt="img"/>
+            <img src="img/l2.png" alt="img"/>
           </Link>
           <div className="header_links">
             <a href="#">Pools</a>

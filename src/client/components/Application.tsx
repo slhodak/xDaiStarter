@@ -13,43 +13,46 @@ export default class Application extends React.Component<{}, {}> {
   render() {
     return (
       <section className="xdaistarter_apply">
+        <div className="apply_main_header top">
+          <h2>Application<span>/ New application</span></h2>
+        </div>
         <aside className="aside">
           <div className="aside_header">
             <div className="aside_decor">
               <img src="img/rectangle.png" alt="img"/>
             </div>
-            <h2 className="apply_title">New Application</h2>
-            <p className="apply_descriptor">Moments away from the xDaiStarter</p>
+            <h2 className="medium_title">New Application</h2>
+            <p className="medium_descriptor">Moments away from the xDaiStarter</p>
           </div>
           <ul className="aside_btns_wrap">
             <li>
               <div className="aside_btn">
-                <p className="apply_descriptor">Step 1</p>
-                <h2 className="apply_title">Create Application</h2>
+                <p className="medium_descriptor">Step 1</p>
+                <h2 className="medium_title">Create Application</h2>
               </div>
             </li>
             <li>
               <div className="aside_btn">
-                <p className="apply_descriptor">Step 2</p>
-                <h2 className="apply_title">XDaiStarter Team Review</h2>
+                <p className="medium_descriptor">Step 2</p>
+                <h2 className="medium_title">XDaiStarter Team Review</h2>
               </div>
             </li>
             <li>
               <div className="aside_btn">
-                <p className="apply_descriptor">Step 3</p>
-                <h2 className="apply_title">Revision</h2>
+                <p className="medium_descriptor">Step 3</p>
+                <h2 className="medium_title">Revision</h2>
               </div>
             </li>
             <li>
               <div className="aside_btn">
-                <p className="apply_descriptor">Step 4</p>
-                <h2 className="apply_title">XDaiStarter Council Review</h2>
+                <p className="medium_descriptor">Step 4</p>
+                <h2 className="medium_title">XDaiStarter Council Review</h2>
               </div>
             </li>
             <li>
               <div className="aside_btn">
-                <p className="apply_descriptor">Step 5</p>
-                <h2 className="apply_title">Decisions and Next Steps</h2>
+                <p className="medium_descriptor">Step 5</p>
+                <h2 className="medium_title">Decisions and Next Steps</h2>
               </div>
             </li>
           </ul>
@@ -60,9 +63,9 @@ export default class Application extends React.Component<{}, {}> {
           </div>
           <div className="apply_form">
             <div data-index="0">
-              <div className="applicant_info_box">
-                <h2 className="apply_title">Contact information</h2>
-                <p className="apply_descriptor">We currently have the following contact information if we want to get in touch with you. Feel free to change it in user </p>
+              <div className="applicant_info_header">
+                <h2 className="medium_title">Contact information</h2>
+                <p className="medium_descriptor">We currently have the following contact information if we want to get in touch with you. Feel free to change it in user </p>
               </div>
               <div className="applicant_info">
                 <h4>Contact Name:</h4>
@@ -77,7 +80,7 @@ export default class Application extends React.Component<{}, {}> {
                 <span>mail#mail.com</span>
               </div>
               <div className="application_inputs">
-                <h2 className="apply_title">Basic information</h2>
+                <h2 className="medium_title">Basic information</h2>
                 <div className="labeled_input">
                   <label htmlFor="">Project Name</label>
                   <input type="text" placeholder="Project Name "/>
@@ -105,7 +108,7 @@ export default class Application extends React.Component<{}, {}> {
                 <p>We will use the description to showcase your project on the pool page if application approved.</p>
               </div>
               <div className="application_inputs">
-                <h2 className="apply_title">Founder & progress information</h2>
+                <h2 className="medium_title">Founder & progress information</h2>
                 <div className="labeled_input">
                   <label className="textarea" htmlFor="">Founder Linkedins</label>
                   <textarea name="" id="" placeholder="Linkdin URL of founders"></textarea>
@@ -124,14 +127,14 @@ export default class Application extends React.Component<{}, {}> {
                 </div>
               </div>
               <div className="application_inputs">
-                <h2 className="apply_title">Founder & progress information</h2>
+                <h2 className="medium_title">Founder & progress information</h2>
                 <div className="column_inputs">
                   <div className="column_input">
-                    <p className="apply_descriptor">How much are you looking to raise with us?</p>
+                    <p className="medium_descriptor">How much are you looking to raise with us?</p>
                     <input type="text" placeholder="eg:1000000 "/>
                   </div>
                   <div className="column_input">
-                    <p className="apply_descriptor">When would you like to launch?</p>
+                    <p className="medium_descriptor">When would you like to launch?</p>
                     <div className="form_date">
                       <div className="date_input">
                         <label htmlFor="Year"></label>
