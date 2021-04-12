@@ -13,7 +13,7 @@ export default () => {
         </ul>
       </div>
       <div className="copyright">
-        <p>@ All rights reserved</p>
+        <p>© All rights reserved</p>
       </div>
     </footer>
   )
