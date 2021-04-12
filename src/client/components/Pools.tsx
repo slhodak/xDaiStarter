@@ -8,13 +8,13 @@ export default (props: { pools: any[] }) => {
       <div className="pools_section">
         <h2 className="section_title">Featured Pools</h2>
         <div className="pools_blocks">
-          {pools.map(pool => <FeaturedPool pool={pool} />)}
+          {pools.map((pool, index) => <FeaturedPool center={index % 2 == 0} pool={pool} />)}
         </div>
       </div>
       <div className="pools_section">
         <h2 className="section_title">Pools in Voting</h2>
         <div className="pools_blocks">
-          {pools.map(pool => <VotingPool pool={pool} />)}
+          {pools.map((pool, index) => <VotingPool center={index % 2 == 0} pool={pool} />)}
         </div>
       </div>
       <div className="pools_section">
