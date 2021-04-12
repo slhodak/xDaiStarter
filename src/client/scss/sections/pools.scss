@@ -26,7 +26,6 @@
 }
 .pool_block {
   margin-top: 65px;
-  max-width: 402px;
   min-height: 344px;
   padding: 0px 15px;
   background: $xdsVeryDarkBg;
@@ -61,6 +60,7 @@
   border-radius: 10px;
   margin: 0 auto;
   padding: 10px 20px;
+  min-width: 350px;
 }
 .pool_info_top {
   display: flex;
