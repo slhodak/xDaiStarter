@@ -5,6 +5,7 @@ import '../img/tg.png';
 import '../img/share.png';
 
 export default (props: any) => {
+  const { center } = props;
   return (
     <div className="pool_block">
       <div className="pool_block_title">

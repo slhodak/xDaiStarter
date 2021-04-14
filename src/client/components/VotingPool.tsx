@@ -40,14 +40,14 @@ export default (props: any) => {
             </button>
           </div>
         </div>
-        <div className="pool_info_btm">
+        <div className="pool_info_btm voting">
           <div>
             <span>0.00 XDAI</span>
             <p>0.006 XDAI Per Token</p>
           </div>
           <div>
             <span>40.00 XDAI</span>
-            <p>Maximun XDAI</p>
+            <p>Maximum XDAI</p>
           </div>
         </div>
       </div>
