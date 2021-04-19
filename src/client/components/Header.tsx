@@ -12,7 +12,7 @@ export default (props: any) => {
           <div className="header_links">
             <a href="#">Pools</a>
             <a href="#">Stake</a>
-            <a href="#">Create Pool</a>
+            <Link to="/apply">Create Pool</Link>
             <button>Connect Wallet</button>
           </div>
         </div>

@@ -13,8 +13,8 @@ export default (props: { top: boolean }) => {
           </div>
           <div className="action_call_btns">
             <div className="btns_container">
-              <Link to='/apply'><button className="btn">Buy XDST</button></Link>
-              <Link to='/litepaper'><button className="btn btn_scnd">Litepaper</button></Link>
+              <a target="_blank" href="https://app.honeyswap.org/#/swap"><button className="btn">Buy XDST</button></a>
+              <Link to="/litepaper"><button className="btn btn_scnd">Litepaper</button></Link>
             </div>
           </div>
         </section> :
