@@ -1,8 +1,8 @@
+// SPDX-License-Identifier: MIT
 pragma solidity 0.6.12;
 
-import "./TimeTokenLock.sol";
+import "./TokenTimeLock.sol";
 
-// SPDX-License-Identifier: MIT
 contract XDaiStarterLiquidityLock is TokenTimelock {
     constructor(
         IERC20 _token,

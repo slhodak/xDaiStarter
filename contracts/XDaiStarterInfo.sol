@@ -2,9 +2,9 @@
 pragma solidity 0.6.12;
 pragma experimental ABIEncoderV2;
 
-import "./lib/Ownable.sol";
-import "./lib/SafeMath.sol";
-import "./STARTPresale.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
+import "./XDPresale.sol";
 
 contract XDaiStarterInfo is Ownable {
     using SafeMath for uint256;
@@ -225,7 +225,7 @@ contract XDaiStarterInfo is Ownable {
     {
         totalLockedBalance = 0;
         for (uint256 i = 0; i < xdpTokenPresales.length; i++) {
-            STARTPresale tokenPresale = STARTPresale(xdpTokenPresales[i]);
+            XDPresale tokenPresale = XDPresale(xdpTokenPresales[i]);
 
             uint256 senderInvestment = tokenPresale.investments(sender);
             uint256 senderClaimed = tokenPresale.claimed(sender);

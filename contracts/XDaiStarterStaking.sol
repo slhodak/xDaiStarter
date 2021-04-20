@@ -2,11 +2,12 @@
 pragma solidity 0.6.12;
 pragma experimental ABIEncoderV2;
 
-import "./lib/SafeMath.sol";
-import "./lib/Address.sol";
-import "./lib/SafeERC20.sol";
-import "./lib/ReentrancyGuard.sol";
-import "./STARToken.sol";
+import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
+
+import "./XDSToken.sol";
 import "./XDaiStarterInfo.sol";
 
 contract XDaiStarterStaking is ReentrancyGuard {
@@ -14,7 +15,7 @@ contract XDaiStarterStaking is ReentrancyGuard {
     using Address for address;
     using SafeERC20 for IERC20;
 
-    STARToken public xdpToken;
+    XDSToken public xdpToken;
     XDaiStarterInfo public xDaiStarterInfo;
 
     event Staked(address indexed from, uint256 amount);
@@ -28,7 +29,7 @@ contract XDaiStarterStaking is ReentrancyGuard {
     mapping(address => AccountInfo) public accountInfos;
 
     constructor(address _xdpToken, address _xDaiStarterInfo) public {
-        xdpToken = STARToken(_xdpToken);
+        xdpToken = XDSToken(_xdpToken);
         xDaiStarterInfo = XDaiStarterInfo(_xDaiStarterInfo);
     }
 

@@ -2,12 +2,12 @@
 pragma solidity 0.6.12;
 pragma experimental ABIEncoderV2;
 
-import "./interfaces/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./XDaiStarterPresale.sol";
 import "./XDaiStarterInfo.sol";
 import "./XDaiStarterLiquidityLock.sol";
-import "./lib/ReentrancyGuard.sol";
-import "./STARToken.sol";
+import "./XDSToken.sol";
 import "./XDaiStarterStaking.sol";
 
 interface IHoneySwapV2Factory {
@@ -24,7 +24,7 @@ contract XDaiStarterFactory is ReentrancyGuard {
     event Received(address indexed from, uint256 amount);
 
     XDaiStarterInfo public immutable XDP;
-    STARToken public xdpToken;
+    XDSToken public xdpToken;
 
     XDaiStarterStaking public xdpStakingPool;
 
@@ -36,7 +36,7 @@ contract XDaiStarterFactory is ReentrancyGuard {
         address _xdpStakingPool
     ) public {
         XDP = XDaiStarterInfo(_xdpInfoAddress);
-        xdpToken = STARToken(_xdpToken);
+        xdpToken = XDSToken(_xdpToken);
         xdpStakingPool = XDaiStarterStaking(_xdpStakingPool);
     }
 

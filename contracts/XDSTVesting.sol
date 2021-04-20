@@ -1,14 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 
-/**
- * XDP Vesting
-*/
-import "./interfaces/IERC20.sol";
-import "./lib/SafeMath.sol";
-import "./lib/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract XDPVesting is Ownable {
+contract XDSTVesting is Ownable {
     using SafeMath for uint256;
     
     /*
