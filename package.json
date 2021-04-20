@@ -5,7 +5,7 @@
   "main": "dist/index.ts",
   "scripts": {
     "lint-frontend": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build-frontend": "webpack",
+    "build-production": "webpack --mode=production",
     "react-dev": "webpack --watch",
     "start-server": "node src/server/index.js",
     "server-dev": "nodemon src/server/index.js",
