@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
 import "./XDaiStarterPresale.sol";
 import "./XDaiStarterInfo.sol";
 import "./XDaiStarterLiquidityLock.sol";
@@ -73,7 +74,7 @@ contract XDaiStarterFactory is ReentrancyGuard {
         bytes32 linkLogo;
     }
 
-    // copied from https://github.com/honeyswap/honey-swap-periphery/blob/master/contracts/libraries/HoneyLibrary.sol
+    // Does this function work for HoneySwap?
     // calculates the CREATE2 address for a pair without making any external calls
     function honeyV2LibPairFor(
         address factory,

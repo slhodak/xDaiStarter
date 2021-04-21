@@ -9,10 +9,10 @@ import "./XDPresale.sol";
 contract XDaiStarterInfo is Ownable {
     using SafeMath for uint256;
 
-    uint256 private devFeePercentage = 2; // fees going to dev AND XDP hodlers (2% each)
-    uint256 private minDevFeeInWei = 5 ether; // min fee amount going to dev AND XDP hodlers
-    uint256 private maxRewardQualifyBal = 20000 * 1e18; // max amount to HODL to qualify for BNB fee rewards
-    uint256 private minRewardQualifyBal = 1250 * 1e18; // min amount to HODL to qualify for BNB fee rewards
+    uint256 private devFeePercentage = 2; // fees going to dev AND XDST hodlers (2% each)
+    uint256 private minDevFeeInWei = 5 ether; // min fee amount going to dev AND XDST hodlers
+    uint256 private maxRewardQualifyBal = 20000 * 1e18; // max amount to HODL to qualify for xDai fee rewards
+    uint256 private minRewardQualifyBal = 1250 * 1e18; // min amount to HODL to qualify for xDai fee rewards
     uint256 private minRewardQualifyPercentage = 10; // percentage of discount on tokens for qualifying holders
     uint256 private presaleGrantAmount = 100 * 1e18; // grant given to 'good' projects 30 days after raise
     address private incubatorMsigAddress; // community address used to release presale incubator grants
@@ -20,7 +20,7 @@ contract XDaiStarterInfo is Ownable {
     address[] private presaleAddresses; // track all presales created
     address[] private presaleGrantAddresses; // track all presale grants assigned
 
-    uint256 private minInvestorXDPBalance = 100 * 1e18; // min amount to investors HODL XDP balance
+    uint256 private minInvestorXDPBalance = 100 * 1e18; // min amount to investors HODL XDSt balance
     uint256 private minStakeTime = 24 hours;
     uint256 private minUnstakeTime = 24 hours;
     uint256 private minClaimTime = 7 days;
@@ -31,7 +31,7 @@ contract XDaiStarterInfo is Ownable {
         address(0x00);
     address private honeySwapFactory =
         address(0x00);
-    address private wbnb = address(0x00);
+    address private wxdai = address(0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d);
 
     address private xdpFactoryAddress;
 
@@ -264,11 +264,11 @@ contract XDaiStarterInfo is Ownable {
         honeySwapFactory = _honeySwapFactory;
     }
 
-    function getWBNB() external view returns (address) {
-        return wbnb;
+    function getwxdai() external view returns (address) {
+        return wxdai;
     }
 
-    function setWBNB(address _wbnb) external onlyOwner {
-        wbnb = _wbnb;
+    function setwxdai(address _wxdai) external onlyOwner {
+        wxdai = _wxdai;
     }
 }
