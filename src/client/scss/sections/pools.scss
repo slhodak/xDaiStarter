@@ -20,9 +20,12 @@
 $block-width: 380px;
 .pools_blocks {
   display: grid;
-  grid-template-columns: repeat(auto-fill, $block-width);
-  grid-column-gap: 2%;
+  grid-template-columns: repeat(3, $block-width);
+  grid-column-gap: 1%;
   justify-content: space-around;
+  @media(max-width: $screen-xlg) {
+    grid-template-columns: repeat(2, $block-width);
+  }
   @media(max-width: $screen-md) {
     display: block;
   }
