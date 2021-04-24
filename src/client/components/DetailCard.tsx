@@ -16,12 +16,12 @@ export default (props: any) => {
     { title: 'Softcap', value: 24, unit: 'XDAI', button: { text: 'Vote', emphasis: 0 } },
     { title: 'Your Token', value: 0, unit: '', button: { text: 'Claim Token', emphasis: 2 } },
     { title: 'Your XDAI Investment', value: 0, unit: '', button: { text: 'Vote', emphasis: 1 } },
-    { icon: '', button: { text: 'Lock Liq and List', emphasis: 2 } }
+    { icon: 'lock', button: { text: 'Lock Liq and List', emphasis: 2 } }
   ];
   const sampleLinks = [
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
-    { title: 'Connect', icons: [ 'email', 'twitter', 'github', 'website' ] },
+    { title: 'Connect' },
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' }

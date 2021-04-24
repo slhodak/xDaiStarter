@@ -152,6 +152,23 @@
       }
     }
   }
+  .icon_circle {
+    border: 1px solid $xdsBorderColor;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+  }
+  .icon_circle.lock {
+    background: $xdsVeryDarkBg;
+    width: 70px;
+    height: 70px;
+    display: block;
+    .lock {
+      position: relative;
+      top: 12px;
+    }
+  }
   .your_investment {
     .detail_section_title {
       h4 {
@@ -174,10 +191,11 @@
         justify-content: space-around;
         align-items: center;
         text-align: center;
-        padding: 35px;
+        padding: 20px;
+        height: 205px;
         background-color: $xdsGreyBlue;
         .investment_detail_text {
-          margin-bottom: 20%;
+          height: 70px;
         }
       }
     }
@@ -215,13 +233,6 @@
       .connect_links {
         align-items: flex-start;
         background: none;
-        .dull_green_circle {
-          border: 1px solid $xdsBorderColor;
-          border-radius: 50%;
-          width: 50px;
-          height: 50px;
-          display: flex;
-        }
         .connect_link_icons {
           width: 100%;
           display: flex;
