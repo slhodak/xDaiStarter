@@ -1,6 +1,12 @@
 export default (props: {
     info: {
-      title?: string, value?: number, unit?: string, image?: string, button: { text: string, emphasis: number }
+      title?: string,
+      value?: number,
+      unit?: string,
+      button: {
+        text: string,
+        emphasis: number
+      }
     },
     index: number,
     handleClick: Function
@@ -21,12 +27,10 @@ export default (props: {
   }
   return (
     <div className={`investment_detail_info_block ${lbr ? 'light_border_right' : ''}`}>
-      {info.image ?
-        <img src={info.image} /> :
-        <div className="investment_detail_text">
-          <p className="detail_title">{info.title}</p>
-          <p className="detail_value">{info.value} {info.unit}</p>
-        </div>}
+      <div className="investment_detail_text">
+        <p className="detail_title">{info.title}</p>
+        <p className="detail_value">{info.value} {info.unit}</p>
+      </div>
       <button className={`btn${buttonStyle}`} onClick={(e) => handleClick(e)}>{info.button.text}</button>
     </div>
   )

@@ -215,10 +215,25 @@
       .connect_links {
         align-items: flex-start;
         background: none;
-        .connect_link_images {
+        .dull_green_circle {
+          border: 1px solid $xdsBorderColor;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
           display: flex;
-          justify-content: space-between;
+        }
+        .connect_link_icons {
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
           color: white;
+          .icon {
+            margin: auto;
+          }
+          .email {
+            position: relative;
+            right: 2px;
+          }
         }
       }
     }

@@ -3,7 +3,7 @@ import Footer from './Footer';
 import Disclaimer from './Disclaimer';
 import DetailInfoBlock from './DetailInfoBlock';
 import InvestmentDetailBlock from './InvestmentDetailBlock';
-import ImportantLink from './ImportantLink';
+import ImportantLink from './ImportantLinks';
 
 export default (props: any) => {
   const sampleDetails = [
@@ -16,12 +16,12 @@ export default (props: any) => {
     { title: 'Softcap', value: 24, unit: 'XDAI', button: { text: 'Vote', emphasis: 0 } },
     { title: 'Your Token', value: 0, unit: '', button: { text: 'Claim Token', emphasis: 2 } },
     { title: 'Your XDAI Investment', value: 0, unit: '', button: { text: 'Vote', emphasis: 1 } },
-    { image: '', button: { text: 'Lock Liq and List', emphasis: 2 } }
+    { icon: '', button: { text: 'Lock Liq and List', emphasis: 2 } }
   ];
   const sampleLinks = [
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
-    { title: 'Connect', images: [ { image: '', link: '' }, { image: '', link: '' }, { image: '', link: '' }, { image: '', link: '' } ] },
+    { title: 'Connect', icons: [ 'email', 'twitter', 'github', 'website' ] },
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' }
