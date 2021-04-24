@@ -15,7 +15,7 @@ export default (props: { info: { title: string, address?: string } }) => {
           <Icon name='github' />
           <Icon name='website' />
         </div> :
-        <a href={tokenAddressUrl(info.address)}>{info.address}</a>}
+        <a target="_blank" href={tokenAddressUrl(info.address)}>{info.address}</a>}
     </div>
   )
 }
