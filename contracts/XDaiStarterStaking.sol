@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
-import "./XDSToken.sol";
+import "./XDPToken.sol";
 import "./XDaiStarterInfo.sol";
 
 contract XDaiStarterStaking is ReentrancyGuard {
@@ -15,7 +15,7 @@ contract XDaiStarterStaking is ReentrancyGuard {
     using Address for address;
     using SafeERC20 for IERC20;
 
-    XDSToken public xdpToken;
+    XDPToken public xdpToken;
     XDaiStarterInfo public xDaiStarterInfo;
 
     event Staked(address indexed from, uint256 amount);
@@ -29,7 +29,7 @@ contract XDaiStarterStaking is ReentrancyGuard {
     mapping(address => AccountInfo) public accountInfos;
 
     constructor(address _xdpToken, address _xDaiStarterInfo) public {
-        xdpToken = XDSToken(_xdpToken);
+        xdpToken = XDPToken(_xdpToken);
         xDaiStarterInfo = XDaiStarterInfo(_xDaiStarterInfo);
     }
 

@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 contract XDPresale {
     using SafeMath for uint256;
 
-    address payable public xdpDevAddress; // address of contract dev
+    address payable public xdsDevAddress; // address of contract dev
 
     IERC20 public token; // token that will be sold
     address public unsoldTokensDumpAddress; // address where unsold tokens will be transferred to
@@ -54,14 +54,14 @@ contract XDPresale {
 
     AuditorInfo public auditInformation;
 
-    constructor(address _xdpDevAddress) public {
-        require(_xdpDevAddress != address(0));
+    constructor(address _xdsDevAddress) public {
+        require(_xdsDevAddress != address(0));
 
-        xdpDevAddress = payable(_xdpDevAddress);
+        xdsDevAddress = payable(_xdsDevAddress);
     }
 
-    modifier onlyXdpDev() {
-        require(xdpDevAddress == msg.sender);
+    modifier onlyXdsDev() {
+        require(xdsDevAddress == msg.sender);
         _;
     }
 
@@ -136,7 +136,7 @@ contract XDPresale {
     function setAddressInfo(
         address _tokenAddress,
         address _unsoldTokensDumpAddress
-    ) external onlyXdpDev {
+    ) external onlyXdsDev {
         require(_tokenAddress != address(0));
         require(_unsoldTokensDumpAddress != address(0));
 
@@ -153,7 +153,7 @@ contract XDPresale {
         uint256 _minInvestInWei,
         uint256 _openTime,
         uint256 _closeTime
-    ) external onlyXdpDev {
+    ) external onlyXdsDev {
         require(_totalTokens > 0);
         require(_tokenPriceInWei > 0);
         require(_openTime > 0);
@@ -187,7 +187,7 @@ contract XDPresale {
         bytes32 _linkTwitter,
         bytes32 _linkWebsite,
         bytes32 _linkLogo
-    ) external onlyXdpDev {
+    ) external onlyXdsDev {
         saleTitle = _saleTitle;
         linkTelegram = _linkTelegram;
         linkGithub = _linkGithub;
@@ -212,7 +212,7 @@ contract XDPresale {
 
     function addWhitelistedAddresses(address[] calldata _whitelistedAddresses)
         external
-        onlyXdpDev
+        onlyXdsDev
     {
         for (uint256 i = 0; i < _whitelistedAddresses.length; i++) {
             whitelistedAddresses[_whitelistedAddresses[i]] = true;
@@ -221,7 +221,7 @@ contract XDPresale {
 
     function addAuditorWhitelistedAddresses(
         address[] calldata _whitelistedAddresses
-    ) external onlyXdpDev {
+    ) external onlyXdsDev {
         for (uint256 i = 0; i < _whitelistedAddresses.length; i++) {
             auditorWhitelistedAddresses[_whitelistedAddresses[i]] = true;
         }
@@ -229,12 +229,12 @@ contract XDPresale {
 
     function setRefundAllowed(bool _refundAllowed)
         external
-        onlyXdpDev
+        onlyXdsDev
     {
         refundAllowed = _refundAllowed;
     }
 
-    function allowClaim(uint256 _honeyLiquidityAddingTime) external onlyXdpDev {
+    function allowClaim(uint256 _honeyLiquidityAddingTime) external onlyXdsDev {
         require(_honeyLiquidityAddingTime > 0);
         require(closeTime > 0);
         require(_honeyLiquidityAddingTime >= closeTime);
@@ -245,7 +245,7 @@ contract XDPresale {
 
     function setClaimCycle(uint256 _claimCycle)
         external
-        onlyXdpDev
+        onlyXdsDev
     {
         claimCycle = _claimCycle;
     }
@@ -295,7 +295,7 @@ contract XDPresale {
 
     function transferUnsoldTokens()
         external
-        onlyXdpDev
+        onlyXdsDev
         presaleIsNotCancelled
     {
         uint256 unsoldTokensAmount =
@@ -350,8 +350,8 @@ contract XDPresale {
         }
     }
 
-    function cancelAndTransferTokensToDev() external onlyXdpDev {
-        if (xdpDevAddress != msg.sender) {
+    function cancelAndTransferTokensToDev() external onlyXdsDev {
+        if (xdsDevAddress != msg.sender) {
             revert();
         }
 
@@ -360,15 +360,15 @@ contract XDPresale {
 
         uint256 balance = token.balanceOf(address(this));
         if (balance > 0) {
-            token.transfer(xdpDevAddress, balance);
+            token.transfer(xdsDevAddress, balance);
         }
     }
 
-    function collectFundsRaised() external onlyXdpDev {
+    function collectFundsRaised() external onlyXdsDev {
         require(!presaleCancelled);
 
         if (address(this).balance > 0) {
-            xdpDevAddress.transfer(address(this).balance);
+            xdsDevAddress.transfer(address(this).balance);
         }
     }
 }

@@ -28,10 +28,10 @@ interface IHoneySwapV2Router02 {
 contract XDaiStarterPresale {
     using SafeMath for uint256;
 
-    address payable internal xdpFactoryAddress; // address that creates the presale contracts
-    address payable public xdpDevAddress; // address where dev fees will be transferred to
-    address public xdpLiqLockAddress; // address where LP tokens will be locked
-    XDaiStarterStaking public xdpStakingPool;
+    address payable internal xdsFactoryAddress; // address that creates the presale contracts
+    address payable public xdsDevAddress; // address where dev fees will be transferred to
+    address public xdsLiqLockAddress; // address where LP tokens will be locked
+    XDaiStarterStaking public xdsStakingPool;
     XDaiStarterInfo public xDaiStarterInfo;
 
     IERC20 public token; // token that will be sold
@@ -43,9 +43,9 @@ contract XDaiStarterPresale {
     mapping(address => bool) public whitelistedAddresses; // addresses eligible in presale
     mapping(address => bool) public claimed; // if true, it means investor already claimed the tokens or got a refund
 
-    uint256 private xdpDevFeePercentage; // dev fee to support the development of XDaiStarter
-    uint256 private xdpMinDevFeeInWei; // minimum fixed dev fee to support the development of XDaiStarter
-    uint256 public xdpId; // used for fetching presale without referencing its address
+    uint256 private xdsDevFeePercentage; // dev fee to support the development of XDaiStarter
+    uint256 private xdsMinDevFeeInWei; // minimum fixed dev fee to support the development of XDaiStarter
+    uint256 public xdsId; // used for fetching presale without referencing its address
     uint256 public presaleGrantId; // tracks any incubator grants given
 
     uint256 public totalInvestorsCount; // total investors count
@@ -70,14 +70,14 @@ contract XDaiStarterPresale {
     uint256 public noVotes; // total number of no votes
     uint256 public yesVotes; // total number of yes votes
     uint256 public minYesVotesThreshold = 100000 * 1e18; // minimum number of yes votes needed to pass
-    uint256 public minVoterXDPBalance = 1000 * 1e18; // minimum number of XDP tokens to hold to vote
-    uint256 public minInvestorXDPBalance; // minimum number of XDP tokens to hold to invest
+    uint256 public minVoterXDSBalance = 1000 * 1e18; // minimum number of XDS tokens to hold to vote
+    uint256 public minInvestorXDSBalance; // minimum number of XDS tokens to hold to invest
     uint256 public minRewardQualifyBal; // min amount to HODL to qualify for token discounts
     uint256 public minRewardQualifyPercentage; // percentage of discount on tokens for qualifying holders
 
     bool public honeyLiquidityAdded = false; // if true, liquidity is added in HoneySwap and lp tokens are locked
     bool public onlyWhitelistedAddressesAllowed = false; // if true, only whitelisted addresses can invest
-    bool public xdpDevFeesExempted = false; // if true, presale will be exempted from dev fees
+    bool public xdsDevFeesExempted = false; // if true, presale will be exempted from dev fees
     bool public presaleCancelled = false; // if true, investing will not be allowed, investors can withdraw, presale creator can withdraw their tokens
 
     bytes32 public saleTitle;
@@ -98,41 +98,41 @@ contract XDaiStarterPresale {
     AuditorInfo public auditInformation;
 
     constructor(
-        address _xdpFactoryAddress,
+        address _xdsFactoryAddress,
         address _xDaiStarterInfo,
-        address _xdpDevAddress,
+        address _xdsDevAddress,
         uint256 _minRewardQualifyBal,
         uint256 _minRewardQualifyPercentage
     ) public {
-        require(_xdpFactoryAddress != address(0));
-        require(_xdpDevAddress != address(0));
+        require(_xdsFactoryAddress != address(0));
+        require(_xdsDevAddress != address(0));
 
-        xdpFactoryAddress = payable(_xdpFactoryAddress);
-        xdpDevAddress = payable(_xdpDevAddress);
+        xdsFactoryAddress = payable(_xdsFactoryAddress);
+        xdsDevAddress = payable(_xdsDevAddress);
         minRewardQualifyBal = _minRewardQualifyBal;
         minRewardQualifyPercentage = _minRewardQualifyPercentage;
         xDaiStarterInfo = XDaiStarterInfo(_xDaiStarterInfo);
     }
 
-    modifier onlyXdpDev() {
+    modifier onlyXdsDev() {
         require(
-            xdpFactoryAddress == msg.sender || xdpDevAddress == msg.sender
+            xdsFactoryAddress == msg.sender || xdsDevAddress == msg.sender
         );
         _;
     }
 
-    modifier onlyPresaleCreatorOrXdpFactory() {
+    modifier onlyPresaleCreatorOrXdsFactory() {
         require(
             presaleCreatorAddress == msg.sender ||
-                xdpFactoryAddress == msg.sender,
+                xdsFactoryAddress == msg.sender,
             "Not presale creator or factory"
         );
         _;
     }
 
-    modifier onlyPresaleCreatorOrXdpDev() {
+    modifier onlyPresaleCreatorOrXdsDev() {
         require(
-            presaleCreatorAddress == msg.sender || xdpDevAddress == msg.sender,
+            presaleCreatorAddress == msg.sender || xdsDevAddress == msg.sender,
             "Not presale creator or dev"
         );
         _;
@@ -188,7 +188,7 @@ contract XDaiStarterPresale {
         address _tokenAddress,
         address _xdpTokenAddress,
         address _unsoldTokensDumpAddress
-    ) external onlyPresaleCreatorOrXdpFactory {
+    ) external onlyPresaleCreatorOrXdsFactory {
         require(_presaleCreator != address(0));
         require(_tokenAddress != address(0));
         require(_unsoldTokensDumpAddress != address(0));
@@ -208,7 +208,7 @@ contract XDaiStarterPresale {
         uint256 _minInvestInWei,
         uint256 _openTime,
         uint256 _closeTime
-    ) external onlyPresaleCreatorOrXdpFactory {
+    ) external onlyPresaleCreatorOrXdsFactory {
         require(_totalTokens > 0);
         require(_tokenPriceInWei > 0);
         require(_openTime > 0);
@@ -240,7 +240,7 @@ contract XDaiStarterPresale {
         uint256 _honeyLiquidityAddingTime,
         uint256 _honeyLPTokensLockDurationInDays,
         uint256 _honeyLiquidityPercentageAllocation
-    ) external onlyPresaleCreatorOrXdpFactory {
+    ) external onlyPresaleCreatorOrXdsFactory {
         require(_honeyListingPriceInWei > 0);
         require(_honeyLiquidityAddingTime > 0);
         require(_honeyLPTokensLockDurationInDays > 0);
@@ -263,7 +263,7 @@ contract XDaiStarterPresale {
         bytes32 _linkTwitter,
         bytes32 _linkWebsite,
         bytes32 _linkLogo
-    ) external onlyPresaleCreatorOrXdpFactory {
+    ) external onlyPresaleCreatorOrXdsFactory {
         saleTitle = _saleTitle;
         linkTelegram = _linkTelegram;
         linkGithub = _linkGithub;
@@ -286,61 +286,61 @@ contract XDaiStarterPresale {
         auditInformation.warningHash = _warningHash;
     }
 
-    function setXdpInfo(
-        address _xdpLiqLockAddress,
-        uint256 _xdpDevFeePercentage,
-        uint256 _xdpMinDevFeeInWei,
-        uint256 _xdpId,
+    function setXdsInfo(
+        address _xdsLiqLockAddress,
+        uint256 _xdsDevFeePercentage,
+        uint256 _xdsMinDevFeeInWei,
+        uint256 _xdsId,
         uint256 _presaleGrantId,
-        address _xdpStakingPool
-    ) external onlyXdpDev {
-        xdpLiqLockAddress = _xdpLiqLockAddress;
-        xdpDevFeePercentage = _xdpDevFeePercentage;
-        xdpMinDevFeeInWei = _xdpMinDevFeeInWei;
-        xdpId = _xdpId;
+        address _xdsStakingPool
+    ) external onlyXdsDev {
+        xdsLiqLockAddress = _xdsLiqLockAddress;
+        xdsDevFeePercentage = _xdsDevFeePercentage;
+        xdsMinDevFeeInWei = _xdsMinDevFeeInWei;
+        xdsId = _xdsId;
         presaleGrantId = _presaleGrantId;
-        xdpStakingPool = XDaiStarterStaking(_xdpStakingPool);
+        xdsStakingPool = XDaiStarterStaking(_xdsStakingPool);
     }
 
-    function setXdpDevFeesExempted(bool _xdpDevFeesExempted)
+    function setXdsDevFeesExempted(bool _xdsDevFeesExempted)
         external
-        onlyXdpDev
+        onlyXdsDev
     {
-        xdpDevFeesExempted = _xdpDevFeesExempted;
+        xdsDevFeesExempted = _xdsDevFeesExempted;
     }
 
     function setOnlyWhitelistedAddressesAllowed(
         bool _onlyWhitelistedAddressesAllowed
-    ) external onlyPresaleCreatorOrXdpFactory {
+    ) external onlyPresaleCreatorOrXdsFactory {
         onlyWhitelistedAddressesAllowed = _onlyWhitelistedAddressesAllowed;
     }
 
-    function setMinVoterXDPBalance(uint256 _minVoterXDPBalance)
+    function setMinVoterXDSBalance(uint256 _minVoterXDSBalance)
         external
-        onlyXdpDev
+        onlyXdsDev
     {
-        require(_minVoterXDPBalance >= 10 * 1e18);
-        minVoterXDPBalance = _minVoterXDPBalance * 1e18;
+        require(_minVoterXDSBalance >= 10 * 1e18);
+        minVoterXDSBalance = _minVoterXDSBalance * 1e18;
     }
 
     function setMinYesVotesThreshold(uint256 _minYesVotesThreshold)
         external
-        onlyXdpDev
+        onlyXdsDev
     {
         require(_minYesVotesThreshold >= 10000 * 1e18); // cannot be < 1% of supply
         minYesVotesThreshold = _minYesVotesThreshold * 1e18;
     }
 
-    function setMinInvestorXDPBalance(uint256 _minInvestorXDPBalance) 
+    function setMinInvestorXDSBalance(uint256 _minInvestorXDSBalance) 
         external 
-        onlyXdpDev 
+        onlyXdsDev 
     {
-        minInvestorXDPBalance = _minInvestorXDPBalance;
+        minInvestorXDSBalance = _minInvestorXDSBalance;
     }
 
     function addWhitelistedAddresses(address[] calldata _whitelistedAddresses)
         external
-        onlyPresaleCreatorOrXdpFactory
+        onlyPresaleCreatorOrXdsFactory
     {
         onlyWhitelistedAddressesAllowed = _whitelistedAddresses.length > 0;
         for (uint256 i = 0; i < _whitelistedAddresses.length; i++) {
@@ -350,7 +350,7 @@ contract XDaiStarterPresale {
 
     function addAuditorWhitelistedAddresses(
         address[] calldata _whitelistedAddresses
-    ) external onlyXdpDev {
+    ) external onlyXdsDev {
         for (uint256 i = 0; i < _whitelistedAddresses.length; i++) {
             auditorWhitelistedAddresses[_whitelistedAddresses[i]] = true;
         }
@@ -364,15 +364,15 @@ contract XDaiStarterPresale {
         uint256 balance;
         uint256 lastStakedTimestamp;
         uint256 lastUnstakedTimestamp;
-        (balance, lastStakedTimestamp, lastUnstakedTimestamp) = xdpStakingPool
+        (balance, lastStakedTimestamp, lastUnstakedTimestamp) = xdsStakingPool
             .accountInfos(msg.sender);
         uint256 minStakeTime = xDaiStarterInfo.getMinStakeTime();
-        uint256 xdpBalance = xDaiStarterInfo.getLockedBalance(msg.sender);
+        uint256 xdsBalance = xDaiStarterInfo.getLockedBalance(msg.sender);
 
         if (lastStakedTimestamp + minStakeTime <= block.timestamp) {
-            xdpBalance = xdpBalance.add(balance);
+            xdsBalance = xdsBalance.add(balance);
         }
-        if (xdpBalance >= minRewardQualifyBal) {
+        if (xdsBalance >= minRewardQualifyBal) {
             uint256 pctQualifyingDiscount =
                 tokenPriceInWei.mul(minRewardQualifyPercentage).div(100);
             return
@@ -400,15 +400,15 @@ contract XDaiStarterPresale {
         uint256 balance;
         uint256 lastStakedTimestamp;
         uint256 lastUnstakedTimestamp;
-        (balance, lastStakedTimestamp, lastUnstakedTimestamp) = xdpStakingPool
+        (balance, lastStakedTimestamp, lastUnstakedTimestamp) = xdsStakingPool
             .accountInfos(msg.sender);
         uint256 minStakeTime = xDaiStarterInfo.getMinStakeTime();
-        uint256 xdpBalance = xDaiStarterInfo.getLockedBalance(msg.sender);
+        uint256 xdsBalance = xDaiStarterInfo.getLockedBalance(msg.sender);
 
         if (lastStakedTimestamp + minStakeTime <= block.timestamp) {
-            xdpBalance = xdpBalance.add(balance);
+            xdsBalance = xdsBalance.add(balance);
         }
-        if (xdpBalance >= minRewardQualifyBal) {
+        if (xdsBalance >= minRewardQualifyBal) {
             // apply discount to qualifying hodlers
             uint256 pctQualifyingDiscount =
                 tokenPriceInWei.mul(minRewardQualifyPercentage).div(100);
@@ -436,10 +436,10 @@ contract XDaiStarterPresale {
             "Max investment reached"
         );
 
-        if (minInvestorXDPBalance > 0) {
+        if (minInvestorXDSBalance > 0) {
             require(
-                xdpBalance >= minInvestorXDPBalance,
-                "Not enough XDP on account"
+                xdsBalance >= minInvestorXDSBalance,
+                "Not enough XDS on account"
             );
         }
 
@@ -485,27 +485,28 @@ contract XDaiStarterPresale {
         honeyLiquidityAdded = true;
 
         uint256 finalTotalCollectedWei = totalCollectedWei;
-        uint256 xdpDevFeeInWei;
-        if (!xdpDevFeesExempted) {
+        uint256 xdsDevFeeInWei;
+        if (!xdsDevFeesExempted) {
             uint256 pctDevFee =
-                finalTotalCollectedWei.mul(xdpDevFeePercentage).div(100);
-            xdpDevFeeInWei = pctDevFee > xdpMinDevFeeInWei ||
-                xdpMinDevFeeInWei >= finalTotalCollectedWei
+                finalTotalCollectedWei.mul(xdsDevFeePercentage).div(100);
+            xdsDevFeeInWei = pctDevFee > xdsMinDevFeeInWei ||
+                xdsMinDevFeeInWei >= finalTotalCollectedWei
                 ? pctDevFee
-                : xdpMinDevFeeInWei;
+                : xdsMinDevFeeInWei;
         }
-        if (xdpDevFeeInWei > 0) {
+        if (xdsDevFeeInWei > 0) {
             finalTotalCollectedWei = finalTotalCollectedWei.sub(
-                xdpDevFeeInWei
+                xdsDevFeeInWei
             );
-            xdpDevAddress.transfer(xdpDevFeeInWei);
-            // factory manages XDP hodlers fund where they can claim earned BNB rewards
+            xdsDevAddress.transfer(xdsDevFeeInWei);
+            // factory manages XDS hodlers fund where they can claim earned xDai rewards
             finalTotalCollectedWei = finalTotalCollectedWei.sub(
-                xdpDevFeeInWei
+                xdsDevFeeInWei
             );
-            xdpFactoryAddress.transfer(xdpDevFeeInWei);
+            xdsFactoryAddress.transfer(xdsDevFeeInWei);
         }
 
+        // xDai amount
         uint256 liqPoolEthAmount =
             finalTotalCollectedWei.mul(honeyLiquidityPercentageAllocation).div(
                 100
@@ -525,7 +526,7 @@ contract XDaiStarterPresale {
             liqPoolTokenAmount,
             0,
             0,
-            xdpLiqLockAddress,
+            xdsLiqLockAddress,
             block.timestamp.add(15 minutes)
         );
 
@@ -539,7 +540,7 @@ contract XDaiStarterPresale {
         uint256 balance;
         uint256 lastStakedTimestamp;
         uint256 lastUnstakedTimestamp;
-        (balance, lastStakedTimestamp, lastUnstakedTimestamp) = xdpStakingPool
+        (balance, lastStakedTimestamp, lastUnstakedTimestamp) = xdsStakingPool
             .accountInfos(msg.sender);
         uint256 minStakeTime = xDaiStarterInfo.getMinStakeTime();
         uint256 voterBalance = xDaiStarterInfo.getLockedBalance(msg.sender);
@@ -548,7 +549,7 @@ contract XDaiStarterPresale {
             voterBalance = voterBalance.add(balance);
         }
 
-        require(voterBalance >= minVoterXDPBalance, "Not enough XDP to vote");
+        require(voterBalance >= minVoterXDSBalance, "Not enough XDS to vote");
         require(voters[msg.sender] == 0, "Vote already casted");
 
         voters[msg.sender] = voterBalance;
@@ -612,11 +613,11 @@ contract XDaiStarterPresale {
         if (
             !honeyLiquidityAdded &&
             presaleCreatorAddress != msg.sender &&
-            xdpDevAddress != msg.sender
+            xdsDevAddress != msg.sender
         ) {
             revert();
         }
-        if (honeyLiquidityAdded && xdpDevAddress != msg.sender) {
+        if (honeyLiquidityAdded && xdsDevAddress != msg.sender) {
             revert();
         }
 
@@ -639,7 +640,7 @@ contract XDaiStarterPresale {
         }
     }
 
-    function burnUnsoldTokens() external onlyPresaleCreatorOrXdpDev {
+    function burnUnsoldTokens() external onlyPresaleCreatorOrXdsDev {
         require(honeyLiquidityAdded);
         require(!presaleCancelled);
         require(block.timestamp >= presaleCreatorClaimTime + 1 days); // wait 2 days before allowing burn

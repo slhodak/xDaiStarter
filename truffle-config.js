@@ -34,7 +34,9 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
-
+  plugins: [
+    "truffle-contract-size"
+  ],
   networks: {
     xdai: {
       provider: function() {

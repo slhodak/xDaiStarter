@@ -9,9 +9,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  @media screen and (max-width: 1900px) {
-    margin-left: 100px;
-  }
+  margin-left: 100px;
   width: 80%;
   @media (max-width: $screen-md) {
     flex-wrap: wrap;

@@ -3,7 +3,7 @@ node_modules
 
 ### Development
 .env
-plans
+docs
 
 ### dist
 dist/*.tar.gz

@@ -8,9 +8,10 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "./XDaiStarterPresale.sol";
 import "./XDaiStarterInfo.sol";
 import "./XDaiStarterLiquidityLock.sol";
-import "./XDSToken.sol";
+import "./XDPToken.sol";
 import "./XDaiStarterStaking.sol";
 
+// Not used?
 interface IHoneySwapV2Factory {
     function getPair(address tokenA, address tokenB)
         external
@@ -21,24 +22,24 @@ interface IHoneySwapV2Factory {
 contract XDaiStarterFactory is ReentrancyGuard {
     using SafeMath for uint256;
 
-    event PresaleCreated(bytes32 title, uint256 xdpId, address creator);
+    event PresaleCreated(bytes32 title, uint256 xdsId, address creator);
     event Received(address indexed from, uint256 amount);
 
-    XDaiStarterInfo public immutable XDP;
-    XDSToken public xdpToken;
+    XDaiStarterInfo public immutable XDS;
+    XDPToken public xdpToken;
 
-    XDaiStarterStaking public xdpStakingPool;
+    XDaiStarterStaking public xdsStakingPool;
 
     mapping(address => uint256) public lastClaimedTimestamp;
 
     constructor(
-        address _xdpInfoAddress,
         address _xdpToken,
-        address _xdpStakingPool
+        address _xdsInfoAddress,
+        address _xdsStakingPool
     ) public {
-        XDP = XDaiStarterInfo(_xdpInfoAddress);
-        xdpToken = XDSToken(_xdpToken);
-        xdpStakingPool = XDaiStarterStaking(_xdpStakingPool);
+        xdpToken = XDPToken(_xdpToken);
+        XDS = XDaiStarterInfo(_xdsInfoAddress);
+        xdsStakingPool = XDaiStarterStaking(_xdsStakingPool);
     }
 
     receive() external payable {
@@ -74,27 +75,25 @@ contract XDaiStarterFactory is ReentrancyGuard {
         bytes32 linkLogo;
     }
 
-    // Does this function work for HoneySwap?
+    // from @uniswap/v2-periphery/contracts/libraries/UniswapV2Library.sol
+    // returns sorted token addresses, used to handle return values from pairs sorted in this order
+    function sortTokens(address tokenA, address tokenB) internal pure returns (address token0, address token1) {
+        require(tokenA != tokenB, 'XDaiStarterFactory: IDENTICAL_ADDRESSES');
+        (token0, token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
+        require(token0 != address(0), 'XDaiStarterFactory: ZERO_ADDRESS');
+    }
+
+    // from @uniswap/v2-periphery/contracts/libraries/UniswapV2Library.sol
     // calculates the CREATE2 address for a pair without making any external calls
-    function honeyV2LibPairFor(
-        address factory,
-        address tokenA,
-        address tokenB
-    ) internal pure returns (address pair) {
-        (address token0, address token1) =
-            tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
-        pair = address(
-            uint256(
-                keccak256(
-                    abi.encodePacked(
-                        hex"ff",
-                        factory,
-                        keccak256(abi.encodePacked(token0, token1)),
-                        hex"d0d4c4cd0848c93cb4fd1f498d7013ee6bfb25783ea21593d5834f5d250ece66" // init code hash
-                    )
-                )
-            )
-        );
+    function pairFor(address factory, address tokenA, address tokenB) internal pure returns (address pair) {
+        // tokens sorted within fxn above
+        (address token0, address token1) = sortTokens(tokenA, tokenB);
+        pair = address(uint(keccak256(abi.encodePacked(
+                hex'ff',
+                factory,
+                keccak256(abi.encodePacked(token0, token1)),
+                hex'3f88503e8580ab941773b59034fb4b2a63e86dbc031b3633a925533ad3ed2b93' // honeyswap init code hash
+            ))));
     }
 
     function initializePresale(
@@ -137,7 +136,7 @@ contract XDaiStarterFactory is ReentrancyGuard {
         );
 
         _presale.addWhitelistedAddresses(_info.whitelistedAddresses);
-        _presale.setMinInvestorXDPBalance(XDP.getMinInvestorXDPBalance());
+        _presale.setMinInvestorXDSBalance(XDS.getMinInvestorXDPBalance());
     }
 
     function createPresale(
@@ -150,44 +149,41 @@ contract XDaiStarterFactory is ReentrancyGuard {
         XDaiStarterPresale presale =
             new XDaiStarterPresale(
                 address(this),
-                address(XDP),
-                XDP.owner(),
-                XDP.getMinRewardQualifyBal(),
-                XDP.getMinRewardQualifyPercentage()
+                address(XDS),
+                XDS.owner(),
+                XDS.getMinRewardQualifyBal(),
+                XDS.getMinRewardQualifyPercentage()
             );
-        IHoneySwapV2Factory honeySwapFactory =
-            IHoneySwapV2Factory(XDP.getHoneySwapFactory());
 
-        uint256 maxBnbPoolTokenAmount =
-            _info.hardCapInWei.mul(_honeyInfo.liquidityPercentageAllocation).div(
-                100
-            );
+        // What pool token on xDai?
+        uint256 maxXDaiPoolTokenAmount =
+            _info.hardCapInWei.mul(_honeyInfo.liquidityPercentageAllocation).div(100);
         uint256 maxLiqPoolTokenAmount =
-            maxBnbPoolTokenAmount.mul(1e18).div(_honeyInfo.listingPriceInWei);
-
+            maxXDaiPoolTokenAmount.mul(1e18).div(_honeyInfo.listingPriceInWei);
         uint256 maxTokensToBeSold =
             _info.hardCapInWei.mul(1e18).div(_info.tokenPriceInWei);
         uint256 requiredTokenAmount =
             maxLiqPoolTokenAmount.add(maxTokensToBeSold);
+
         token.transferFrom(msg.sender, address(presale), requiredTokenAmount);
 
         uint256 presaleGrantId;
         if (
-            xdpToken.balanceOf(address(this)) >= XDP.getPresaleGrantAmount()
+            xdpToken.balanceOf(address(this)) >= XDS.getPresaleGrantAmount()
         ) {
-            // locked incubator bonus XDP tokens if presale succeeds
+            // locked incubator bonus XDS tokens if presale succeeds
             XDaiStarterLiquidityLock incubatorLock =
                 new XDaiStarterLiquidityLock(
                     xdpToken,
                     _honeyInfo.liquidityAddingTime + 30 days,
-                    XDP.getIncubatorMsigAddress(),
+                    XDS.getIncubatorMsigAddress(),
                     msg.sender
                 );
             xdpToken.transfer(
                 address(incubatorLock),
-                XDP.getPresaleGrantAmount()
+                XDS.getPresaleGrantAmount()
             );
-            presaleGrantId = XDP.addPresaleGrantAddress(
+            presaleGrantId = XDS.addPresaleGrantAddress(
                 address(incubatorLock)
             );
         }
@@ -201,11 +197,14 @@ contract XDaiStarterFactory is ReentrancyGuard {
             _stringInfo
         );
 
+        IHoneySwapV2Factory honeySwapFactory =
+            IHoneySwapV2Factory(XDS.getHoneySwapFactory());
+
         address pairAddress =
-            honeyV2LibPairFor(
+            pairFor(
                 address(honeySwapFactory),
                 address(token),
-                XDP.getWBNB()
+                XDS.getWxDai()
             );
         XDaiStarterLiquidityLock liquidityLock =
             new XDaiStarterLiquidityLock(
@@ -216,23 +215,23 @@ contract XDaiStarterFactory is ReentrancyGuard {
                 address(0)
             );
 
-        uint256 xdpId = XDP.addPresaleAddress(address(presale));
-        presale.setXdpInfo(
+        uint256 xdsId = XDS.addPresaleAddress(address(presale));
+        presale.setXdsInfo(
             address(liquidityLock),
-            XDP.getDevFeePercentage(),
-            XDP.getMinDevFeeInWei(),
-            xdpId,
+            XDS.getDevFeePercentage(),
+            XDS.getMinDevFeeInWei(),
+            xdsId,
             presaleGrantId,
-            address(xdpStakingPool)
+            address(xdsStakingPool)
         );
 
-        emit PresaleCreated(_stringInfo.saleTitle, xdpId, msg.sender);
+        emit PresaleCreated(_stringInfo.saleTitle, xdsId, msg.sender);
     }
 
     function claimHodlerFund() external nonReentrant {
         require(address(this).balance > 0, "No rewards to claim");
         require(
-            lastClaimedTimestamp[msg.sender] + XDP.getMinClaimTime() <=
+            lastClaimedTimestamp[msg.sender] + XDS.getMinClaimTime() <=
                 block.timestamp,
             "Invalid Claim Time"
         );
@@ -240,18 +239,18 @@ contract XDaiStarterFactory is ReentrancyGuard {
         uint256 balance;
         uint256 lastStakedTimestamp;
         uint256 lastUnstakedTimestamp;
-        (balance, lastStakedTimestamp, lastUnstakedTimestamp) = xdpStakingPool
+        (balance, lastStakedTimestamp, lastUnstakedTimestamp) = xdsStakingPool
             .accountInfos(msg.sender);
-        uint256 minStakeTime = XDP.getMinStakeTime();
-        uint256 totalHodlerBalance = XDP.getLockedBalance(msg.sender);
+        uint256 minStakeTime = XDS.getMinStakeTime();
+        uint256 totalHodlerBalance = XDS.getLockedBalance(msg.sender);
 
         if (lastStakedTimestamp + minStakeTime <= block.timestamp) {
             totalHodlerBalance = totalHodlerBalance.add(balance);
         }
 
         require(
-            totalHodlerBalance >= XDP.getMinRewardQualifyBal() &&
-                totalHodlerBalance <= XDP.getMaxRewardQualifyBal(),
+            totalHodlerBalance >= XDS.getMinRewardQualifyBal() &&
+                totalHodlerBalance <= XDS.getMaxRewardQualifyBal(),
             "Do not qualify for rewards"
         );
         lastClaimedTimestamp[msg.sender] = block.timestamp;

@@ -9,8 +9,8 @@ import "./XDPresale.sol";
 contract XDaiStarterInfo is Ownable {
     using SafeMath for uint256;
 
-    uint256 private devFeePercentage = 2; // fees going to dev AND XDST hodlers (2% each)
-    uint256 private minDevFeeInWei = 5 ether; // min fee amount going to dev AND XDST hodlers
+    uint256 private devFeePercentage = 2; // fees going to dev AND XD hodlers (2% each)
+    uint256 private minDevFeeInWei = 5 ether; // min fee amount going to dev AND XD hodlers
     uint256 private maxRewardQualifyBal = 20000 * 1e18; // max amount to HODL to qualify for xDai fee rewards
     uint256 private minRewardQualifyBal = 1250 * 1e18; // min amount to HODL to qualify for xDai fee rewards
     uint256 private minRewardQualifyPercentage = 10; // percentage of discount on tokens for qualifying holders
@@ -20,39 +20,39 @@ contract XDaiStarterInfo is Ownable {
     address[] private presaleAddresses; // track all presales created
     address[] private presaleGrantAddresses; // track all presale grants assigned
 
-    uint256 private minInvestorXDPBalance = 100 * 1e18; // min amount to investors HODL XDSt balance
+    uint256 private minInvestorXDPBalance = 100 * 1e18; // min amount to investors HODL XDP balance
     uint256 private minStakeTime = 24 hours;
     uint256 private minUnstakeTime = 24 hours;
     uint256 private minClaimTime = 7 days;
 
-    address payable[] private xdpTokenPresales;
+    address payable[] private xdsTokenPresales;
 
     address private honeySwapRouter =
-        address(0x00);
+        address(0x1C232F01118CB8B424793ae03F870aa7D0ac7f77);
     address private honeySwapFactory =
-        address(0x00);
+        address(0xA818b4F111Ccac7AA31D0BCc0806d64F2E0737D7);
     address private wxdai = address(0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d);
 
-    address private xdpFactoryAddress;
+    address private xdsFactoryAddress;
 
-    constructor(address payable[] memory _xdpTokenPresales) public {
-        xdpTokenPresales = _xdpTokenPresales;
+    constructor(address payable[] memory _xdsTokenPresales) public {
+        xdsTokenPresales = _xdsTokenPresales;
     }
 
     modifier onlyFactory() {
-        require(xdpFactoryAddress == msg.sender);
+        require(xdsFactoryAddress == msg.sender);
         _;
     }
 
-    function getXdpFactoryAddress() external view returns (address) {
-      return xdpFactoryAddress;
+    function getXdsFactoryAddress() external view returns (address) {
+      return xdsFactoryAddress;
     }
 
-    function setXdpFactoryAddress(address _newFactoryAddress)
+    function setXdsFactoryAddress(address _newFactoryAddress)
         external
         onlyOwner
     {
-        xdpFactoryAddress = _newFactoryAddress;
+        xdsFactoryAddress = _newFactoryAddress;
     }
 
     function addPresaleAddress(address _presale)
@@ -68,8 +68,8 @@ contract XDaiStarterInfo is Ownable {
         return presaleAddresses.length;
     }
 
-    function getPresaleAddress(uint256 xdpId) external view returns (address) {
-        return presaleAddresses[xdpId];
+    function getPresaleAddress(uint256 xdsId) external view returns (address) {
+        return presaleAddresses[xdsId];
     }
 
     function addPresaleGrantAddress(address _presaleGrant)
@@ -203,19 +203,20 @@ contract XDaiStarterInfo is Ownable {
         minClaimTime = _minClaimTime;
     }
 
-    function getXdpTokenPresales()
+    function getXdsTokenPresales()
         external
         view
         returns (address payable[] memory)
     {
-        return xdpTokenPresales;
+        return xdsTokenPresales;
     }
 
-    function setXdpTokenPresales(address payable[] memory _xdpTokenPresales)
+    // called by EOA, contract owner (Info is not created by the Factory, it is prior)
+    function setXdsTokenPresales(address payable[] memory _xdsTokenPresales)
         external
         onlyOwner
     {
-        xdpTokenPresales = _xdpTokenPresales;
+        xdsTokenPresales = _xdsTokenPresales;
     }
 
     function getLockedBalance(address payable sender)
@@ -224,8 +225,8 @@ contract XDaiStarterInfo is Ownable {
         returns (uint256 totalLockedBalance)
     {
         totalLockedBalance = 0;
-        for (uint256 i = 0; i < xdpTokenPresales.length; i++) {
-            XDPresale tokenPresale = XDPresale(xdpTokenPresales[i]);
+        for (uint256 i = 0; i < xdsTokenPresales.length; i++) {
+            XDPresale tokenPresale = XDPresale(xdsTokenPresales[i]);
 
             uint256 senderInvestment = tokenPresale.investments(sender);
             uint256 senderClaimed = tokenPresale.claimed(sender);
@@ -264,11 +265,11 @@ contract XDaiStarterInfo is Ownable {
         honeySwapFactory = _honeySwapFactory;
     }
 
-    function getwxdai() external view returns (address) {
+    function getWxDai() external view returns (address) {
         return wxdai;
     }
 
-    function setwxdai(address _wxdai) external onlyOwner {
+    function setWxDai(address _wxdai) external onlyOwner {
         wxdai = _wxdai;
     }
 }
