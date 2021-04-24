@@ -1,6 +1,8 @@
 import Icon from './Icon';
 
-export default (props: { info: { title: string, link?: string } }) => {
+const tokenAddressUrl = (address?: string) => `https://blockscout.com/xdai/mainnet/tokens/${address}`;
+
+export default (props: { info: { title: string, address?: string } }) => {
   const { info } = props;
   const isConnectBlock = info.title == 'Connect';
   return (
@@ -13,7 +15,7 @@ export default (props: { info: { title: string, link?: string } }) => {
           <Icon name='github' />
           <Icon name='website' />
         </div> :
-        <a href="">{info.link}</a>}
+        <a href={tokenAddressUrl(info.address)}>{info.address}</a>}
     </div>
   )
 }

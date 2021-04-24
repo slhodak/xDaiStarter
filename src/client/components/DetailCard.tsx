@@ -19,12 +19,12 @@ export default (props: any) => {
     { icon: 'lock', button: { text: 'Lock Liq and List', emphasis: 2 } }
   ];
   const sampleLinks = [
-    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
-    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
+    { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' },
+    { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Connect' },
-    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
-    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' },
-    { title: 'Token Contract Address', link: 'feksuhugyeft9ewyroi5373759745745' }
+    { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' },
+    { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' },
+    { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' }
   ];
   return (
     <div>
