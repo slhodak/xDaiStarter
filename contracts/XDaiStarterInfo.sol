@@ -23,9 +23,9 @@ contract XDaiStarterInfo is Ownable {
     uint256 private minInvestorXDPBalance = 100 * 1e18; // min amount to investors HODL XDP balance
     uint256 private minStakeTime = 24 hours;
     uint256 private minUnstakeTime = 24 hours;
-    uint256 private minClaimTime = 7 days;
+    uint256 private minClaimTime = 7 days; // Time required between claiming hodler rewards
 
-    address payable[] private xdsTokenPresales;
+    address payable[] private xdsTokenPresales; // All presales of XDP (the XDS Token)
 
     address private honeySwapRouter =
         address(0x1C232F01118CB8B424793ae03F870aa7D0ac7f77);
@@ -211,7 +211,6 @@ contract XDaiStarterInfo is Ownable {
         return xdsTokenPresales;
     }
 
-    // called by EOA, contract owner (Info is not created by the Factory, it is prior)
     function setXdsTokenPresales(address payable[] memory _xdsTokenPresales)
         external
         onlyOwner

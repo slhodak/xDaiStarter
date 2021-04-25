@@ -169,7 +169,7 @@ contract XDaiStarterFactory is ReentrancyGuard {
 
         uint256 presaleGrantId;
         if (
-            xdpToken.balanceOf(address(this)) >= XDS.getPresaleGrantAmount()
+            xdpToken.balanceOf(address(this)) >= XDS.getPresaleGrantAmount() // Factory must own grant XDP
         ) {
             // locked incubator bonus XDS tokens if presale succeeds
             XDaiStarterLiquidityLock incubatorLock =

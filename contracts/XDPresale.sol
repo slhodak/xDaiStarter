@@ -268,15 +268,17 @@ contract XDPresale {
         require(block.timestamp < closeTime, "Closed");
         require(totalCollectedWei < hardCapInWei, "Hard cap reached");
         require(tokensLeft > 0);
-        require(msg.value <= tokensLeft.mul(tokenPriceInWei));
+        require(msg.value <= tokensLeft.mul(tokenPriceInWei)); // not enough XDP left to satisfy order
         uint256 totalInvestmentInWei = investments[msg.sender].add(msg.value);
         require(
             totalInvestmentInWei >= minInvestInWei ||
                 totalCollectedWei >= hardCapInWei.sub(1 ether),
+                // investors can buy less than the minimum investment when presale is within 1 ether of the hardcap
             "Min investment not reached"
         );
         require(
-            maxInvestInWei == 0 || totalInvestmentInWei <= maxInvestInWei,
+            maxInvestInWei == 0 || // no maximum
+            totalInvestmentInWei <= maxInvestInWei,
             "Max investment reached"
         );
 
@@ -284,8 +286,8 @@ contract XDPresale {
             totalInvestorsCount = totalInvestorsCount.add(1);
         }
 
-        totalCollectedWei = totalCollectedWei.add(msg.value);
-        investments[msg.sender] = totalInvestmentInWei;
+        totalCollectedWei = totalCollectedWei.add(msg.value); // total investment in the whole presale
+        investments[msg.sender] = totalInvestmentInWei; // total investment from this sender
         tokensLeft = tokensLeft.sub(getTokenAmount(msg.value));
     }
 

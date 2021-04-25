@@ -1,7 +1,8 @@
 .pools {
   background-color: $xdsGreyBlue;
-  width: 87%;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .all_pools_btn {
   display: flex;
@@ -21,8 +22,7 @@ $block-width: 380px;
 .pools_blocks {
   display: grid;
   grid-template-columns: repeat(3, $block-width);
-  grid-column-gap: 1%;
-  justify-content: space-around;
+  grid-column-gap: 68px;
   @media(max-width: $screen-xlg) {
     grid-template-columns: repeat(2, $block-width);
   }
