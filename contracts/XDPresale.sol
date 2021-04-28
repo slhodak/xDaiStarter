@@ -137,8 +137,8 @@ contract XDPresale {
         address _tokenAddress,
         address _unsoldTokensDumpAddress
     ) external onlyXdsDev {
-        require(_tokenAddress != address(0));
-        require(_unsoldTokensDumpAddress != address(0));
+        require(_tokenAddress != address(0), "Token address cannot be 0");
+        require(_unsoldTokensDumpAddress != address(0), "Burn address cannot be 0");
 
         token = IERC20(_tokenAddress);
         unsoldTokensDumpAddress = _unsoldTokensDumpAddress;

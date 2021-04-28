@@ -11,7 +11,6 @@ before(async () => {
 });
 
 // Test everything
-// After doing so, deploy will be trivial
 contract("XDPresale", async accounts => {
   it("should contain the dev address", async () => {
     asset.equal((await xdpresale.xdsDevAddress()), DEV_ADDRESS);
@@ -19,6 +18,6 @@ contract("XDPresale", async accounts => {
   it("should reference a token", async () => {
     assert.equal((await xdpresale.token()), xdpToken.address)
   });
-  it("should ", async() => {
+  xit("should ", async() => {
   });
 });

@@ -4,6 +4,7 @@ node_modules
 ### Development
 .env
 docs
+build/contracts/*.json
 
 ### dist
 dist/*.tar.gz
