@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
   Not called by any known contracts: who does this, when, and why?
 */
-contract XDSTVesting is Ownable {
+contract XDSVesting is Ownable {
     using SafeMath for uint256;
     
     /*
