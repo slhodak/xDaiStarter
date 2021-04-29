@@ -161,13 +161,13 @@ contract XDPresale {
         require(_hardCapInWei > 0);
 
         // Hard cap > (token amount * token price)
-        require(_hardCapInWei <= _totalTokens.mul(_tokenPriceInWei));
+        require(_hardCapInWei <= _totalTokens.mul(_tokenPriceInWei), "Hardcap must be less than total tokens * token price");
         // Soft cap > to hard cap
-        require(_softCapInWei <= _hardCapInWei);
+        require(_softCapInWei <= _hardCapInWei, "Softcap must be less than hardcap");
         //  Min. wei investment > max. wei investment
-        require(_minInvestInWei <= _maxInvestInWei);
+        require(_minInvestInWei <= _maxInvestInWei, "Minimum investment must be less than maximum investment");
         // Open time >= close time
-        require(_openTime < _closeTime);
+        require(_openTime < _closeTime, "Open time must be earlier than close time");
 
         totalTokens = _totalTokens;
         tokensLeft = _totalTokens;
