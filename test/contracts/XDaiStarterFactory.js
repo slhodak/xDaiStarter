@@ -5,8 +5,14 @@ const XDaiStarterStaking = artifacts.require("XDaiStarterStaking");
 const XDaiStarterInfo = artifacts.require("XDaiStarterInfo");
 const XDaiStarterFactory = artifacts.require("XDaiStarterFactory");
 
-// see migrations/3_deploy_xdpresale.js
-DEV_ADDRESS = "0xea562aDfA72E2c402470c79a478bb6ff1FD982b9"
+let xdpToken;
+let xdPresale;
+let xdsStaking;
+let xdsInfo;
+let xdsFactory;
+let presaleInfo;
+let presaleHoneySwapInfo;
+let presaleStringInfo;
 
 before(async () => {
   xdpToken = await XDPToken.deployed();
@@ -15,8 +21,9 @@ before(async () => {
   xdsInfo = await XDaiStarterInfo.deployed();
   xdsFactory = await XDaiStarterFactory.deployed();
 
+  // XDPresale Info
   presaleInfo = {
-    tokenAddress: "0xE65E201679606400edB5493139A728dB219E53bE",
+    tokenAddress: xdpToken.address,
     unsoldTokensDumpAddress: "0x0000000000000000000000000000dEad",
     whitelistedAddresses: [],
     tokenPriceInWei: 1000000000000000000,        // 1 xDai per token
@@ -48,13 +55,13 @@ before(async () => {
 // Test everything
 contract("XDaiStarterFactory", async accounts => {
   it("should reference the XDS Info", async () => {
-    asset.equal((await xdsFactory.XDS()), xdsInfo.address);
+    assert.equal((await xdsFactory.XDS()), xdsInfo.address);
   });
   it("should reference the XDP Token", async () => {
     assert.equal((await xdsFactory.xdpToken()), xdpToken.address)
   });
   it("should reference the XDS Staking Pool", async () => {
-    assert.equal((await xdsFactory.xdsStakingPool()), xdpToken.address)
+    assert.equal((await xdsFactory.xdsStakingPool()), xdsStaking.address)
   });
   xit("should receive value", async () => {
   });

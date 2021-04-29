@@ -1,6 +1,8 @@
 const assert = require("chai").assert;
 const XDPToken = artifacts.require("XDPToken");
 
+let xdpToken;
+
 before(async () => {
   xdpToken = await XDPToken.deployed();
 });

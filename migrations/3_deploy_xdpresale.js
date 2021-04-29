@@ -1,9 +1,13 @@
 const XDPresale = artifacts.require("XDPresale");
+require("dotenv").config();
 
-// take from ganache when testing
-DEV_ADDRESS = "0xea562aDfA72E2c402470c79a478bb6ff1FD982b9"
-
-module.exports = async (deployer) => {
-  // TODO: get first address of local blockchain accounts for dev address
-  await deployer.deploy(XDPresale, DEV_ADDRESS);
+module.exports = async (deployer, network, accounts) => {
+  // Dev Address either in .env or first development blockchain account
+  let devAddress;
+  if (network != ("develop" || "development")) {
+    devAddress = process.env[`${network.toUpperCase()}_DEV_ADDRESS`];
+  } else {
+    devAddress = accounts[0];
+  }
+  await deployer.deploy(XDPresale, devAddress);
 };
