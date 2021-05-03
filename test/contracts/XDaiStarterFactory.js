@@ -44,7 +44,7 @@ before(async () => {
 
   presaleStringInfo = {
     saleTitle: "token_presale",
-    linkTelegram: "telegran.com/project",
+    linkTelegram: "telegram.com/project",
     linkGithub: "github.com/project",
     linkTwitter: "twitter.com/project",
     linkWebsite: "project.com",
@@ -54,13 +54,13 @@ before(async () => {
 
 // Test everything
 contract("XDaiStarterFactory", async accounts => {
-  it("should reference the XDS Info", async () => {
+  xit("should reference the XDS Info", async () => {
     assert.equal((await xdsFactory.XDS()), xdsInfo.address);
   });
-  it("should reference the XDP Token", async () => {
+  xit("should reference the XDP Token", async () => {
     assert.equal((await xdsFactory.xdpToken()), xdpToken.address)
   });
-  it("should reference the XDS Staking Pool", async () => {
+  xit("should reference the XDS Staking Pool", async () => {
     assert.equal((await xdsFactory.xdsStakingPool()), xdsStaking.address)
   });
   xit("should receive value", async () => {

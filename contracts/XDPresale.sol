@@ -18,8 +18,8 @@ contract XDPresale {
 
     uint256 public totalInvestorsCount; // total investors count
     uint256 public totalCollectedWei; // total wei collected
-    uint256 public totalTokens; // total tokens to be sold
-    uint256 public tokensLeft; // available tokens to be sold
+    uint256 public totalTokens; // total tokens to be sold, in 1e18s
+    uint256 public tokensLeft; // available tokens to be sold, in 1e18s
     uint256 public tokenPriceInWei; // token presale wei price per 1 token
     uint256 public hardCapInWei; // maximum wei amount that can be invested in presale
     uint256 public softCapInWei; // minimum wei amount to invest in presale, if not met, invested wei will be returned
@@ -74,7 +74,7 @@ contract XDPresale {
     }
 
     modifier presaleIsNotCancelled() {
-        require(!presaleCancelled, "Cancelled");
+        require(!presaleCancelled, "Presale has been cancelled");
         _;
     }
 
@@ -209,7 +209,7 @@ contract XDPresale {
         auditInformation.verifiedHash = _verifiedHash;
         auditInformation.warningHash = _warningHash;
     }
-
+  
     function addWhitelistedAddresses(address[] calldata _whitelistedAddresses)
         external
         onlyXdsDev
@@ -234,10 +234,11 @@ contract XDPresale {
         refundAllowed = _refundAllowed;
     }
 
+    // This adding time could or should be "now".
     function allowClaim(uint256 _honeyLiquidityAddingTime) external onlyXdsDev {
-        require(_honeyLiquidityAddingTime > 0);
-        require(closeTime > 0);
-        require(_honeyLiquidityAddingTime >= closeTime);
+        require(_honeyLiquidityAddingTime > 0, "liquidityAddingTime must be greater than 0");
+        require(closeTime > 0, "closeTime must be greater than zero / set");
+        require(_honeyLiquidityAddingTime >= closeTime, "liquidityAddingTime must be greater than or equal to closeTime");
 
         claimAllowed = true;
         honeyLiquidityAddingTime = _honeyLiquidityAddingTime;
@@ -352,12 +353,11 @@ contract XDPresale {
         }
     }
 
-    function cancelAndTransferTokensToDev() external onlyXdsDev {
-        if (xdsDevAddress != msg.sender) {
-            revert();
-        }
-
-        require(!presaleCancelled);
+    function cancelAndTransferTokensToDev()
+      external
+      onlyXdsDev
+      presaleIsNotCancelled
+    {
         presaleCancelled = true;
 
         uint256 balance = token.balanceOf(address(this));
@@ -366,9 +366,11 @@ contract XDPresale {
         }
     }
 
-    function collectFundsRaised() external onlyXdsDev {
-        require(!presaleCancelled);
-
+    function collectFundsRaised()
+      external
+      onlyXdsDev
+      presaleIsNotCancelled
+    {
         if (address(this).balance > 0) {
             xdsDevAddress.transfer(address(this).balance);
         }
