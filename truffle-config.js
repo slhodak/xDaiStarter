@@ -60,6 +60,7 @@ module.exports = {
      gasPrice: 1,
      gas: 6000000,
     },
+    // Following settings are not overriding truffle develop console default
     develop: {
       port: 9545,
       network_id: 20,

@@ -223,7 +223,12 @@ contract("XDPresale (successful)", async accounts => {
     const devStartingBalance = await provider.getBalance(devAddress);
     const transactionResult = await xdPresale.collectFundsRaised();
     const gasUsed = BigNumber.from(transactionResult.receipt.gasUsed.toString());
-    assert.equal((await provider.getBalance(devAddress)).toString(), devStartingBalance.add(generalInfo.minInvestInWei).sub(gasUsed).toString());
+    const tx = await provider.getTransaction(transactionResult.tx);
+    const gasPrice = tx.gasPrice;
+    assert.equal(
+      (await provider.getBalance(devAddress)).toString(),
+      devStartingBalance.add(generalInfo.minInvestInWei).sub(gasUsed.mul(gasPrice)).toString()
+    );
   });
 });
 
@@ -302,23 +307,18 @@ contract("XDPresale (cancelled)", async accounts => {
     const transactionResponse = await provider.getSigner(mainInvestor).sendTransaction({ to: xdPresale.address, value: generalInfo.minInvestInWei })
     await transactionResponse.wait();
   });
-  xit("should allow the dev to cancel the presale and claim the unclaimed tokens", async () => {
+  it("should allow the dev to cancel the presale and claim the unclaimed tokens", async () => {
     await xdPresale.cancelAndTransferTokensToDev();
-    // Total investment during testing: minInvestInWei
-    // Total claimed during testing: 1/4 of total investment (one claim cycle)
-    const tokensUnclaimed =
-      evmNumberOfTokens(generalInfo.totalTokens)
-        .sub(
-          evmNumberOfTokens(generalInfo.minInvestInWei)
-          .div(4)
-        );
-    assert.equal((await xdpToken.balanceOf(devAddress)).toString(), tokensUnclaimed.toString());
+    assert.equal((await xdpToken.balanceOf(devAddress)).toString(), evmNumberOfTokens(generalInfo.totalTokens));
   });
-  xit("should allow an investor to get a refund if the presale is cancelled", async () => {
+  it("should allow an investor to get a refund if the presale is cancelled", async () => {
     const investorBalanceBeforeRefund = await provider.getBalance(mainInvestor);
-    const transactionResponse = await xdPresale.getRefund({ from: mainInvestor });
-    console.log(transactionResponse);
-    const gasUsed = BigNumber.from(transactionResponse.receipt.gasUsed.toString());
-    assert.equal((await provider.getBalance(mainInvestor)).toString(), investorBalanceBeforeRefund.add(generalInfo.minInvestInWei).sub(gasUsed).toString());
+    const transactionResult = await xdPresale.getRefund({ from: mainInvestor });
+    const gasUsed = BigNumber.from(transactionResult.receipt.gasUsed.toString());
+    const tx = await provider.getTransaction(transactionResult.tx)
+    const gasPrice = tx.gasPrice;
+    assert.equal(
+      (await provider.getBalance(mainInvestor)).toString(),
+      investorBalanceBeforeRefund.add(generalInfo.minInvestInWei).sub(gasUsed.mul(gasPrice)).toString());
   });
 });
