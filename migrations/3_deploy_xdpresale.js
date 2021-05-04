@@ -4,9 +4,10 @@ require("dotenv").config();
 module.exports = async (deployer, network, accounts) => {
   // Dev Address either in .env or first development blockchain account
   let devAddress;
-  if (network != ("develop" || "development")) {
+  if (network != "develop" && network != "development") {
     devAddress = process.env[`${network.toUpperCase()}_DEV_ADDRESS`];
   } else {
+    console.log(accounts);
     devAddress = accounts[0];
   }
   await deployer.deploy(XDPresale, devAddress);

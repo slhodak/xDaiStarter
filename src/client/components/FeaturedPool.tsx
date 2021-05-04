@@ -1,19 +1,20 @@
+import { PresaleDetails } from '../xds';
 import { Link } from 'react-router-dom';
 import '../scss/style.scss';
 import '../img/blockIcn.png';
 import '../img/tg.png';
 import '../img/share.png';
 
-export default (props: any) => {
-  const { center } = props;
+export default (props: { details: PresaleDetails }) => {
+  const { details } = props;
+  // get formatted numeric strings for all values in pool component
   return (
     <div className="pool_block">
       <div className="pool_block_title">
         <div>
           <img src="img/blockIcn.png" alt="icn"/>
         </div>
-        <h4>Blockchain <br/>
-          cuties</h4>
+        <h4>{details.saleTitle}</h4>
       </div>
       <div className="pool_info">
         <div className="pool_info_top nonvoting">

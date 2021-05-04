@@ -4,20 +4,24 @@ import Disclaimer from './Disclaimer';
 import DetailInfoBlock from './DetailInfoBlock';
 import InvestmentDetailBlock from './InvestmentDetailBlock';
 import ImportantLink from './ImportantLinks';
+import { UIDetail, UIInvestmentDetail, UIImportantLink } from '../xds';
 
 export default (props: any) => {
+  // UIDetail[]
   const sampleDetails = [
     { title: 'Softcap', value: 24, unit: 'XDAI' },{ title: 'Hardcap', value: 500, unit: 'XDAI' },
     { title: 'Min Per Wallet', value: 1, unit: 'XDAI' },{ title: 'Max Per wallet', value: 1, unit: 'XDAI' },
     { title: 'Presale Rate', value: 0.00217, unit: 'XDAI' },{ title: 'Hard HoneySwap Listing Ratio', value: 0.00238, unit: 'XDAI' },
     { title: 'Liquidity Allocation', value: 100, unit: '%' },{ title: 'Liquidity Lock Duration', value: 90, unit: 'Days' }
   ];
+  // UIInvestmentDetail[]
   const sampleInvestment = [
     { title: 'Softcap', value: 24, unit: 'XDAI', button: { text: 'Vote', emphasis: 0 } },
     { title: 'Your Token', value: 0, unit: '', button: { text: 'Claim Token', emphasis: 2 } },
     { title: 'Your XDAI Investment', value: 0, unit: '', button: { text: 'Vote', emphasis: 1 } },
     { icon: 'lock', button: { text: 'Lock Liq and List', emphasis: 2 } }
   ];
+  // UIImportantLink[]
   const sampleLinks = [
     { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' },
