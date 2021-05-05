@@ -1,61 +1,56 @@
 import abis from '../../abis';
+import addresses from '../../addresses';
 import {
-  BigNumber,
   providers,
   Contract
 } from 'ethers';
 import VotingPool from './VotingPool';
 import FeaturedPool from './FeaturedPool';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default (props: any) => {
   // Get pools from network, not props
-  const pools = [{
-    saleTitle: 'string',
-    linkTelegram: 'string',
-    linkTwitter: 'string',
-    linkGithub: 'string',
-    linkWebsite: 'string',
-    linkLogo: 'string',
-    totalInvestorsCount: 0,
-    totalCollectedWei: BigNumber.from("10"),
-    tokenPriceInWei: BigNumber.from("10"),
-    tokensLeft: BigNumber.from("10"),
-    minInvestInWei: BigNumber.from("10"),
-    maxInvestInWei: BigNumber.from("10"),
-    softCapInWei: BigNumber.from("10"),
-    hardCapInWei: BigNumber.from("10"),
-    // Following not applicable to XDPresale
-    honeyLiquidityPercentageAllocation: BigNumber.from("10"),
-    honeyLPTokensLockDurationInDays: BigNumber.from("10"),
-    // what is "Hard Honeyswap Listing Ratio" in UI?
-  }];
+  const [pools, setPools] = useState([]);
   const provider = providers.getDefaultProvider("http://localhost:8545");
   const xdsInfo = new Contract(
-    "0xc60077c98F6296F71d65796Bbf1F4FAFd21aB4bF",
+    addresses.xdsInfo,
     abis.xdsInfo,
     provider
   );
 
   useEffect(() => {
-    getXdpresaleInfo();
-  }, [xdsInfo]);
+    // Dependency array will not work because React Router reloads page on rerender
+    if (pools.length === 0) {
+      getPools();
+    }
+  });
 
-  async function getXdpresaleInfo() {
-    console.log(await xdsInfo.getXdsTokenPresales());
+  async function getPools() {
+    const temp = await xdsInfo.getXdsTokenPresales();
+    const presalesCount = await xdsInfo.getPresalesCount();
+    const presales = [];
+    for (let i = 0; i < presalesCount; i++) {
+      // Ignore expired, cancelled; deal with in-voting and past-voting separately...
+      // This is not a proper query strategy
+      presales.push(await xdsInfo.getPresaleAddress(await xdsInfo.getPresaleAddress(i)));
+    }
+    
+    console.debug(`Found ${temp.length} pools: ${temp}`);
+    setPools(temp);
   }
+
   return (
     <section className="pools">
       <div className="pools_section">
         <h2 className="section_title">Featured Pools</h2>
         <div className="pools_blocks">
-          {pools.map((pool) => <FeaturedPool details={pool} />)}
+          {pools.map((pool) => <FeaturedPool address={pool} />)}
         </div>
       </div>
       <div className="pools_section">
         <h2 className="section_title">Pools in Voting</h2>
         <div className="pools_blocks">
-          {pools.map((pool) => <VotingPool details={pool} />)}
+          {pools.map((pool) => <VotingPool address={pool} />)}
         </div>
       </div>
       <div className="pools_section">
