@@ -31,18 +31,18 @@ export default (props: any) => {
     // what is "Hard Honeyswap Listing Ratio" in UI?
   }];
   const provider = providers.getDefaultProvider("http://localhost:8545");
-  const xdPresale = new Contract(
+  const xdsInfo = new Contract(
     "0xc60077c98F6296F71d65796Bbf1F4FAFd21aB4bF",
-    abis.xdPresale,
+    abis.xdsInfo,
     provider
   );
 
   useEffect(() => {
     getXdpresaleInfo();
-  }, [xdPresale]);
+  }, [xdsInfo]);
 
   async function getXdpresaleInfo() {
-    console.log(await xdPresale.claimCycle());
+    console.log(await xdsInfo.getXdsTokenPresales());
   }
   return (
     <section className="pools">

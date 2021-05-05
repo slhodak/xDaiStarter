@@ -171,12 +171,13 @@ contract("XDPresale (successful)", async accounts => {
       generalInfo.softCapInWei,
       generalInfo.maxInvestInWei,
       generalInfo.minInvestInWei,
+      Math.floor(Date.now() / 1000) - 2,
       Math.floor(Date.now() / 1000) - 1,
-      Math.floor(Date.now() / 1000),
     );
   });
+  // The open, close, and liquidity adding time need to be this way to ensure investors can claim by next test
   it("should let claims become allowed by sending the liquidity adding time", async () => {
-    await xdPresale.allowClaim(Math.floor(Date.now() / 1000));
+    await xdPresale.allowClaim(Math.floor(Date.now() / 1000) - 1);
   });
   it("should allow investors to claim 1/4 of their bought tokens when the presale is over", async () => {
     await xdPresale.claimTokens({ from: mainInvestor });

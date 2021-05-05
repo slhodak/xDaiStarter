@@ -1,5 +1,7 @@
+const XDPresale = artifacts.require("XDPresale");
 const XDaiStarterInfo = artifacts.require("XDaiStarterInfo");
 
 module.exports = async (deployer) => {
-  await deployer.deploy(XDaiStarterInfo, []);
+  const xdPresale = await XDPresale.deployed();
+  await deployer.deploy(XDaiStarterInfo, [ xdPresale.address ]);
 };
