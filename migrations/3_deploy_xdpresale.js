@@ -1,4 +1,5 @@
 const XDPresale = artifacts.require("XDPresale");
+const { saveContractAddress } = require("../lib/utils");
 require("dotenv").config();
 
 module.exports = async (deployer, network, accounts) => {
@@ -10,4 +11,5 @@ module.exports = async (deployer, network, accounts) => {
     devAddress = process.env[`${network.toUpperCase()}_DEV_ADDRESS`];
   }
   await deployer.deploy(XDPresale, devAddress);
+  saveContractAddress(XDPresale);
 };

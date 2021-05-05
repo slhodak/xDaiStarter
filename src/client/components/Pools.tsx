@@ -1,5 +1,5 @@
 import abis from '../../abis';
-import addresses from '../../addresses';
+import addresses from '../../addresses.json';
 import {
   providers,
   Contract
@@ -13,7 +13,7 @@ export default (props: any) => {
   const [pools, setPools] = useState([]);
   const provider = providers.getDefaultProvider("http://localhost:8545");
   const xdsInfo = new Contract(
-    addresses.xdsInfo,
+    addresses.XDaiStarterInfo,
     abis.xdsInfo,
     provider
   );
