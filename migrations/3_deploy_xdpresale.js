@@ -7,7 +7,6 @@ module.exports = async (deployer, network, accounts) => {
   if (network != "develop" && network != "development") {
     devAddress = process.env[`${network.toUpperCase()}_DEV_ADDRESS`];
   } else {
-    console.log(accounts);
     devAddress = accounts[0];
   }
   await deployer.deploy(XDPresale, devAddress);
