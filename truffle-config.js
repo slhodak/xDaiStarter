@@ -61,16 +61,6 @@ module.exports = {
      gasPrice: 1,
      gas: 6000000,
     },
-    // Following settings are not overriding truffle develop console default
-    develop: {
-      port: 9545,
-      network_id: 20,
-      accounts: 5,
-      defaultEtherBalance: 500,
-      blockTime: 1,
-      gasPrice: 1,
-      gas: 10000000,
-    }
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
