@@ -3,7 +3,6 @@ import {
   providers,
   Contract
 } from 'ethers';
-import { Provider } from '@ethersproject/abstract-provider';
 import { PresaleDetails } from '../xds';
 import { utils } from 'ethers';
 const {
@@ -33,12 +32,13 @@ export default (props: { address: string }) => {
   );
 
   const [presaleDetails, setPresaleDetails] = useState<PresaleDetails>();
-
+  const [percentHardcapInvested, setPercentHardcapInvested] = useState("");
+  
   useEffect(() => {
     console.log('calling for details');
     getPresaleDetails();
   }, [location]);
-
+  
   async function getPresaleDetails() {
     try {
       console.debug("About to get details...");
@@ -63,32 +63,33 @@ export default (props: { address: string }) => {
       // const honeyLiquidityPercentageAllocation = await xdPresale.honeyLiquidityPercentageAllocation();
       // const honeyLPTokensLockDurationInDays = await xdPresale.honeyLPTokensLockDurationInDays();
       const details = {
-        saleTitle,
-        linkTelegram,
-        linkTwitter,
-        linkGithub,
-        linkWebsite,
-        linkLogo,
-        totalInvestorsCount,
-        totalCollectedWei,
-        tokenPriceInWei,
-        tokensLeft,
-        minInvestInWei,
-        maxInvestInWei,
-        softCapInWei,
-        hardCapInWei,
+        address: address,
+        saleTitle: toUtf8String(stripZeros(saleTitle)),
+        linkTelegram: toUtf8String(stripZeros(linkTelegram)),
+        linkTwitter: toUtf8String(stripZeros(linkTwitter)),
+        linkGithub: toUtf8String(stripZeros(linkGithub)),
+        linkWebsite: toUtf8String(stripZeros(linkWebsite)),
+        linkLogo: toUtf8String(stripZeros(linkLogo)),
+        totalInvestorsCount: totalInvestorsCount,
+        totalCollectedEther: formatEther(totalCollectedWei),
+        tokenPriceInEther: formatEther(tokenPriceInWei),
+        tokensLeft: formatEther(tokensLeft),
+        minInvestInEther: formatEther(minInvestInWei),
+        maxInvestInEther: formatEther(maxInvestInWei),
+        softCapInEther: formatEther(softCapInWei),
+        hardCapInEther: formatEther(hardCapInWei),
         // Following not applicable to XDPresale
         // honeyLiquidityPercentageAllocation,
         // honeyLPTokensLockDurationInDays,
       };
       console.debug("Found presale details: ", details);
+      setPercentHardcapInvested(formatEther(totalCollectedWei.div(hardCapInWei)));
       setPresaleDetails(details);
     } catch (error) {
       console.error("Error getting all details", error);
     }
   }
 
-  const percentageOfHardcapInvested = formatEther((presaleDetails?.totalCollectedWei.div(presaleDetails?.hardCapInWei)) || "500000000000000000000");
 
   return (
     <div className="pool_block">
@@ -96,28 +97,28 @@ export default (props: { address: string }) => {
         <div>
           <img src="img/blockIcn.png" alt="icn"/>
         </div>
-        <h4>{presaleDetails?.saleTitle ? toUtf8String(stripZeros(presaleDetails.saleTitle)) : ""}</h4>
+        <h4>{presaleDetails?.saleTitle || "no_title"}</h4>
       </div>
       <div className="pool_info">
         <div className="pool_info_top nonvoting">
           <div className="progress_bar_container">
             <div className="progress_bar_wrap">
               <span className="progress_bar_green2">
-                <p>{percentageOfHardcapInvested}%</p>
+                <p>{percentHardcapInvested || "2"}%</p>
               </span>
               <div className="progress_counter">
-                <span>{presaleDetails?.totalCollectedWei ? formatEther(presaleDetails.totalCollectedWei) : "0.00"}/{presaleDetails?.hardCapInWei ? formatEther(presaleDetails.hardCapInWei) : "0.00"} XDAI </span>
+                <span>{presaleDetails?.totalCollectedEther || "0.00"} XDAI </span>
               </div>
             </div>
           </div>
         </div>
         <div className="pool_info_btm">
           <div>
-            <span>{presaleDetails?.totalCollectedWei ? formatEther(presaleDetails.totalCollectedWei) : "0.00"} XDAI</span>
-            <p>{presaleDetails?.tokenPriceInWei ? formatEther(presaleDetails.tokenPriceInWei) : "0.00"} XDAI Per Token</p>
+            <span>{presaleDetails?.totalCollectedEther || "0.00"} XDAI</span>
+            <p>{presaleDetails?.tokenPriceInEther || "0.00"} XDAI Per Token</p>
           </div>
           <div>
-            <span>{presaleDetails?.maxInvestInWei ? formatEther(presaleDetails.maxInvestInWei) : "0.00"} XDAI</span>
+            <span>{presaleDetails?.maxInvestInEther || "0.00"} XDAI</span>
             <p>Maximum XDAI</p>
           </div>
         </div>
@@ -131,7 +132,12 @@ export default (props: { address: string }) => {
             <img src="img/share.png" alt="img"/>
           </a>
         </div>
-        <Link to='/pooldetail'><button className="btn">Filled</button></Link>
+        <Link to={{
+          pathname: '/pooldetail',
+          state: {
+            presaleDetails
+          }
+        }}><button className="btn">Filled</button></Link>
       </div>
     </div>
   )
