@@ -2,12 +2,8 @@ import { Link } from 'react-router-dom';
 import { Wallet, useWeb3Modal } from './Wallet';
 import '../img/l2.png';
 
-const INFURA_ID = '026977bc41064333a6c70afe674a9b99';
-
-const NETWORK_NAME = 'kovan';
-
 const web3ModalOptions = {
-  autoLoad: true, infuraId: INFURA_ID, NETWORK: NETWORK_NAME
+  autoLoad: true, infuraId: "", NETWORK: "development"
 };
 
 export default (props: any) => {

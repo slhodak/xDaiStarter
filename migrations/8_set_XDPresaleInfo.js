@@ -31,7 +31,7 @@ module.exports = async (deployer, network, accounts) => {
     linkWebsite: stringToPaddedBytes32("project.com"),
     linkLogo: stringToPaddedBytes32("project.com/logo"),
   };
-  
+
   const xdPresale = await XDPresale.deployed();
   const xdpToken = await XDPToken.deployed();
   

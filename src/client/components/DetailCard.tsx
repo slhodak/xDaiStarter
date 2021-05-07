@@ -5,25 +5,46 @@ import Disclaimer from './Disclaimer';
 import DetailInfoBlock from './DetailInfoBlock';
 import InvestmentDetailBlock from './InvestmentDetailBlock';
 import ImportantLink from './ImportantLinks';
-import { UIDetail, UIInvestmentDetail, UIImportantLink } from '../xds';
-import {
-  providers,
-  Contract
-} from 'ethers';
+import { useWeb3Modal } from './Wallet';
+import { Contract, utils } from 'ethers';
+const { formatEther } = utils;
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+const web3ModalOptions = {
+  autoLoad: true, infuraId: "", NETWORK: "development"
+};
+
 export default (props: any) => {
+  const [walletInvestment, setWalletInvestment] = useState<string>();
   const location = useLocation();
   const { state } = location;
   console.log("Location state", state);
   const { presaleDetails } = state;
+  const { provider, account } = useWeb3Modal(web3ModalOptions);  
+  let xdPresale: Contract;
 
-  const provider = providers.getDefaultProvider("http://localhost:8545");
-  const xdPresale = new Contract(
-    presaleDetails.address,
-    abis.xdPresale,
-    provider
-  );
+  useEffect(() => {
+    if (provider && account && !walletInvestment) {
+      console.log("Getting wallet investment with provider", provider);
+      xdPresale = new Contract(
+        presaleDetails.address,
+        abis.xdPresale,
+        provider
+      );
+      getWalletInvestmentDetails();
+    }
+  }, [location])
+
+  async function getWalletInvestmentDetails() {
+    try {
+      const walletInvestment = await xdPresale.investments(account);
+      console.log(walletInvestment);
+      setWalletInvestment(formatEther(walletInvestment));
+    } catch (error) {
+      console.error("Error getting investment details: ", error)
+    }
+  }
 
   const details = [
     { title: 'Softcap', value: presaleDetails.softCapInEther, unit: 'XDAI' },{ title: 'Hardcap', value: presaleDetails.hardCapInEther, unit: 'XDAI' },
@@ -34,12 +55,12 @@ export default (props: any) => {
   // Get user's investment details
   const investment = [
     { title: 'Softcap', value: presaleDetails.softCapInEther, unit: 'XDAI', button: { text: 'Vote', emphasis: 0 } },
-    { title: 'Your Token', value: 2, unit: '', button: { text: 'Claim Token', emphasis: 2 } },
-    { title: 'Your XDAI Investment', value: 2, unit: '', button: { text: 'Vote', emphasis: 1 } },
+    { title: 'Your Tokens', value: 2, unit: '', button: { text: 'Claim Token', emphasis: 2 } },
+    { title: 'Your XDAI Investment', value: walletInvestment, unit: '', button: { text: 'Vote', emphasis: 1 } },
     { icon: 'lock', button: { text: 'Lock Liq and List', emphasis: 2 } }
   ];
   const links = [
-    { title: 'Token Contract Address', address: xdPresale.address },
+    { title: 'Token Contract Address', address: presaleDetails.address },
     { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' },
     { title: 'Connect' },
     { title: 'Token Contract Address', address: 'feksuhugyeft9ewyroi5373759745745' },
@@ -68,10 +89,10 @@ export default (props: any) => {
             <div className="pool_detail_progress">
               <div className="progress_total">
                 <p className="detail_title">Total Raise</p>
-                <p className="detail_value">$330.000 XDAI Raised</p>
+                <p className="detail_value">${presaleDetails.totalCollectedEther} XDAI Raised</p>
               </div>
               <div className="detail_value">
-                0 Participants
+                {presaleDetails.totalInvestorsCount} Participants
               </div>
             </div>
             <div className="progress_bar">
@@ -81,8 +102,8 @@ export default (props: any) => {
               </div>
             </div>
             <div className="progress_percent_fraction">
-              <p className="detail_title">20.0%</p>
-              <p className="detail_title">0.00/2500.00XDAI</p>
+              <p className="detail_title">{presaleDetails.percentHardcapInvested}%</p>
+              <p className="detail_title">{presaleDetails.totalCollectedEther}/{presaleDetails.hardcapInEther} XDAI</p>
             </div>
           </div>
         </section>

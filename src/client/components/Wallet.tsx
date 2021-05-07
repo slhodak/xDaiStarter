@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Web3Provider } from '@ethersproject/providers';
 import Web3Modal from 'web3modal';
-import Torus from '@toruslabs/torus-embed';
 
 type UseWeb3ModalConfig = {
   autoLoad: boolean,
@@ -17,21 +16,7 @@ const useWeb3Modal = function({ autoLoad, infuraId, NETWORK }: UseWeb3ModalConfi
     network: NETWORK,
     cacheProvider: true,
     // Metamask available by default
-    providerOptions: {
-      torus: {
-        package: Torus,
-        options: {
-          // networkParams: {
-          //   host: "https://localhost:8545", // optional
-          //   chainId: 1337, // optional
-          //   networkId: 1337 // optional
-          // },
-          config: {
-            buildEnv: "development" // optional
-          }
-        }
-      }
-    }
+    providerOptions: {}
   });
 
   const addressDisplayed = (address: string) => {
@@ -42,20 +27,20 @@ const useWeb3Modal = function({ autoLoad, infuraId, NETWORK }: UseWeb3ModalConfi
   const loadWeb3Modal = useCallback(async () => {
     const newProvider = await web3Modal.connect();
     const provider = new Web3Provider(newProvider);
-    console.debug('Connecting to provider', provider);
+    console.debug("Web3Modal connecting to provider", provider);
     setProvider(provider);
     const accounts = await provider.listAccounts();
     setAccount(addressDisplayed(accounts[0]));
   }, [web3Modal]);
 
-  const logoutOfWeb3Modal = useCallback(async () => {
-    await web3Modal.clearCachedProvider();
+  const logoutOfWeb3Modal = useCallback(() => {
+    web3Modal.clearCachedProvider();
     setProvider(undefined);
   }, [web3Modal]);
 
   useEffect(() => {
-    console.debug('Using Wallet Effect');
     if (autoLoad && !provider && web3Modal.cachedProvider) {
+      console.debug("Loading Web3Modal");
       loadWeb3Modal();
     }
   });
@@ -77,7 +62,7 @@ type WalletConfig = {
   toggleWeb3Modal: Function
 }
 
-function Wallet({ provider, account, toggleWeb3Modal}: WalletConfig) {
+function Wallet({ provider, account, toggleWeb3Modal }: WalletConfig) {
   return (
     <button onClick={() => toggleWeb3Modal()}>
       {provider ? account : 'Connect Wallet'}

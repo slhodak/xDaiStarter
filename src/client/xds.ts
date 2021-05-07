@@ -1,6 +1,7 @@
 import { BigNumber } from 'ethers';
 
 export interface PresaleDetails {
+  address: string,
   saleTitle: string,
   linkTelegram: string,
   linkTwitter: string,
@@ -16,9 +17,10 @@ export interface PresaleDetails {
   softCapInEther: string,
   hardCapInEther: string,
   // Following not applicable to XDPresale
-  honeyLiquidityPercentageAllocation?: BigNumber,
-  honeyLPTokensLockDurationInDays?: BigNumber,
+  honeyLiquidityPercentageAllocation?: string,
+  honeyLPTokensLockDurationInDays?: string,
   // what is "Hard Honeyswap Listing Ratio" in UI?
+  percentHardcapInvested: string
 }
 
 export interface InvestmentDetails {

@@ -1,9 +1,7 @@
 import abis from '../../abis';
-import {
-  providers,
-  Contract
-} from 'ethers';
 import { PresaleDetails } from '../xds';
+import { useWeb3Modal } from './Wallet';
+import { Contract } from 'ethers';
 import { utils } from 'ethers';
 const {
   formatEther,
@@ -12,32 +10,36 @@ const {
 } = utils;
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-
 import '../scss/style.scss';
 import '../img/blockIcn.png';
 import '../img/tg.png';
 import '../img/share.png';
 
+const web3ModalOptions = {
+  autoLoad: true, infuraId: "", NETWORK: "development"
+};
 
 export default (props: { address: string }) => {
   const { address } = props;
   console.debug(`Creating pool block for presale at ${address}`);
-  const location = useLocation();
-
-  const provider = providers.getDefaultProvider("http://localhost:8545");
-  const xdPresale = new Contract(
-    address,
-    abis.xdPresale,
-    provider
-  );
-
   const [presaleDetails, setPresaleDetails] = useState<PresaleDetails>();
-  const [percentHardcapInvested, setPercentHardcapInvested] = useState("");
+  // const location = useLocation();
   
+  const { provider } = useWeb3Modal(web3ModalOptions);
+
+  let xdPresale: Contract;
   useEffect(() => {
-    console.log('calling for details');
-    getPresaleDetails();
-  }, [location]);
+    if (provider && !presaleDetails) {
+      console.log("Provider given to FeaturedPool:", provider);
+      xdPresale = new Contract(
+        address,
+        abis.xdPresale,
+        provider
+      );
+      console.log('calling for details');
+      getPresaleDetails();
+    }
+  });
   
   async function getPresaleDetails() {
     try {
@@ -70,7 +72,7 @@ export default (props: { address: string }) => {
         linkGithub: toUtf8String(stripZeros(linkGithub)),
         linkWebsite: toUtf8String(stripZeros(linkWebsite)),
         linkLogo: toUtf8String(stripZeros(linkLogo)),
-        totalInvestorsCount: totalInvestorsCount,
+        totalInvestorsCount: totalInvestorsCount.toNumber(),
         totalCollectedEther: formatEther(totalCollectedWei),
         tokenPriceInEther: formatEther(tokenPriceInWei),
         tokensLeft: formatEther(tokensLeft),
@@ -81,9 +83,9 @@ export default (props: { address: string }) => {
         // Following not applicable to XDPresale
         // honeyLiquidityPercentageAllocation,
         // honeyLPTokensLockDurationInDays,
+        percentHardcapInvested: formatEther(totalCollectedWei.div(hardCapInWei))
       };
       console.debug("Found presale details: ", details);
-      setPercentHardcapInvested(formatEther(totalCollectedWei.div(hardCapInWei)));
       setPresaleDetails(details);
     } catch (error) {
       console.error("Error getting all details", error);
@@ -104,7 +106,7 @@ export default (props: { address: string }) => {
           <div className="progress_bar_container">
             <div className="progress_bar_wrap">
               <span className="progress_bar_green2">
-                <p>{percentHardcapInvested || "2"}%</p>
+                <p>{presaleDetails?.percentHardcapInvested || "2"}%</p>
               </span>
               <div className="progress_counter">
                 <span>{presaleDetails?.totalCollectedEther || "0.00"} XDAI </span>

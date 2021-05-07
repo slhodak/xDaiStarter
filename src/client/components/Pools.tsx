@@ -6,22 +6,31 @@ import {
 } from 'ethers';
 import VotingPool from './VotingPool';
 import FeaturedPool from './FeaturedPool';
+import { useWeb3Modal } from './Wallet';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+const web3ModalOptions = {
+  autoLoad: true, infuraId: "", NETWORK: "development"
+};
 
 export default (props: any) => {
   // Get pools from network, not props
   const [pools, setPools] = useState([]);
-  const provider = providers.getDefaultProvider("http://localhost:8545");
-  const xdsInfo = new Contract(
-    addresses.XDaiStarterInfo,
-    abis.xdsInfo,
-    provider
-  );
+  const location = useLocation();
 
+  let xdsInfo: Contract;
+  const { provider } = useWeb3Modal(web3ModalOptions);
   useEffect(() => {
-    // Dependency array will not work because React Router reloads page on rerender
-    if (pools.length === 0) {
-      console.log("getting pools");
+    if (provider && pools.length === 0) {
+      console.log("Provider for Pools:", provider);
+      xdsInfo = new Contract(
+        addresses.XDaiStarterInfo,
+        abis.xdsInfo,
+        provider
+      );
+      // Dependency array not working with other values because (?) React Router reloads page on rerender
+      console.log("Fetching pools");
       getPools();
     }
   });
@@ -45,13 +54,13 @@ export default (props: any) => {
       <div className="pools_section">
         <h2 className="section_title">Featured Pools</h2>
         <div className="pools_blocks">
-          {pools.map((pool) => <FeaturedPool address={pool} />)}
+          {pools.map((pool) => <FeaturedPool address={pool} key={pool} />)}
         </div>
       </div>
       <div className="pools_section">
         <h2 className="section_title">Pools in Voting</h2>
         <div className="pools_blocks">
-          {pools.map((pool) => <VotingPool address={pool} />)}
+          {pools.map((pool) => <VotingPool address={pool} key={pool} />)}
         </div>
       </div>
       <div className="pools_section">
