@@ -54,6 +54,7 @@ const useWeb3Modal = function({ autoLoad, infuraId, NETWORK }: UseWeb3ModalConfi
   }, [web3Modal]);
 
   useEffect(() => {
+    console.debug('Using Wallet Effect');
     if (autoLoad && !provider && web3Modal.cachedProvider) {
       loadWeb3Modal();
     }

@@ -5,7 +5,8 @@ const { BigNumber } = require("ethers");
 const {
   stringToPaddedBytes32,
   one,
-  oneMillion
+  oneMillion,
+  secondsInADay
 } = require("../lib/utils");
 
 module.exports = async (deployer, network, accounts) => {
@@ -13,17 +14,17 @@ module.exports = async (deployer, network, accounts) => {
   // Migration Setup //
   /////////////////////
   const generalInfo = {
-    totalTokens:     oneMillion,                         // 1M tokens
-    tokenPriceInWei: one,                                // 1 xDai per token
-    hardCapInWei:    one.mul(BigNumber.from("100000")),  // 100,000 xDai
-    softCapInWei:    one.mul(BigNumber.from("50000")),   // 50,000 xDai
-    maxInvestInWei:  one.mul(BigNumber.from("5")),       // 5 tokens
-    minInvestInWei:  one.div(BigNumber.from("2")),       // half a token
-    openTime: Math.floor(Date.now() / 1000),             // Javascript time is in milliseconds by default
-    closeTime: Math.floor(Date.now() / 1000) + 500,
+    totalTokens:     oneMillion,                            // 1M tokens
+    tokenPriceInWei: one,                                   // 1 xDai per token
+    hardCapInWei:    one.mul(BigNumber.from("100000")),     // 100,000 xDai
+    softCapInWei:    one.mul(BigNumber.from("25000")),      // 25,000 xDai
+    maxInvestInWei:  one.mul(BigNumber.from("5000")),       // 5000 xDai
+    minInvestInWei:  one.mul(BigNumber.from("500")),        // 500 xDai
+    openTime: Math.floor(Date.now() / 1000),                // Javascript time is in milliseconds by default
+    closeTime: Math.floor(Date.now() / 1000) + (30 * secondsInADay),
   };
   const stringInfo = {
-    saleTitle: stringToPaddedBytes32("token_presale"),
+    saleTitle: stringToPaddedBytes32("xDaiStarter"),
     linkTelegram: stringToPaddedBytes32("telegram.com/project"),
     linkGithub: stringToPaddedBytes32("github.com/project"),
     linkTwitter: stringToPaddedBytes32("twitter.com/project"),

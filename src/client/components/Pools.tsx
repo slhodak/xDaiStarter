@@ -21,6 +21,7 @@ export default (props: any) => {
   useEffect(() => {
     // Dependency array will not work because React Router reloads page on rerender
     if (pools.length === 0) {
+      console.log("getting pools");
       getPools();
     }
   });
