@@ -6,29 +6,20 @@ import {
 } from 'ethers';
 import VotingPool from './VotingPool';
 import FeaturedPool from './FeaturedPool';
-import { useWeb3Modal } from './Wallet';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
-const web3ModalOptions = {
-  autoLoad: true, infuraId: "", NETWORK: "development"
-};
 
 export default (props: any) => {
-  // Get pools from network, not props
   const [pools, setPools] = useState([]);
-  const location = useLocation();
 
-  let xdsInfo: Contract;
-  const { provider } = useWeb3Modal(web3ModalOptions);
+  const provider = providers.getDefaultProvider("http://localhost:8545");
+  console.log("Provider for Pools:", provider);
+  const xdsInfo = new Contract(
+    addresses.XDaiStarterInfo,
+    abis.xdsInfo,
+    provider
+  );
   useEffect(() => {
     if (provider && pools.length === 0) {
-      console.log("Provider for Pools:", provider);
-      xdsInfo = new Contract(
-        addresses.XDaiStarterInfo,
-        abis.xdsInfo,
-        provider
-      );
       // Dependency array not working with other values because (?) React Router reloads page on rerender
       console.log("Fetching pools");
       getPools();

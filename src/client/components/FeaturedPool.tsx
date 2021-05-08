@@ -1,46 +1,37 @@
 import abis from '../../abis';
 import { PresaleDetails } from '../xds';
-import { useWeb3Modal } from './Wallet';
-import { Contract } from 'ethers';
-import { utils } from 'ethers';
+import { Contract, providers, utils } from 'ethers';
 const {
   formatEther,
   toUtf8String,
   stripZeros
 } = utils;
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import '../scss/style.scss';
 import '../img/blockIcn.png';
 import '../img/tg.png';
 import '../img/share.png';
 
-const web3ModalOptions = {
-  autoLoad: true, infuraId: "", NETWORK: "development"
-};
-
 export default (props: { address: string }) => {
   const { address } = props;
   console.debug(`Creating pool block for presale at ${address}`);
   const [presaleDetails, setPresaleDetails] = useState<PresaleDetails>();
-  // const location = useLocation();
-  
-  const { provider } = useWeb3Modal(web3ModalOptions);
 
-  let xdPresale: Contract;
+  const provider = providers.getDefaultProvider("http://localhost:8545");
+  console.log("Provider for FeaturedPool:", provider);
+  const xdPresale = new Contract(
+    address,
+    abis.xdPresale,
+    provider
+  );
   useEffect(() => {
     if (provider && !presaleDetails) {
-      console.log("Provider given to FeaturedPool:", provider);
-      xdPresale = new Contract(
-        address,
-        abis.xdPresale,
-        provider
-      );
-      console.log('calling for details');
+      console.log('Calling for details');
       getPresaleDetails();
     }
   });
-  
+
   async function getPresaleDetails() {
     try {
       console.debug("About to get details...");
