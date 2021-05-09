@@ -3,6 +3,7 @@ import Home from './Home';
 import Litepaper from './Litepaper';
 import Application from './Application';
 import DetailCard from './DetailCard';
+import Dev from './Dev';
 import {
   BrowserRouter as Router,
   Switch,
@@ -34,6 +35,9 @@ export default class XDaiStarter extends React.Component<MyProps, MyState>  {
             </Route>
             <Route path='/pooldetail'>
               <DetailCard />
+            </Route>
+            <Route path='/dev'>
+              <Dev />
             </Route>
           </Switch>
         </div>

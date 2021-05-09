@@ -1,15 +1,9 @@
 const XDPresale = artifacts.require("XDPresale");
 const { saveContractAddress } = require("../lib/utils");
-require("dotenv").config();
 
 module.exports = async (deployer, network, accounts) => {
-  // Dev Address either in .env or first development blockchain account
-  let devAddress;
-  if (network == "develop" || network == "development") {
-    devAddress = accounts[0];
-  } else {
-    devAddress = process.env[`${network.toUpperCase()}_DEV_ADDRESS`];
-  }
+  // Address(es) derived from mnemonic given by .env to truffle-config
+  const devAddress = accounts[0];
   await deployer.deploy(XDPresale, devAddress);
   saveContractAddress(XDPresale);
 };

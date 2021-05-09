@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Web3Provider } from '@ethersproject/providers';
 import Web3Modal from 'web3modal';
+import { addressDisplayed } from '../utils';
 
 type UseWeb3ModalConfig = {
   autoLoad: boolean,
@@ -19,10 +20,6 @@ const useWeb3Modal = function({ autoLoad, infuraId, NETWORK }: UseWeb3ModalConfi
     providerOptions: {}
   });
 
-  const addressDisplayed = (address: string) => {
-    return address.slice(0, 6) + "..." + address.slice(-4)
-  };
-
   // Open wallet selection modal
   const loadWeb3Modal = useCallback(async () => {
     const newProvider = await web3Modal.connect();
@@ -30,12 +27,13 @@ const useWeb3Modal = function({ autoLoad, infuraId, NETWORK }: UseWeb3ModalConfi
     console.debug("Web3Modal connecting to provider", provider);
     setProvider(provider);
     const accounts = await provider.listAccounts();
-    setAccount(addressDisplayed(accounts[0]));
+    setAccount(accounts[0]);
   }, [web3Modal]);
 
   const logoutOfWeb3Modal = useCallback(() => {
     web3Modal.clearCachedProvider();
     setProvider(undefined);
+    setAccount(undefined);
   }, [web3Modal]);
 
   useEffect(() => {
@@ -62,10 +60,10 @@ type WalletConfig = {
   toggleWeb3Modal: Function
 }
 
-function Wallet({ provider, account, toggleWeb3Modal }: WalletConfig) {
+function Wallet({ account, toggleWeb3Modal }: WalletConfig) {
   return (
     <button onClick={() => toggleWeb3Modal()}>
-      {provider ? account : 'Connect Wallet'}
+      {account ? addressDisplayed(account) : 'Connect Wallet'}
     </button>
   );
 }

@@ -3,18 +3,18 @@ import Icon from './Icon';
 export default (props: {
     info: {
       title?: string,
-      value?: number,
+      value?: string,
       unit?: string,
       button: {
         text: string,
         emphasis: number
       },
       icon?: string
+      handleClick?: Function
     },
     index: number,
-    handleClick: Function
   }) => {
-  const { info, index, handleClick } = props;
+  const { info, index } = props;
   const lbr = (index + 1) % 4 != 0;
   let buttonStyle = '';
   switch(info.button.emphasis) {
@@ -34,7 +34,7 @@ export default (props: {
         {info.icon && info.icon == 'lock' ? <Icon name='lock' /> : <p className="detail_title">{info.title}</p>}
         <p className="detail_value">{info.value} {info.unit}</p>
       </div>
-      <button className={`btn${buttonStyle}`} onClick={(e) => handleClick(e)}>{info.button.text}</button>
+      <button className={`btn${buttonStyle}`} onClick={(e) => info.handleClick && info.handleClick(e)}>{info.button.text}</button>
     </div>
   )
 }

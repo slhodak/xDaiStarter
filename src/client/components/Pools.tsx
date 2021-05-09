@@ -27,17 +27,21 @@ export default (props: any) => {
   });
 
   async function getPools() {
-    const temp = await xdsInfo.getXdsTokenPresales();
-    const presalesCount = await xdsInfo.getPresalesCount();
-    const presales = [];
-    for (let i = 0; i < presalesCount; i++) {
-      // Ignore expired, cancelled; deal with in-voting and past-voting separately...
-      // This is not a proper query strategy
-      presales.push(await xdsInfo.getPresaleAddress(await xdsInfo.getPresaleAddress(i)));
+    try {
+      const temp = await xdsInfo.getXdsTokenPresales();
+      const presalesCount = await xdsInfo.getPresalesCount();
+      const presales = [];
+      for (let i = 0; i < presalesCount; i++) {
+        // Ignore expired, cancelled; deal with in-voting and past-voting separately...
+        // This is not a proper query strategy
+        presales.push(await xdsInfo.getPresaleAddress(await xdsInfo.getPresaleAddress(i)));
+      }
+      
+      console.debug(`Found ${temp.length} pools: ${temp}`);
+      setPools(temp);
+    } catch(error) {
+      console.error("Error getting pools: ", error);
     }
-    
-    console.debug(`Found ${temp.length} pools: ${temp}`);
-    setPools(temp);
   }
 
   return (

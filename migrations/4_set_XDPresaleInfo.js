@@ -1,6 +1,5 @@
 const XDPToken = artifacts.require("XDPToken");
 const XDPresale = artifacts.require("XDPresale");
-require("dotenv").config();
 const { BigNumber } = require("ethers");
 const {
   stringToPaddedBytes32,
@@ -35,47 +34,48 @@ module.exports = async (deployer, network, accounts) => {
   const xdPresale = await XDPresale.deployed();
   const xdpToken = await XDPToken.deployed();
   
-  // Dev Address either in .env or first development blockchain account
-  let devAddress;
-  if (network == "develop" || network == "development") {
-    devAddress = accounts[0];
-    unsoldTokensDumpAddress = accounts[accounts.length - 1];
-  } else {
-    devAddress = process.env[`${network.toUpperCase()}_DEV_ADDRESS`];
-    unsoldTokensDumpAddress = process.env[`${network.toUpperCase()}_DUMP_ADDRESS`];
-  }
+  // Address(es) derived from mnemonic given by .env to truffle-config
+  const devAddress = accounts[0];
+  const unsoldTokensDumpAddress = accounts[accounts.length - 1];
 
   ///////////////////////
   // Migration Actions //
   ///////////////////////
   
-  // Presale must own all tokens
-  await xdpToken.transfer(xdPresale.address, oneMillion);
-  // Set Address Info
-  await xdPresale.setAddressInfo(xdpToken.address, unsoldTokensDumpAddress);
-  // Set General Info
-  await xdPresale.setGeneralInfo(
-    generalInfo.totalTokens,
-    generalInfo.tokenPriceInWei,
-    generalInfo.hardCapInWei,
-    generalInfo.softCapInWei,
-    generalInfo.maxInvestInWei,
-    generalInfo.minInvestInWei,
-    generalInfo.openTime,
-    generalInfo.closeTime
-  );
-  // Set String Info
-  await xdPresale.setStringInfo(
-    stringInfo.saleTitle,
-    stringInfo.linkTelegram,
-    stringInfo.linkGithub,
-    stringInfo.linkTwitter,
-    stringInfo.linkWebsite,
-    stringInfo.linkLogo
-  );
-
-  // Users get whitelisted when they connect their wallets to the site
-  await xdPresale.addWhitelistedAddresses([ devAddress ]);
-  // Allow refunds
-  await xdPresale.setRefundAllowed(true);
+  try {
+    // Presale must own all tokens
+    await xdpToken.transfer(xdPresale.address, oneMillion);
+    // Set Address Info
+    await xdPresale.setAddressInfo(xdpToken.address, unsoldTokensDumpAddress, { from: devAddress });
+    // Set General Info
+    await xdPresale.setGeneralInfo(
+      generalInfo.totalTokens,
+      generalInfo.tokenPriceInWei,
+      generalInfo.hardCapInWei,
+      generalInfo.softCapInWei,
+      generalInfo.maxInvestInWei,
+      generalInfo.minInvestInWei,
+      generalInfo.openTime,
+      generalInfo.closeTime,
+      { from: devAddress }
+    );
+    // Set String Info
+    await xdPresale.setStringInfo(
+      stringInfo.saleTitle,
+      stringInfo.linkTelegram,
+      stringInfo.linkGithub,
+      stringInfo.linkTwitter,
+      stringInfo.linkWebsite,
+      stringInfo.linkLogo,
+      { from: devAddress }
+    );
+    
+    // Users get whitelisted when they connect their wallets to the site
+    await xdPresale.addWhitelistedAddresses([ devAddress ], { from: devAddress });
+    // Allow refunds
+    await xdPresale.setRefundAllowed(true, { from: devAddress });
+  } catch(error) {
+    console.error("Error setting up XDPresale: ", error);
+  }
 };
+      

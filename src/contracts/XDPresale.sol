@@ -55,13 +55,19 @@ contract XDPresale {
     AuditorInfo public auditInformation;
 
     constructor(address _xdsDevAddress) public {
-        require(_xdsDevAddress != address(0));
+        require(
+            _xdsDevAddress != address(0),
+            "The XDS Dev address cannot be 0"
+        );
 
         xdsDevAddress = payable(_xdsDevAddress);
     }
 
     modifier onlyXdsDev() {
-        require(xdsDevAddress == msg.sender);
+        require(
+            xdsDevAddress == msg.sender,
+            "Only the XDS Dev can do this"
+        );
         _;
     }
 

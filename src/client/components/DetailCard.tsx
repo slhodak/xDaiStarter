@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { BigNumber, Contract, Signer, utils } from 'ethers';
+const { formatEther } = utils;
 import abis from '../../abis';
 import Header from './Header';
 import Footer from './Footer';
@@ -6,43 +10,84 @@ import DetailInfoBlock from './DetailInfoBlock';
 import InvestmentDetailBlock from './InvestmentDetailBlock';
 import ImportantLink from './ImportantLinks';
 import { useWeb3Modal } from './Wallet';
-import { Contract, utils } from 'ethers';
-const { formatEther } = utils;
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
-const web3ModalOptions = {
-  autoLoad: true, infuraId: "", NETWORK: "development"
-};
+import { one } from '../utils';
 
 export default (props: any) => {
   const [walletInvestment, setWalletInvestment] = useState<string>();
+  const [xdPresale, setXDPresale] = useState<Contract>();
+  const [signer, setSigner] = useState<Signer>();
+  const [signerAddress, setSignerAddress] = useState<string>();
+  // If the below line is giving you an error about properties that do not exist on type "unknown",
+  // go to useLocation definition, then H.LocationState, and change History's LocationState type from "unknown" to "any"
+  // or solve this in a better way if you are more familiar with Typescript than I was
   const location = useLocation();
   const { state } = location;
-  console.log("Location state", state);
   const { presaleDetails } = state;
-  const { provider, account } = useWeb3Modal(web3ModalOptions);  
-  let xdPresale: Contract;
+  const { provider } = useWeb3Modal({
+    autoLoad: true, infuraId: "", NETWORK: "development"
+  });
+  console.log("Provider for DetailCard: ", provider);
 
   useEffect(() => {
-    if (provider && account && !walletInvestment) {
-      console.log("Getting wallet investment with provider", provider);
-      xdPresale = new Contract(
+    console.log("Using effect...");
+    if (provider) {
+      const xdPresale = new Contract(
         presaleDetails.address,
         abis.xdPresale,
         provider
       );
-      getWalletInvestmentDetails();
+      const signer = provider.getSigner();
+      console.debug("Connecting to XDPresale with signer: ", signer);
+      setSigner(signer);
+      const connectedXDPresale = xdPresale.connect(signer);
+      setXDPresale(connectedXDPresale);
+      getSignerAddress(signer);
     }
-  }, [location])
+  }, [provider]);
+
+  async function getSignerAddress(signer: Signer) {
+    const address = await signer.getAddress()
+    console.debug("Got signer address: ", address);
+    setSignerAddress(address);
+  }
+
+  useEffect(() => {
+    getWalletInvestmentDetails();
+  }, [xdPresale, signerAddress]);
 
   async function getWalletInvestmentDetails() {
     try {
-      const walletInvestment = await xdPresale.investments(account);
-      console.log(walletInvestment);
-      setWalletInvestment(formatEther(walletInvestment));
+      if (xdPresale && signerAddress) {
+        const walletInvestment = await xdPresale.investments(signerAddress);
+        console.log("Got wallet total investment: ", walletInvestment);
+        setWalletInvestment(formatEther(walletInvestment));
+      } else {
+        console.debug("No XDPresale available to read investment");
+      }
     } catch (error) {
       console.error("Error getting investment details: ", error)
+    }
+  }
+
+  // Clicking "buy" button just tries to buy 1 token for now
+  // Or opens Metamask where you can say how much value you're sending
+  async function invest() {
+    try {
+      console.log("Investing");
+      if (signer && xdPresale) {
+        const minInvestInWei = BigNumber.from("500").mul(one);
+        console.debug("Sending min investment in wei: ", minInvestInWei);
+        const tx = {
+          to: xdPresale.address,
+          // TODO: use minInvestInWei (having it in Ether on presale details... advisable?)
+          value: minInvestInWei._hex
+        };
+        await signer.sendTransaction(tx);
+      } else {
+        console.debug("No XDPresale available to send investment");
+      }
+    } catch (error) {
+      console.error("Error sending investment: ", error);
     }
   }
 
@@ -54,10 +99,29 @@ export default (props: any) => {
   ];
   // Get user's investment details
   const investment = [
-    { title: 'Softcap', value: presaleDetails.softCapInEther, unit: 'XDAI', button: { text: 'Vote', emphasis: 0 } },
-    { title: 'Your Tokens', value: 2, unit: '', button: { text: 'Claim Token', emphasis: 2 } },
-    { title: 'Your XDAI Investment', value: walletInvestment, unit: '', button: { text: 'Vote', emphasis: 1 } },
-    { icon: 'lock', button: { text: 'Lock Liq and List', emphasis: 2 } }
+    {
+      title: 'Softcap',
+      value: presaleDetails.softCapInEther,
+      unit: 'XDAI',
+      button: { text: 'Vote', emphasis: 0 }
+    },
+    {
+      title: 'Your Tokens',
+      value: '2',
+      unit: '',
+      button: { text: 'Claim Token', emphasis: 2 }
+    },
+    {
+      title: 'Your XDAI Investment',
+      value: walletInvestment,
+      unit: 'XDAI',
+      button: { text: 'Buy', emphasis: 1 },
+      handleClick: invest
+    },
+    {
+      icon: 'lock',
+      button: { text: 'Lock Liq and List', emphasis: 2 }
+    }
   ];
   const links = [
     { title: 'Token Contract Address', address: presaleDetails.address },
@@ -112,7 +176,7 @@ export default (props: any) => {
             <h4>Your Investment</h4>
           </div>
           <div className="investment_detail_middle">
-            {investment.map((info, index) => <InvestmentDetailBlock info={info} handleClick={() => {}} index={index} />)}
+            {investment.map((info, index) => <InvestmentDetailBlock info={info} index={index} />)}
           </div>
         </section>
         <section className="important_links detail_section">
