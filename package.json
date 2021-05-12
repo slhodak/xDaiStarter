@@ -5,8 +5,10 @@
   "main": "dist/index.ts",
   "scripts": {
     "lint-frontend": "tslint -c tslint.json -p tsconfig.json --fix",
-    "build-production": "webpack --mode=production",
-    "react-dev": "webpack --watch",
+    "build-production": "webpack --mode=production --env NETWORK=xdai",
+    "build-testnet": "webpack --mode=production --env NETWORK=sokol",
+    "build-development": "webpack --mode=production --env NETWORK=development",
+    "react-dev": "webpack --watch --env NETWORK=development",
     "start-server": "node src/server/index.js",
     "server-dev": "nodemon src/server/index.js",
     "package": "tar -czvf ./dist/xds.tar.gz ./public/",

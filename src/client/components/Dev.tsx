@@ -14,7 +14,7 @@ export default (props: any) => {
   const [isWhitelistedAddress, setIsWhitelistedAddress] = useState<boolean>();
   const [etherToSend, setEtherToSend] = useState<BigNumber>();
   const { provider } = useWeb3Modal({
-    autoLoad: true, infuraId: "", NETWORK: "development"
+    autoLoad: true, infuraId: "", NETWORK: "sokol"
   });
   console.log("Provider for Dev: ", provider);
 

@@ -24,7 +24,7 @@ export default (props: any) => {
   const { state } = location;
   const { presaleDetails } = state;
   const { provider } = useWeb3Modal({
-    autoLoad: true, infuraId: "", NETWORK: "development"
+    autoLoad: true, infuraId: "", NETWORK: process.env.NETWORK || "development"
   });
   console.log("Provider for DetailCard: ", provider);
 

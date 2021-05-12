@@ -7,11 +7,13 @@ import {
 import VotingPool from './VotingPool';
 import FeaturedPool from './FeaturedPool';
 import { useEffect, useState } from 'react';
+import { getNetwork } from '../utils';
 
 export default (props: any) => {
   const [pools, setPools] = useState([]);
 
-  const provider = providers.getDefaultProvider("http://localhost:8545");
+  console.log("Getting network from: ", process.env.NETWORK);
+  const provider = providers.getDefaultProvider(getNetwork());
   console.log("Provider for Pools:", provider);
   const xdsInfo = new Contract(
     addresses.XDaiStarterInfo,

@@ -12,13 +12,14 @@ import '../scss/style.scss';
 import '../img/blockIcn.png';
 import '../img/tg.png';
 import '../img/share.png';
+import { getNetwork } from '../utils';
 
 export default (props: { address: string }) => {
   const { address } = props;
   console.debug(`Creating pool block for presale at ${address}`);
   const [presaleDetails, setPresaleDetails] = useState<PresaleDetails>();
 
-  const provider = providers.getDefaultProvider("http://localhost:8545");
+  const provider = providers.getDefaultProvider(getNetwork());
   console.log("Provider for FeaturedPool:", provider);
   const xdPresale = new Contract(
     address,
