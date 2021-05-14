@@ -50,8 +50,8 @@ export default (props: { address: string }) => {
       console.debug("Got tokensLeft...");
       const minInvestInWei = await xdPresale.minInvestInWei();
       const maxInvestInWei = await xdPresale.maxInvestInWei();
-      const softCapInWei = await xdPresale.softCapInWei();
-      const hardCapInWei = await xdPresale.hardCapInWei();
+      const softcapInWei = await xdPresale.softCapInWei();
+      const hardcapInWei = await xdPresale.hardCapInWei();
       // Following not applicable to XDPresale
       console.debug("Got hardcap...");
       // const honeyLiquidityPercentageAllocation = await xdPresale.honeyLiquidityPercentageAllocation();
@@ -70,12 +70,12 @@ export default (props: { address: string }) => {
         tokensLeft: formatEther(tokensLeft),
         minInvestInEther: formatEther(minInvestInWei),
         maxInvestInEther: formatEther(maxInvestInWei),
-        softCapInEther: formatEther(softCapInWei),
-        hardCapInEther: formatEther(hardCapInWei),
+        softcapInEther: formatEther(softcapInWei),
+        hardcapInEther: formatEther(hardcapInWei),
         // Following not applicable to XDPresale
         // honeyLiquidityPercentageAllocation,
         // honeyLPTokensLockDurationInDays,
-        percentHardcapInvested: formatEther(totalCollectedWei.div(hardCapInWei))
+        percentHardcapInvested: formatEther(totalCollectedWei.div(hardcapInWei))
       };
       console.debug("Found presale details: ", details);
       setPresaleDetails(details);

@@ -1,4 +1,13 @@
-export default (props: { info: { title: string, value: number, unit: string }, index: number, totalBlocks: number }) => {
+export default (
+  props: {
+    info: {
+      title: string,
+      value: string,
+      unit: string
+    },
+    index: number,
+    totalBlocks: number
+  }) => {
   const { info, index, totalBlocks } = props;
   const lbr = (index + 1) % 4 != 0;
   const lbb = index < totalBlocks - 4;

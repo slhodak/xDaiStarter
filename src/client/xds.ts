@@ -14,8 +14,8 @@ export interface PresaleDetails {
   tokensLeft: string,
   minInvestInEther: string,
   maxInvestInEther: string,
-  softCapInEther: string,
-  hardCapInEther: string,
+  softcapInEther: string,
+  hardcapInEther: string,
   // Following not applicable to XDPresale
   honeyLiquidityPercentageAllocation?: string,
   honeyLPTokensLockDurationInDays?: string,
@@ -50,3 +50,11 @@ export interface UIImportantLink {
   title: string,
   address?: string
 }
+
+export interface INetworks {
+  [key: string]: string;
+}
+
+declare const __NETWORK__: string;
+const network: string = __NETWORK__;
+export { network as __NETWORK__ };

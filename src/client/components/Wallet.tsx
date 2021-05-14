@@ -1,33 +1,44 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Web3Provider } from '@ethersproject/providers';
 import Web3Modal from 'web3modal';
-import { addressDisplayed } from '../utils';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import { addressDisplayed, getNetwork } from '../utils';
 
-type UseWeb3ModalConfig = {
-  autoLoad: boolean,
-  infuraId: string,
-  NETWORK: string
-};
-
-const useWeb3Modal = function({ autoLoad, infuraId, NETWORK }: UseWeb3ModalConfig) {
+const useWeb3Modal = function() {
   const [provider, setProvider] = useState<Web3Provider>();
   const [account, setAccount] = useState<string>();
 
+  console.log("Connecting on network: ", getNetwork());
   const web3Modal = new Web3Modal({
-    network: NETWORK,
-    cacheProvider: true,
-    // Metamask available by default
-    providerOptions: {}
-  });
+      network: getNetwork(),
+      cacheProvider: true,
+      // Metamask available by default
+      providerOptions: {
+        walletconnect: {
+          package: WalletConnectProvider,
+          options: {
+            rpc: {
+              77: getNetwork(),
+              100: getNetwork(),
+              1337: getNetwork()
+            }
+          }
+        }
+      }
+    });
 
   // Open wallet selection modal
   const loadWeb3Modal = useCallback(async () => {
-    const newProvider = await web3Modal.connect();
-    const provider = new Web3Provider(newProvider);
-    console.debug("Web3Modal connecting to provider", provider);
-    setProvider(provider);
-    const accounts = await provider.listAccounts();
-    setAccount(accounts[0]);
+    try {
+      const newProvider = await web3Modal.connect();
+      const provider = new Web3Provider(newProvider);
+      console.debug("Web3Modal connecting to provider", provider);
+      setProvider(provider);
+      const accounts = await provider.listAccounts();
+      setAccount(accounts[0]);
+    } catch (error) {
+      console.error("Following occurred during loadWeb3Modal: ", error);
+    }
   }, [web3Modal]);
 
   const logoutOfWeb3Modal = useCallback(() => {
@@ -37,7 +48,7 @@ const useWeb3Modal = function({ autoLoad, infuraId, NETWORK }: UseWeb3ModalConfi
   }, [web3Modal]);
 
   useEffect(() => {
-    if (autoLoad && !provider && web3Modal.cachedProvider) {
+    if (!provider && web3Modal.cachedProvider) {
       console.debug("Loading Web3Modal");
       loadWeb3Modal();
     }

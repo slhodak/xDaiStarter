@@ -13,9 +13,7 @@ export default (props: any) => {
   const [whitelistedAddressToBeChecked, setWhitelistedAddressToBeChecked] = useState<string>("");
   const [isWhitelistedAddress, setIsWhitelistedAddress] = useState<boolean>();
   const [etherToSend, setEtherToSend] = useState<BigNumber>();
-  const { provider } = useWeb3Modal({
-    autoLoad: true, infuraId: "", NETWORK: "sokol"
-  });
+  const { provider } = useWeb3Modal();
   console.log("Provider for Dev: ", provider);
 
   async function connectToXDPresale() {

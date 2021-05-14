@@ -48,17 +48,27 @@ module.exports = (env) => {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      fallback: {
+        "os": require.resolve("os-browserify"),
+        "https": require.resolve("https-browserify"),
+        "http": require.resolve("stream-http"),
+        "stream": require.resolve("stream-browserify"),
+        "assert": require.resolve("assert/"),
+        "crypto": require.resolve("crypto-browserify"),
+      }
     },
-    plugins: [
+      plugins: [
       new HtmlWebpackPlugin({
         template: resolve('src/client/template.html')
       }),
       new ProvidePlugin({
         $: 'jquery',
-        jQuery: 'jquery'
+        jQuery: 'jquery',
+        process: 'process/browser',
+        Buffer: [ 'safe-buffer', 'Buffer' ]
       }),
       new DefinePlugin({
-        'process.env.NETWORK': JSON.stringify(env.NETWORK)
+        __NETWORK__: JSON.stringify(env.NETWORK),
       })
     ],
     output: {

@@ -11,6 +11,7 @@ import InvestmentDetailBlock from './InvestmentDetailBlock';
 import ImportantLink from './ImportantLinks';
 import { useWeb3Modal } from './Wallet';
 import { one } from '../utils';
+import { __NETWORK__, PresaleDetails } from '../xds';
 
 export default (props: any) => {
   const [walletInvestment, setWalletInvestment] = useState<string>();
@@ -20,12 +21,11 @@ export default (props: any) => {
   // If the below line is giving you an error about properties that do not exist on type "unknown",
   // go to useLocation definition, then H.LocationState, and change History's LocationState type from "unknown" to "any"
   // or solve this in a better way if you are more familiar with Typescript than I was
-  const location = useLocation();
+  const location = useLocation<{ presaleDetails: PresaleDetails }>();
   const { state } = location;
+  const sam = 'sam';
   const { presaleDetails } = state;
-  const { provider } = useWeb3Modal({
-    autoLoad: true, infuraId: "", NETWORK: process.env.NETWORK || "development"
-  });
+  const { provider } = useWeb3Modal();
   console.log("Provider for DetailCard: ", provider);
 
   useEffect(() => {
@@ -75,7 +75,8 @@ export default (props: any) => {
     try {
       console.log("Investing");
       if (signer && xdPresale) {
-        const minInvestInWei = BigNumber.from("500").mul(one);
+        console.log(presaleDetails.minInvestInEther);
+        const minInvestInWei = BigNumber.from(presaleDetails.minInvestInEther).mul(one);
         console.debug("Sending min investment in wei: ", minInvestInWei);
         const tx = {
           to: xdPresale.address,
@@ -92,16 +93,20 @@ export default (props: any) => {
   }
 
   const details = [
-    { title: 'Softcap', value: presaleDetails.softCapInEther, unit: 'XDAI' },{ title: 'Hardcap', value: presaleDetails.hardCapInEther, unit: 'XDAI' },
-    { title: 'Min Per Wallet', value: presaleDetails.minInvestInWei, unit: 'XDAI' },{ title: 'Max Per wallet', value: presaleDetails.maxInvestInWei, unit: 'XDAI' },
-    { title: 'Presale Rate', value: presaleDetails.pricePerToken, unit: 'XDAI' },{ title: 'Hard HoneySwap Listing Ratio', value: 0, unit: 'XDAI' },
-    { title: 'Liquidity Allocation', value: 0, unit: '%' },{ title: 'Liquidity Lock Duration', value: 0, unit: 'Days' }
+    { title: 'Softcap', value: presaleDetails.softcapInEther, unit: 'XDAI' },
+    { title: 'Hardcap', value: presaleDetails.hardcapInEther, unit: 'XDAI' },
+    { title: 'Min Per Wallet', value: presaleDetails.minInvestInEther, unit: 'XDAI' },
+    { title: 'Max Per wallet', value: presaleDetails.maxInvestInEther, unit: 'XDAI' },
+    { title: 'Presale Rate', value: presaleDetails.tokenPriceInEther, unit: 'XDAI' },
+    { title: 'Hard HoneySwap Listing Ratio', value: '0', unit: 'XDAI' },
+    { title: 'Liquidity Allocation', value: '0', unit: '%' },
+    { title: 'Liquidity Lock Duration', value: '0', unit: 'Days' }
   ];
   // Get user's investment details
   const investment = [
     {
       title: 'Softcap',
-      value: presaleDetails.softCapInEther,
+      value: presaleDetails.softcapInEther,
       unit: 'XDAI',
       button: { text: 'Vote', emphasis: 0 }
     },

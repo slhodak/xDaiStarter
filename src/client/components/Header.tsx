@@ -2,12 +2,8 @@ import { Link } from 'react-router-dom';
 import { Wallet, useWeb3Modal } from './Wallet';
 import '../img/l2.png';
 
-const web3ModalOptions = {
-  autoLoad: true, infuraId: "", NETWORK: "development"
-};
-
 export default (props: any) => {
-  const { provider, account, toggleWeb3Modal } = useWeb3Modal(web3ModalOptions);
+  const { provider, account, toggleWeb3Modal } = useWeb3Modal();
 
   return (
     <header className="header_container">

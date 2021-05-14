@@ -12,7 +12,6 @@ import { getNetwork } from '../utils';
 export default (props: any) => {
   const [pools, setPools] = useState([]);
 
-  console.log("Getting network from: ", process.env.NETWORK);
   const provider = providers.getDefaultProvider(getNetwork());
   console.log("Provider for Pools:", provider);
   const xdsInfo = new Contract(
