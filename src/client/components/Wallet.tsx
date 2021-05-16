@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Web3Provider } from '@ethersproject/providers';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import { addressDisplayed, getNetwork } from '../utils';
+import { addressDisplayed, networks, getNetwork } from '../utils';
 
 const useWeb3Modal = function() {
   const [provider, setProvider] = useState<Web3Provider>();
@@ -18,9 +18,9 @@ const useWeb3Modal = function() {
           package: WalletConnectProvider,
           options: {
             rpc: {
-              77: getNetwork(),
-              100: getNetwork(),
-              1337: getNetwork()
+              1337: networks.DEVELOPMENT,
+              77: networks.SOKOL,
+              100: networks.XDAI
             }
           }
         }
