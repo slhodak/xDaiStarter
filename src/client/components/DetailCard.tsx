@@ -18,9 +18,6 @@ export default (props: any) => {
   const [xdPresale, setXDPresale] = useState<Contract>();
   const [signer, setSigner] = useState<Signer>();
   const [signerAddress, setSignerAddress] = useState<string>();
-  // If the below line is giving you an error about properties that do not exist on type "unknown",
-  // go to useLocation definition, then H.LocationState, and change History's LocationState type from "unknown" to "any"
-  // or solve this in a better way if you are more familiar with Typescript than I was
   const location = useLocation<{ presaleDetails: PresaleDetails }>();
   const { state } = location;
   const sam = 'sam';
