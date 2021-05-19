@@ -6,7 +6,11 @@ const logger = Logger("Utils");
 function Logger (clazz: string) {
   return {
     log: (message: string, object?: Object) => {
-      console.log(`[${clazz}] ${message}`, object && object);
+      if (object) {
+        console.log(`[${clazz}] ${message}`, object);
+      } else {
+        console.log(`[${clazz}] ${message}`);
+      }
     },
     error: (message: string, error: Error) => {
       console.error(`[${clazz}] ${message}`, error);

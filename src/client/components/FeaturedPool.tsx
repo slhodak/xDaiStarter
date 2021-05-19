@@ -58,6 +58,7 @@ export default (props: { address: string }) => {
       // const honeyLiquidityPercentageAllocation = await xdPresale.honeyLiquidityPercentageAllocation();
       // const honeyLPTokensLockDurationInDays = await xdPresale.honeyLPTokensLockDurationInDays();
       const details = {
+        symbol: "XDP",
         address: address,
         saleTitle: toUtf8String(stripZeros(saleTitle)),
         linkTelegram: toUtf8String(stripZeros(linkTelegram)),

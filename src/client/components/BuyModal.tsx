@@ -1,5 +1,3 @@
-// import Icon from './Icon';
-
 export default (props: any) => {
   const { unit, amount, setAmount, handleBuy, setBuying } = props;
   return (
@@ -10,17 +8,15 @@ export default (props: any) => {
         <div className="Xit" onClick={() => setBuying(false)}>
           <svg className="xit_svg" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
             <g>
-              <line stroke-width="4" stroke-linecap="round" id="svg_1" y2="28" x2="28" y1="2" x1="2" stroke="#FFF" fill="none"/>
-              <line stroke-width="4" stroke-linecap="round" id="svg_2" y2="2" x2="28" y1="28" x1="2" stroke="#FFF" fill="none"/>
+              <line strokeWidth="4" strokeLinecap="round" id="svg_1" y2="28" x2="28" y1="2" x1="2" stroke="#FFF" fill="none"/>
+              <line strokeWidth="4" strokeLinecap="round" id="svg_2" y2="2" x2="28" y1="28" x1="2" stroke="#FFF" fill="none"/>
             </g>
           </svg>
         </div>
-        <p className="medium_title">Buy {unit || "XDP"}</p>
+        <p className="medium_title">Buy {unit}</p>
         <div className="amount_input">
-          <input className="amount_number" onChange={setAmount} type="number"></input>
-          <p className="buy_descriptor">{unit || "XDP"}</p>
-          <div className="amount_buttons">
-            <button className="amount_button">
+        <div className="amount_buttons">
+            <button className="amount_button" onClick={() => setAmount(amount + 1)}>
               <svg className="arrow_top" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g>
                   <line strokeLinecap="round" id="svg_3" y2="5" x2="10" y1="8" x1="0" strokeWidth="2" stroke="#000" fill="none"/>
@@ -28,7 +24,7 @@ export default (props: any) => {
                 </g>
               </svg>
             </button>
-            <button className="amount_button">
+            <button className="amount_button" onClick={() => setAmount(amount - 1)}>
               <svg className="arrow_bottom" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g>
                   <line strokeLinecap="round" id="svg_3" y2="5" x2="10" y1="0" x1="0" strokeWidth="2" stroke="#000" fill="none"/>
@@ -37,6 +33,8 @@ export default (props: any) => {
               </svg>
             </button>
           </div>
+          <input className="amount_number" onChange={(e) => setAmount(e.target.value)} type="number" value={amount}></input>
+          <p className="buy_descriptor">{unit}</p>
         </div>
         <button className="btn buy_button" onClick={handleBuy}>Buy</button>
       </div>

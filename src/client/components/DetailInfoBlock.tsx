@@ -3,7 +3,7 @@ export default (
     info: {
       title: string,
       value: string,
-      unit: string
+      symbol: string
     },
     index: number,
     totalBlocks: number
@@ -14,7 +14,7 @@ export default (
   return (
     <div className={`pool_detail_info_block ${lbb ? 'light_border_bottom' : ''} ${lbr ? 'light_border_right' : ''}`}>
       <p className="detail_title">{info.title}</p>
-      <p className="detail_value">{info.value} {info.unit}</p>
+      <p className="detail_value">{info.value} {info.symbol}</p>
     </div>
   )
 

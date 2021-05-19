@@ -6,6 +6,7 @@ export type WalletConfig = {
 }
 
 export interface PresaleDetails {
+  symbol: string,
   address: string,
   saleTitle: string,
   linkTelegram: string,

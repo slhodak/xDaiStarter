@@ -75,18 +75,16 @@ export default (props: any) => {
   async function invest() {
     logger.log("Investing");
     if (signer && xdPresale) {
-      logger.log(amount.toString());
-      const minInvestInWei = BigNumber.from(amount.toString()).mul(one);
-      logger.log("Sending min investment in wei: ", minInvestInWei);
+      const amountInWei = BigNumber.from(amount.toString()).mul(one);
+      logger.log(`Address ${signerAddress} buying ${amountInWei}`);
       const tx = {
         to: xdPresale.address,
-        // TODO: use minInvestInWei (having it in Ether on presale details... advisable?)
-        value: minInvestInWei._hex
+        value: amountInWei._hex
       };
       await signer.sendTransaction(tx);
     }
   }
-  
+
   // Handle the click within the buying modal
   async function handleBuy() {
     try {
@@ -100,33 +98,33 @@ export default (props: any) => {
 
   // Unit should be gotten from presale / token symbol
   const details = [
-    { title: 'Softcap', value: presaleDetails.softcapInEther, unit: 'XDAI' },
-    { title: 'Hardcap', value: presaleDetails.hardcapInEther, unit: 'XDAI' },
-    { title: 'Min Per Wallet', value: presaleDetails.minInvestInEther, unit: 'XDAI' },
-    { title: 'Max Per wallet', value: presaleDetails.maxInvestInEther, unit: 'XDAI' },
-    { title: 'Presale Rate', value: presaleDetails.tokenPriceInEther, unit: 'XDAI' },
-    { title: 'Hard HoneySwap Listing Ratio', value: '0', unit: 'XDAI' },
-    { title: 'Liquidity Allocation', value: '0', unit: '%' },
-    { title: 'Liquidity Lock Duration', value: '0', unit: 'Days' }
+    { title: 'Softcap', value: presaleDetails.softcapInEther, symbol: 'XDAI' },
+    { title: 'Hardcap', value: presaleDetails.hardcapInEther, symbol: 'XDAI' },
+    { title: 'Min Per Wallet', value: presaleDetails.minInvestInEther, symbol: 'XDAI' },
+    { title: 'Max Per wallet', value: presaleDetails.maxInvestInEther, symbol: 'XDAI' },
+    { title: 'Presale Rate', value: presaleDetails.tokenPriceInEther, symbol: 'XDAI' },
+    { title: 'Hard HoneySwap Listing Ratio', value: '0', symbol: 'XDAI' },
+    { title: 'Liquidity Allocation', value: '0', symbol: '%' },
+    { title: 'Liquidity Lock Duration', value: '0', symbol: 'Days' }
   ];
   // Get user's investment details
   const investment = [
     {
       title: 'Softcap',
       value: presaleDetails.softcapInEther,
-      unit: 'XDAI',
+      symbol: 'XDAI',
       button: { text: 'Vote', emphasis: 0 }
     },
     {
       title: 'Your Tokens',
-      value: '2',
-      unit: '',
+      value: '',
+      symbol: presaleDetails.symbol,
       button: { text: 'Claim Token', emphasis: 2 }
     },
     {
       title: 'Your XDAI Investment',
       value: walletInvestment,
-      unit: 'XDAI',
+      symbol: 'XDAI',
       button: { text: 'Buy', emphasis: 1 },
       handleClick: () => setBuying(true)
     },
@@ -146,7 +144,7 @@ export default (props: any) => {
   return (
     <div>
       <Header />
-      {buying && <BuyModal amount={amount} setAmount={setAmount} handleBuy={handleBuy} setBuying={setBuying} />}
+      {buying && <BuyModal symbol={presaleDetails.symbol} amount={amount} setAmount={setAmount} handleBuy={handleBuy} setBuying={setBuying} />}
       <div className="detail_card">
         <section className="pool_detail detail_section">
           <div className="pool_detail_top">
