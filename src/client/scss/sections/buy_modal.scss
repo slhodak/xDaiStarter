@@ -1,0 +1,95 @@
+.buy_modal {
+  background-color: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+  z-index: 1;
+  color: white;
+  $xit_height: 40px;
+  .buy_interface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 200px auto;
+    width: 400px;
+    background-color: $xdsGreyBlue;
+    border-radius: $xdsBorderRadius;
+    padding-bottom: $xit_height;
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    .Xit {
+      margin-right: 8px;
+      margin-top: 8px;
+      height: $xit_height;
+      width: $xit_height;
+      padding: 5px;
+      border-radius: 50%;
+      align-self: end;
+      color: rgba(255, 255, 255, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      .xit_svg {
+        scale: 0.8;
+      }
+    }
+    .Xit:hover {
+      transition: $transition;
+      background-color: $xdsAccent;
+      color: $white;
+    }
+    .buy_descriptor {
+      @extend .medium_descriptor;
+      font-size: 2em;
+    }
+    .amount_input {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 50%;
+      margin-top: 10px;
+      .amount_number {
+        width: 80px;
+        font-size: 1.5em;
+        border: none;
+        border-radius: 8px;
+      }
+      .amount_buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .amount_button {
+          height: 20px;
+          border-radius: 3px;
+          width: 2em;
+          .arrow_top {
+            position: relative;
+            right: 3px;
+          }
+          .arrow_bottom {
+            position: relative;
+            top: 4px;
+            right: 3px;
+          }
+        }
+      }
+    }
+    .buy_button {
+      color: white;
+      padding: 18px 30px;
+      margin-top: 20px;
+    }
+  }
+}

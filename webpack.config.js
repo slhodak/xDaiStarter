@@ -5,6 +5,7 @@ const { ProvidePlugin, DefinePlugin } = require('webpack');
 module.exports = (env) => {
   return {
     mode: 'development',
+    devtool: 'source-map',
     entry: './src/client/index.tsx',
     module: {
       rules: [

@@ -12,15 +12,16 @@ import '../scss/style.scss';
 import '../img/blockIcn.png';
 import '../img/tg.png';
 import '../img/share.png';
-import { getNetwork } from '../utils';
+import { getNetwork, Logger } from '../utils';
 
 export default (props: { address: string }) => {
+  const logger = Logger("FeaturedPool");
   const { address } = props;
-  console.debug(`Creating pool block for presale at ${address}`);
+  logger.log(`Creating pool block for presale at ${address}`);
   const [presaleDetails, setPresaleDetails] = useState<PresaleDetails>();
 
   const provider = providers.getDefaultProvider(getNetwork());
-  console.log("Provider for FeaturedPool:", provider);
+  logger.log("Provider for FeaturedPool:", provider);
   const xdPresale = new Contract(
     address,
     abis.xdPresale,
@@ -28,32 +29,32 @@ export default (props: { address: string }) => {
   );
   useEffect(() => {
     if (provider && !presaleDetails) {
-      console.log('Calling for details');
+      logger.log('Calling for details');
       getPresaleDetails();
     }
   });
 
   async function getPresaleDetails() {
     try {
-      console.debug("About to get details...");
+      logger.log("About to get details...");
       const saleTitle = await xdPresale.saleTitle();
       const linkTelegram = await xdPresale.linkTelegram();
       const linkTwitter = await xdPresale.linkTwitter();
       const linkGithub = await xdPresale.linkGithub();
       const linkWebsite = await xdPresale.linkWebsite();
       const linkLogo = await xdPresale.linkLogo();
-      console.debug("Got logo link...");
+      logger.log("Got logo link...");
       const totalInvestorsCount = await xdPresale.totalInvestorsCount();
       const totalCollectedWei = await xdPresale.totalCollectedWei();
       const tokenPriceInWei = await xdPresale.tokenPriceInWei();
       const tokensLeft = await xdPresale.tokensLeft();
-      console.debug("Got tokensLeft...");
+      logger.log("Got tokensLeft...");
       const minInvestInWei = await xdPresale.minInvestInWei();
       const maxInvestInWei = await xdPresale.maxInvestInWei();
       const softcapInWei = await xdPresale.softCapInWei();
       const hardcapInWei = await xdPresale.hardCapInWei();
       // Following not applicable to XDPresale
-      console.debug("Got hardcap...");
+      logger.log("Got hardcap...");
       // const honeyLiquidityPercentageAllocation = await xdPresale.honeyLiquidityPercentageAllocation();
       // const honeyLPTokensLockDurationInDays = await xdPresale.honeyLPTokensLockDurationInDays();
       const details = {
@@ -77,10 +78,10 @@ export default (props: { address: string }) => {
         // honeyLPTokensLockDurationInDays,
         percentHardcapInvested: formatEther(totalCollectedWei.div(hardcapInWei))
       };
-      console.debug("Found presale details: ", details);
+      logger.log("Found presale details: ", details);
       setPresaleDetails(details);
     } catch (error) {
-      console.error("Error getting all details", error);
+      logger.error("Error getting all details", error);
     }
   }
 
@@ -91,14 +92,14 @@ export default (props: { address: string }) => {
         <div>
           <img src="img/blockIcn.png" alt="icn"/>
         </div>
-        <h4>{presaleDetails?.saleTitle || "no_title"}</h4>
+        <h4>{presaleDetails?.saleTitle || "Loading..."}</h4>
       </div>
       <div className="pool_info">
         <div className="pool_info_top nonvoting">
           <div className="progress_bar_container">
             <div className="progress_bar_wrap">
               <span className="progress_bar_green2">
-                <p>{presaleDetails?.percentHardcapInvested || "2"}%</p>
+                <p>{presaleDetails?.percentHardcapInvested || "0"}%</p>
               </span>
               <div className="progress_counter">
                 <span>{presaleDetails?.totalCollectedEther || "0.00"} XDAI </span>

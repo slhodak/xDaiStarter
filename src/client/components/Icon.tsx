@@ -5,7 +5,8 @@ type Icons = {
   twitter: Function,
   website: Function,
   github: Function,
-  lock: Function
+  lock: Function,
+  Xit: Function
 }
 
 const icons: Icons = {
@@ -44,6 +45,17 @@ const icons: Icons = {
       <svg className='lock' width="34" height="38" viewBox="0 0 34 38" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M28.6667 17H5.33333C3.49238 17 2 18.5467 2 20.4545V32.5455C2 34.4533 3.49238 36 5.33333 36H28.6667C30.5076 36 32 34.4533 32 32.5455V20.4545C32 18.5467 30.5076 17 28.6667 17Z" stroke="#3EC6C1" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M9 17V10.3333C9 8.1232 9.89553 6.00358 11.4896 4.44078C13.0837 2.87797 15.2457 2 17.5 2C19.7543 2 21.9163 2.87797 23.5104 4.44078C25.1045 6.00358 26 8.1232 26 10.3333V17" stroke="#3EC6C1" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    )
+  },
+  Xit: () => {
+    return (
+      <svg width="38" height="38" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <title>Layer 1</title>
+          <line strokeWidth="22" id="svg_1" y2="552.00001" x2="668.00001" y1="33" x1="148" stroke="#000" fill="none"/>
+          <line transform="rotate(90, 408, 292.5)" strokeWidth="22" id="svg_2" y2="552.00001" x2="668.00001" y1="33" x1="148" stroke="#000" fill="none"/>
+        </g>
       </svg>
     )
   }

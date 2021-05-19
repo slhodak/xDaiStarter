@@ -1,5 +1,5 @@
 import abis from '../../abis';
-import addresses from '../../addresses.json';
+import _addresses from '../../addresses.json';
 import {
   providers,
   Contract
@@ -7,22 +7,27 @@ import {
 import VotingPool from './VotingPool';
 import FeaturedPool from './FeaturedPool';
 import { useEffect, useState } from 'react';
-import { getNetwork } from '../utils';
+import { getNetwork, Logger } from '../utils';
+import { __NETWORK__, INetworkContracts } from '../xds';
+const addresses: INetworkContracts = _addresses;
 
 export default (props: any) => {
+  const logger = Logger("Pools");
   const [pools, setPools] = useState([]);
 
   const provider = providers.getDefaultProvider(getNetwork());
-  console.log("Provider for Pools:", provider);
+  logger.log("Provider: ", provider);
+  const networkAddresses: any = addresses[__NETWORK__];
+  const xdsInfoAddress = networkAddresses.XDaiStarterInfo;
   const xdsInfo = new Contract(
-    addresses.XDaiStarterInfo,
+    xdsInfoAddress,
     abis.xdsInfo,
     provider
   );
   useEffect(() => {
     if (provider && pools.length === 0) {
       // Dependency array not working with other values because (?) React Router reloads page on rerender
-      console.log("Fetching pools");
+      logger.log("Fetching pools");
       getPools();
     }
   });
@@ -38,10 +43,10 @@ export default (props: any) => {
         presales.push(await xdsInfo.getPresaleAddress(await xdsInfo.getPresaleAddress(i)));
       }
       
-      console.debug(`Found ${temp.length} pools: ${temp}`);
+      logger.log(`Found ${temp.length} pools: ${temp}`);
       setPools(temp);
     } catch(error) {
-      console.error("Error getting pools: ", error);
+      logger.error("Error getting pools: ", error);
     }
   }
 

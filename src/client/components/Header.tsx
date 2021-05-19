@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Wallet, useWeb3Modal } from './Wallet';
+import Wallet from './Wallet';
+import useWeb3Modal from '../useWeb3Modal';
 import '../img/l2.png';
 
 export default (props: any) => {
-  const { provider, account, toggleWeb3Modal } = useWeb3Modal();
+  const { account, toggleWeb3Modal } = useWeb3Modal();
 
   return (
     <header className="header_container">
@@ -16,7 +17,7 @@ export default (props: any) => {
             <a href="#">Pools</a>
             <a href="#">Stake</a>
             <Link to="/apply">Create Pool</Link>
-            <Wallet provider={provider} account={account} toggleWeb3Modal={toggleWeb3Modal} />
+            <Wallet account={account} toggleWeb3Modal={toggleWeb3Modal} />
           </div>
         </div>
       </div>

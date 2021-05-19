@@ -4,10 +4,10 @@ const XDaiStarterStaking = artifacts.require("XDaiStarterStaking");
 const XDaiStarterFactory = artifacts.require("XDaiStarterFactory");
 const { saveContractAddress } = require("../lib/utils");
 
-module.exports = async (deployer) => {
+module.exports = async (deployer, network) => {
   let xdpToken = await XDPToken.deployed();
   let xdsInfo = await XDaiStarterInfo.deployed();
   let xdsStakingPool = await XDaiStarterStaking.deployed();
   await deployer.deploy(XDaiStarterFactory, xdpToken.address, xdsInfo.address, xdsStakingPool.address);
-  saveContractAddress(XDaiStarterFactory);
+  saveContractAddress(XDaiStarterFactory, network);
 };

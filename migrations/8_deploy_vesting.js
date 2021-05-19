@@ -1,7 +1,7 @@
 const XDSVesting = artifacts.require("XDSVesting");
 const { saveContractAddress } = require("../lib/utils");
 
-module.exports = async (deployer) => {
+module.exports = async (deployer, network) => {
   await deployer.deploy(XDSVesting);
-  saveContractAddress(XDSVesting);
+  saveContractAddress(XDSVesting, network);
 };

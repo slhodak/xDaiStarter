@@ -1,5 +1,10 @@
 import { BigNumber } from 'ethers';
 
+export type WalletConfig = {
+  account?: string,
+  toggleWeb3Modal: Function
+}
+
 export interface PresaleDetails {
   address: string,
   saleTitle: string,
@@ -53,6 +58,10 @@ export interface UIImportantLink {
 
 export interface INetworks {
   [key: string]: string;
+}
+
+export interface INetworkContracts {
+  [key: string]: Object
 }
 
 declare const __NETWORK__: string;

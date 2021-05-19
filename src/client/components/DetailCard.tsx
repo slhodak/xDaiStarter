@@ -7,26 +7,31 @@ import Header from './Header';
 import Footer from './Footer';
 import Disclaimer from './Disclaimer';
 import DetailInfoBlock from './DetailInfoBlock';
+import BuyModal from './BuyModal';
 import InvestmentDetailBlock from './InvestmentDetailBlock';
 import ImportantLink from './ImportantLinks';
-import { useWeb3Modal } from './Wallet';
-import { one } from '../utils';
+import useWeb3Modal from '../useWeb3Modal';
+import { one, Logger } from '../utils';
 import { __NETWORK__, PresaleDetails } from '../xds';
 
 export default (props: any) => {
+  const logger = Logger("DetailCard");
+  const location = useLocation<{ presaleDetails: PresaleDetails }>();
+  const { state } = location;
+  const { presaleDetails } = state;
+
+  const [amount, setAmount] = useState(parseInt(presaleDetails.minInvestInEther));
+  const [buying, setBuying] = useState(false);
   const [walletInvestment, setWalletInvestment] = useState<string>();
   const [xdPresale, setXDPresale] = useState<Contract>();
   const [signer, setSigner] = useState<Signer>();
   const [signerAddress, setSignerAddress] = useState<string>();
-  const location = useLocation<{ presaleDetails: PresaleDetails }>();
-  const { state } = location;
-  const sam = 'sam';
-  const { presaleDetails } = state;
+
   const { provider } = useWeb3Modal();
-  console.log("Provider for DetailCard: ", provider);
+  logger.log("Provider for DetailCard: ", provider);
 
   useEffect(() => {
-    console.log("Using effect...");
+    logger.log("Using effect...");
     if (provider) {
       const xdPresale = new Contract(
         presaleDetails.address,
@@ -34,7 +39,7 @@ export default (props: any) => {
         provider
       );
       const signer = provider.getSigner();
-      console.debug("Connecting to XDPresale with signer: ", signer);
+      logger.log("Connecting to XDPresale with signer: ", signer);
       setSigner(signer);
       const connectedXDPresale = xdPresale.connect(signer);
       setXDPresale(connectedXDPresale);
@@ -44,7 +49,7 @@ export default (props: any) => {
 
   async function getSignerAddress(signer: Signer) {
     const address = await signer.getAddress()
-    console.debug("Got signer address: ", address);
+    logger.log("Got signer address: ", address);
     setSignerAddress(address);
   }
 
@@ -56,39 +61,44 @@ export default (props: any) => {
     try {
       if (xdPresale && signerAddress) {
         const walletInvestment = await xdPresale.investments(signerAddress);
-        console.log("Got wallet total investment: ", walletInvestment);
+        logger.log("Got wallet total investment: ", walletInvestment);
         setWalletInvestment(formatEther(walletInvestment));
       } else {
-        console.debug("No XDPresale available to read investment");
+        logger.log("No XDPresale available to read investment");
       }
     } catch (error) {
-      console.error("Error getting investment details: ", error)
+      logger.error("Error getting investment details: ", error)
     }
   }
 
-  // Clicking "buy" button just tries to buy 1 token for now
-  // Or opens Metamask where you can say how much value you're sending
+  // Transacts with blockchain
   async function invest() {
+    logger.log("Investing");
+    if (signer && xdPresale) {
+      logger.log(amount.toString());
+      const minInvestInWei = BigNumber.from(amount.toString()).mul(one);
+      logger.log("Sending min investment in wei: ", minInvestInWei);
+      const tx = {
+        to: xdPresale.address,
+        // TODO: use minInvestInWei (having it in Ether on presale details... advisable?)
+        value: minInvestInWei._hex
+      };
+      await signer.sendTransaction(tx);
+    }
+  }
+  
+  // Handle the click within the buying modal
+  async function handleBuy() {
     try {
-      console.log("Investing");
-      if (signer && xdPresale) {
-        console.log(presaleDetails.minInvestInEther);
-        const minInvestInWei = BigNumber.from(presaleDetails.minInvestInEther).mul(one);
-        console.debug("Sending min investment in wei: ", minInvestInWei);
-        const tx = {
-          to: xdPresale.address,
-          // TODO: use minInvestInWei (having it in Ether on presale details... advisable?)
-          value: minInvestInWei._hex
-        };
-        await signer.sendTransaction(tx);
-      } else {
-        console.debug("No XDPresale available to send investment");
-      }
+      await invest();
+      setBuying(false);
+      setAmount(parseInt(presaleDetails.minInvestInEther));
     } catch (error) {
-      console.error("Error sending investment: ", error);
+      logger.error("Error handling buy: ", error);
     }
   }
 
+  // Unit should be gotten from presale / token symbol
   const details = [
     { title: 'Softcap', value: presaleDetails.softcapInEther, unit: 'XDAI' },
     { title: 'Hardcap', value: presaleDetails.hardcapInEther, unit: 'XDAI' },
@@ -118,7 +128,7 @@ export default (props: any) => {
       value: walletInvestment,
       unit: 'XDAI',
       button: { text: 'Buy', emphasis: 1 },
-      handleClick: invest
+      handleClick: () => setBuying(true)
     },
     {
       icon: 'lock',
@@ -136,6 +146,7 @@ export default (props: any) => {
   return (
     <div>
       <Header />
+      {buying && <BuyModal amount={amount} setAmount={setAmount} handleBuy={handleBuy} setBuying={setBuying} />}
       <div className="detail_card">
         <section className="pool_detail detail_section">
           <div className="pool_detail_top">
@@ -143,7 +154,7 @@ export default (props: any) => {
               <img src="img/blockIcn.png" alt="icn"/>
               <div className="pool_detail_title">
                 <h4>{presaleDetails.saleTitle}</h4>
-                <p>asdfasdfasdfasdf</p>
+                <p>Presale Subheader</p>
               </div>
             </div>
             <button className="btn">Open in 5 Days</button>

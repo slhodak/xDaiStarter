@@ -1,10 +1,23 @@
 import { BigNumber } from 'ethers';
 import { INetworks, __NETWORK__ } from './xds';
 
+const logger = Logger("Utils");
+
+function Logger (clazz: string) {
+  return {
+    log: (message: string, object?: Object) => {
+      console.log(`[${clazz}] ${message}`, object && object);
+    },
+    error: (message: string, error: Error) => {
+      console.error(`[${clazz}] ${message}`, error);
+    }
+  }
+};
+
 const networks: INetworks = {
-  XDAI: "https://dai.poa.network",
-  SOKOL: "https://sokol.poa.network",
-  DEVELOPMENT: "http://127.0.0.1:8545"
+  xdai: "https://dai.poa.network",
+  sokol: "https://sokol.poa.network",
+  development: "http://127.0.0.1:8545"
 };
 
 const addressDisplayed = (address: string) => {
@@ -17,10 +30,10 @@ const one = BigNumber.from("1000000000000000000");
 // Also avoid importing ./xds into more files. Utils is a common import
 const getNetwork = () => {
   try {
-    console.log("Getting url for: ", __NETWORK__);
+    logger.log(`Getting url for: ${__NETWORK__}`);
     return networks[__NETWORK__];
   } catch (error) {
-    console.error("Error getting network: ", error);
+    logger.error("Error getting network: ", error);
   }
 };
 
@@ -28,5 +41,6 @@ export {
   addressDisplayed,
   one,
   networks,
-  getNetwork
+  getNetwork,
+  Logger
 };

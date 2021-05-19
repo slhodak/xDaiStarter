@@ -1,11 +1,12 @@
 import abis from '../../abis';
 import Header from './Header';
-import { useWeb3Modal } from './Wallet';
+import useWeb3Modal from '../useWeb3Modal';
 import { useState } from 'react';
 import { Contract, Signer, BigNumber } from 'ethers';
-import { one } from '../utils';
+import { one, Logger } from '../utils';
 
 export default (props: any) => {
+  const logger = Logger("Dev");
   const [signer, setSigner] = useState<Signer>();
   const [xdPresaleAddress, setXDPresaleAddress] = useState<string>("");
   const [whitelistAddress, setWhitelistAddress] = useState<string>("");
@@ -14,7 +15,7 @@ export default (props: any) => {
   const [isWhitelistedAddress, setIsWhitelistedAddress] = useState<boolean>();
   const [etherToSend, setEtherToSend] = useState<BigNumber>();
   const { provider } = useWeb3Modal();
-  console.log("Provider for Dev: ", provider);
+  logger.log("Provider for Dev: ", provider);
 
   async function connectToXDPresale() {
     if (provider) {
@@ -32,7 +33,7 @@ export default (props: any) => {
       setXDPresale(connectedXDPresale);
       setXDPresaleAddress("");
     } else {
-      console.error("Need provider");
+      logger.error("Error while connecting to XDPresale", new Error("No provider"));
     }
   }
 
@@ -43,7 +44,7 @@ export default (props: any) => {
         setWhitelistAddress("");
       }
     } catch(error) {
-      console.error("Error whitelisting address: ", error);
+      logger.error("Error whitelisting address: ", error);
     }
   }
   
@@ -57,7 +58,7 @@ export default (props: any) => {
     try {
       if (signer && xdPresale && etherToSend) {
         const value = etherToSend.mul(one);
-        console.debug("Sending value: ", value);
+        logger.log("Sending value: ", value);
         const tx = {
           to: xdPresale.address,
           value: value
@@ -65,7 +66,7 @@ export default (props: any) => {
         await signer.sendTransaction(tx);
       }
     } catch (error) {
-      console.error("Error sending Ether: ", error);
+      logger.error("Error sending Ether: ", error);
     }
   }
 
