@@ -72,7 +72,6 @@ export default (props: any) => {
 
   return(
     <div>
-      <Header />
       <div className="dev">
         <div>
           <h3>XDPresale</h3>

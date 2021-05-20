@@ -6,7 +6,6 @@ import ActionCall from './ActionCall';
 export default (props: any) => {
   return (
     <div>
-      <Header />
       <ActionCall top={true}/>
       <Pools />
       <ActionCall top={false}/>

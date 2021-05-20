@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { BigNumber, Contract, Signer, utils } from 'ethers';
 const { formatEther } = utils;
 import abis from '../../abis';
-import Header from './Header';
 import Footer from './Footer';
 import Disclaimer from './Disclaimer';
 import DetailInfoBlock from './DetailInfoBlock';
@@ -143,7 +142,6 @@ export default (props: any) => {
   ];
   return (
     <div>
-      <Header />
       {buying && <BuyModal symbol={presaleDetails.symbol} amount={amount} setAmount={setAmount} handleBuy={handleBuy} setBuying={setBuying} />}
       <div className="detail_card">
         <section className="pool_detail detail_section">

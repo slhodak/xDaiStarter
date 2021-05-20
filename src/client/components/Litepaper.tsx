@@ -7,7 +7,6 @@ import '../img/litepaper_diagram_2.png';
 export default (props: any) => {
   return (
     <div className="litepaper_page">
-      <Header />
       <div className="litepaper_main">
         <section className="large_title litepaper">
           <h1>
