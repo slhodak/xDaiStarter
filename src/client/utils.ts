@@ -31,10 +31,8 @@ const addressDisplayed = (address: string) => {
 const one = BigNumber.from("1000000000000000000");
 
 // Use a method in case __NETWORK__ is undefined or invalid
-// Also avoid importing ./xds into more files. Utils is a common import
 const getNetwork = () => {
   try {
-    logger.log(`Getting url for: ${__NETWORK__}`);
     return networks[__NETWORK__];
   } catch (error) {
     logger.error("Error getting network: ", error);

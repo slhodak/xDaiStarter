@@ -16,7 +16,6 @@ export default (props: any) => {
   const [pools, setPools] = useState([]);
 
   const provider = providers.getDefaultProvider(getNetwork());
-  logger.log("Provider: ", provider);
   const networkAddresses: any = addresses[__NETWORK__];
   const xdsInfoAddress = networkAddresses.XDaiStarterInfo;
   const xdsInfo = new Contract(
@@ -27,7 +26,7 @@ export default (props: any) => {
   useEffect(() => {
     if (provider && pools.length === 0) {
       // Dependency array not working with other values because (?) React Router reloads page on rerender
-      logger.log("Fetching pools");
+      logger.log("Fetching pools with provider", provider);
       getPools();
     }
   });

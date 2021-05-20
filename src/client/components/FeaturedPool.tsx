@@ -17,44 +17,40 @@ import { getNetwork, Logger } from '../utils';
 export default (props: { address: string }) => {
   const logger = Logger("FeaturedPool");
   const { address } = props;
-  logger.log(`Creating pool block for presale at ${address}`);
   const [presaleDetails, setPresaleDetails] = useState<PresaleDetails>();
-
+  
   const provider = providers.getDefaultProvider(getNetwork());
-  logger.log("Provider for FeaturedPool:", provider);
   const xdPresale = new Contract(
     address,
     abis.xdPresale,
     provider
-  );
-  useEffect(() => {
-    if (provider && !presaleDetails) {
-      logger.log('Calling for details');
+    );
+    useEffect(() => {
+      if (provider && !presaleDetails) {
+      logger.log(`Getting details for presale at ${address}`);
       getPresaleDetails();
     }
   });
 
   async function getPresaleDetails() {
     try {
-      logger.log("About to get details...");
       const saleTitle = await xdPresale.saleTitle();
       const linkTelegram = await xdPresale.linkTelegram();
       const linkTwitter = await xdPresale.linkTwitter();
       const linkGithub = await xdPresale.linkGithub();
       const linkWebsite = await xdPresale.linkWebsite();
       const linkLogo = await xdPresale.linkLogo();
-      logger.log("Got logo link...");
+      logger.log("Got string info...");
       const totalInvestorsCount = await xdPresale.totalInvestorsCount();
       const totalCollectedWei = await xdPresale.totalCollectedWei();
       const tokenPriceInWei = await xdPresale.tokenPriceInWei();
       const tokensLeft = await xdPresale.tokensLeft();
-      logger.log("Got tokensLeft...");
       const minInvestInWei = await xdPresale.minInvestInWei();
       const maxInvestInWei = await xdPresale.maxInvestInWei();
       const softcapInWei = await xdPresale.softCapInWei();
       const hardcapInWei = await xdPresale.hardCapInWei();
       // Following not applicable to XDPresale
-      logger.log("Got hardcap...");
+      logger.log("Got integer info...");
       // const honeyLiquidityPercentageAllocation = await xdPresale.honeyLiquidityPercentageAllocation();
       // const honeyLPTokensLockDurationInDays = await xdPresale.honeyLPTokensLockDurationInDays();
       const details = {

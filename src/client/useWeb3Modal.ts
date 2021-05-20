@@ -8,9 +8,10 @@ const useWeb3Modal = function() {
   const logger = Logger("Web3Modal");
   const [provider, setProvider] = useState<Web3Provider>();
   const [account, setAccount] = useState<string>();
+  const [web3Modal, setWeb3Modal] = useState<Web3Modal>();
 
-  logger.log("Connecting on network: ", getNetwork());
   const createWeb3Modal = () => {
+    logger.log("Creating Web3Modal with network url: ", getNetwork());
     try {
       return new Web3Modal({
         network: getNetwork(),
@@ -33,7 +34,6 @@ const useWeb3Modal = function() {
       logger.error("Error creating web3Modal: ", error)
     }
   };
-  const web3Modal = createWeb3Modal();
 
   // Open wallet selection modal
   const loadWeb3Modal = useCallback(async () => {
@@ -60,6 +60,9 @@ const useWeb3Modal = function() {
   }, [web3Modal]);
 
   useEffect(() => {
+    if (!web3Modal) {
+      setWeb3Modal(createWeb3Modal());
+    }
     if (!provider && web3Modal && web3Modal.cachedProvider) {
       logger.log("Loading Web3Modal");
       loadWeb3Modal();
