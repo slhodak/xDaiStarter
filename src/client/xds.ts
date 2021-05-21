@@ -1,5 +1,10 @@
 import { BigNumber } from 'ethers';
 
+declare global {
+  interface Window { xds: any; }
+}
+window.xds = window.xds || {};
+
 export type WalletConfig = {
   account?: string,
   toggleWeb3Modal: Function
