@@ -15,9 +15,9 @@ import { __NETWORK__, PresaleDetails } from '../xds';
 
 export default (props: any) => {
   const logger = Logger("DetailCard");
-  const location = useLocation<{ presaleDetails: PresaleDetails }>();
+  const location = useLocation<{ presaleDetails: PresaleDetails, percentHardcapInvested: string }>();
   const { state } = location;
-  const { presaleDetails } = state;
+  const { presaleDetails, percentHardcapInvested } = state;
 
   const [amount, setAmount] = useState<BigNumber>(presaleDetails.minInvestInWei);
   const [buying, setBuying] = useState(false);
@@ -170,13 +170,13 @@ export default (props: any) => {
             </div>
             <div className="progress_bar">
               <div className="progress_bar-wrap">
-                <span className="progress_bar-green2">
+                <span className="progress_bar-green2" style={{width: `${percentHardcapInvested}%`}}>
                 </span>
               </div>
             </div>
             <div className="progress_percent_fraction">
-              <p className="detail_title">{formatEther(presaleDetails.totalCollectedWei.div(presaleDetails.hardcapInWei))}%</p>
-              <p className="detail_title">{formatEther(presaleDetails.totalCollectedWei)}/{formatEther(presaleDetails.hardcapInWei)} XDAI</p>
+              <p className="detail_title">{percentHardcapInvested}%</p>
+              <p className="detail_title">{formatEther(presaleDetails.totalCollectedWei)}/{formatEther(presaleDetails.hardcapInWei)} {presaleDetails.symbol}</p>
             </div>
           </div>
         </section>

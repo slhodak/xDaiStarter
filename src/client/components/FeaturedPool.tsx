@@ -18,7 +18,8 @@ export default (props: { address: string }) => {
   const logger = Logger("FeaturedPool");
   const { address } = props;
   const [presaleDetails, setPresaleDetails] = useState<PresaleDetails>();
-  
+  const [percentHardcapInvested, setPercentHardcapInvested] = useState<string>("0");
+
   const provider = providers.getDefaultProvider(getNetwork()?.endpoint);
   const xdPresale = new Contract(
     address,
@@ -77,6 +78,7 @@ export default (props: { address: string }) => {
       };
       logger.log("Found presale details: ", details);
       setPresaleDetails(details);
+      setPercentHardcapInvested(formatEther(totalCollectedWei.div(hardcapInWei)));
     } catch (error) {
       logger.error("Error getting all details", error);
     }
@@ -94,8 +96,8 @@ export default (props: { address: string }) => {
         <div className="pool_info_top nonvoting">
           <div className="progress_bar_container">
             <div className="progress_bar_wrap">
-              <span className="progress_bar_green2">
-                <p>{presaleDetails ? formatEther(presaleDetails.totalCollectedWei.div(presaleDetails.hardcapInWei)) : "0"}%</p>
+              <span className="progress_bar_green2" style={{width: `${percentHardcapInvested}%`}}>
+                <p>{percentHardcapInvested}%</p>
               </span>
               <div className="progress_counter">
                 <span>{presaleDetails ? formatEther(presaleDetails.totalCollectedWei) : "0.00"} {presaleDetails?.symbol} </span>
@@ -126,7 +128,8 @@ export default (props: { address: string }) => {
         <Link to={{
           pathname: '/pooldetail',
           state: {
-            presaleDetails
+            presaleDetails,
+            percentHardcapInvested
           }
         }}><button className="btn">Filled</button></Link>
       </div>
