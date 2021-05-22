@@ -19,9 +19,9 @@ export default (props: any) => {
   const { state } = location;
   const { presaleDetails } = state;
 
-  const [amount, setAmount] = useState(parseInt(presaleDetails.minInvestInEther));
+  const [amount, setAmount] = useState<BigNumber>(presaleDetails.minInvestInWei);
   const [buying, setBuying] = useState(false);
-  const [walletInvestment, setWalletInvestment] = useState<string>();
+  const [walletInvestment, setWalletInvestment] = useState<BigNumber>(BigNumber.from("0"));
   const [xdPresale, setXDPresale] = useState<Contract>();
   const [signer, setSigner] = useState<Signer>();
   const [signerAddress, setSignerAddress] = useState<string>();
@@ -61,7 +61,7 @@ export default (props: any) => {
       if (xdPresale && signerAddress) {
         const walletInvestment = await xdPresale.investments(signerAddress);
         logger.log("Got wallet total investment: ", walletInvestment);
-        setWalletInvestment(formatEther(walletInvestment));
+        setWalletInvestment(walletInvestment);
       } else {
         logger.log("No XDPresale available to read investment");
       }
@@ -89,7 +89,7 @@ export default (props: any) => {
     try {
       await invest();
       setBuying(false);
-      setAmount(parseInt(presaleDetails.minInvestInEther));
+      setAmount(presaleDetails.minInvestInWei);
     } catch (error) {
       logger.error("Error handling buy: ", error);
     }
@@ -97,33 +97,33 @@ export default (props: any) => {
 
   // Unit should be gotten from presale / token symbol
   const details = [
-    { title: 'Softcap', value: presaleDetails.softcapInEther, symbol: 'XDAI' },
-    { title: 'Hardcap', value: presaleDetails.hardcapInEther, symbol: 'XDAI' },
-    { title: 'Min Per Wallet', value: presaleDetails.minInvestInEther, symbol: 'XDAI' },
-    { title: 'Max Per wallet', value: presaleDetails.maxInvestInEther, symbol: 'XDAI' },
-    { title: 'Presale Rate', value: presaleDetails.tokenPriceInEther, symbol: 'XDAI' },
-    { title: 'Hard HoneySwap Listing Ratio', value: '0', symbol: 'XDAI' },
-    { title: 'Liquidity Allocation', value: '0', symbol: '%' },
-    { title: 'Liquidity Lock Duration', value: '0', symbol: 'Days' }
+    { title: 'Softcap', value: presaleDetails.softcapInWei, unit: presaleDetails.symbol },
+    { title: 'Hardcap', value: presaleDetails.hardcapInWei, unit: presaleDetails.symbol },
+    { title: 'Min Per Wallet', value: presaleDetails.minInvestInWei, unit: presaleDetails.symbol },
+    { title: 'Max Per wallet', value: presaleDetails.maxInvestInWei, unit: presaleDetails.symbol },
+    { title: 'Presale Rate', value: presaleDetails.tokenPriceInWei, unit: presaleDetails.symbol },
+    { title: 'Hard HoneySwap Listing Ratio', value: BigNumber.from('0'), unit: presaleDetails.symbol },
+    { title: 'Liquidity Allocation', value: BigNumber.from('0'), unit: '%' },
+    { title: 'Liquidity Lock Duration', value: BigNumber.from('0'), unit: 'Days' }
   ];
   // Get user's investment details
   const investment = [
     {
       title: 'Softcap',
-      value: presaleDetails.softcapInEther,
-      symbol: 'XDAI',
+      value: presaleDetails.softcapInWei,
+      unit: presaleDetails.symbol,
       button: { text: 'Vote', emphasis: 0 }
     },
     {
       title: 'Your Tokens',
-      value: '',
-      symbol: presaleDetails.symbol,
+      value: BigNumber.from("0"),
+      unit: presaleDetails.symbol,
       button: { text: 'Claim Token', emphasis: 2 }
     },
     {
       title: 'Your XDAI Investment',
       value: walletInvestment,
-      symbol: 'XDAI',
+      unit: presaleDetails.symbol,
       button: { text: 'Buy', emphasis: 1 },
       handleClick: () => setBuying(true)
     },
@@ -161,11 +161,11 @@ export default (props: any) => {
           <div className="pool_detail_bottom">
             <div className="pool_detail_progress">
               <div className="progress_total">
-                <p className="detail_title">Total Raise</p>
-                <p className="detail_value">${presaleDetails.totalCollectedEther} XDAI Raised</p>
+                <p className="detail_title">Total Raised</p>
+                <p className="detail_value">{formatEther(presaleDetails.totalCollectedWei)} {presaleDetails.symbol} Raised</p>
               </div>
               <div className="detail_value">
-                {presaleDetails.totalInvestorsCount} Participants
+                {presaleDetails.totalInvestorsCount.toNumber()} Participants
               </div>
             </div>
             <div className="progress_bar">
@@ -175,8 +175,8 @@ export default (props: any) => {
               </div>
             </div>
             <div className="progress_percent_fraction">
-              <p className="detail_title">{presaleDetails.percentHardcapInvested}%</p>
-              <p className="detail_title">{presaleDetails.totalCollectedEther}/{presaleDetails.hardcapInEther} XDAI</p>
+              <p className="detail_title">{formatEther(presaleDetails.totalCollectedWei.div(presaleDetails.hardcapInWei))}%</p>
+              <p className="detail_title">{formatEther(presaleDetails.totalCollectedWei)}/{formatEther(presaleDetails.hardcapInWei)} XDAI</p>
             </div>
           </div>
         </section>

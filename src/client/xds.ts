@@ -19,19 +19,18 @@ export interface PresaleDetails {
   linkGithub: string,
   linkWebsite: string,
   linkLogo: string,
-  totalInvestorsCount: number,
-  totalCollectedEther: string,
-  tokenPriceInEther: string,
-  tokensLeft: string,
-  minInvestInEther: string,
-  maxInvestInEther: string,
-  softcapInEther: string,
-  hardcapInEther: string,
+  totalInvestorsCount: BigNumber,
+  totalCollectedWei: BigNumber,
+  tokenPriceInWei: BigNumber,
+  tokensLeft: BigNumber,
+  minInvestInWei: BigNumber,
+  maxInvestInWei: BigNumber,
+  softcapInWei: BigNumber,
+  hardcapInWei: BigNumber,
   // Following not applicable to XDPresale
-  honeyLiquidityPercentageAllocation?: string,
-  honeyLPTokensLockDurationInDays?: string,
+  honeyLiquidityPercentageAllocation?: BigNumber,
+  honeyLPTokensLockDurationInDays?: BigNumber,
   // what is "Hard Honeyswap Listing Ratio" in UI?
-  percentHardcapInvested: string
 }
 
 export interface InvestmentDetails {

@@ -1,4 +1,3 @@
-import Header from './Header';
 import Footer from './Footer';
 import Pools from './Pools';
 import ActionCall from './ActionCall';

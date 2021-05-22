@@ -1,9 +1,12 @@
+import { BigNumber, utils } from 'ethers';
+const { formatEther } = utils;
+
 export default (
   props: {
     info: {
       title: string,
-      value: string,
-      symbol: string
+      value: BigNumber,
+      unit: string
     },
     index: number,
     totalBlocks: number
@@ -14,7 +17,7 @@ export default (
   return (
     <div className={`pool_detail_info_block ${lbb ? 'light_border_bottom' : ''} ${lbr ? 'light_border_right' : ''}`}>
       <p className="detail_title">{info.title}</p>
-      <p className="detail_value">{info.value} {info.symbol}</p>
+      <p className="detail_value">{formatEther(info.value)} {info.unit}</p>
     </div>
   )
 

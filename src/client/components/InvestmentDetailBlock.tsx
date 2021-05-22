@@ -1,10 +1,12 @@
+import { BigNumber, utils } from 'ethers';
+const { formatEther } = utils;
 import Icon from './Icon';
 
 export default (props: {
     info: {
       title?: string,
-      value?: string,
-      symbol?: string,
+      unit?: string,
+      value?: BigNumber,
       button: {
         text: string,
         emphasis: number
@@ -32,7 +34,7 @@ export default (props: {
     <div className={`investment_detail_info_block ${lbr ? 'light_border_right' : ''}`}>
       <div className="investment_detail_text">
         {info.icon && info.icon == 'lock' ? <Icon name='lock' /> : <p className="detail_title">{info.title}</p>}
-        <p className="detail_value">{info.value} {info.symbol}</p>
+        {info.value && <p className="detail_value">{formatEther(info.value)} {info.unit}</p>}
       </div>
       <button className={`btn${buttonStyle}`} onClick={(e) => info.handleClick && info.handleClick(e)}>{info.button.text}</button>
     </div>
