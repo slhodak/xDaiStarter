@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Web3Provider } from '@ethersproject/providers';
 import Web3Modal from 'web3modal';
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import { networks, getNetwork, Logger } from './utils';
+import { networks, getNetwork, Logger, SUPPORTED_CHAIN_IDS } from './utils';
 
 const useWeb3Modal = function() {
   const logger = Logger("Web3Modal");
@@ -42,7 +42,7 @@ const useWeb3Modal = function() {
         const newProvider = await web3Modal.connect();
         const provider = new Web3Provider(newProvider);
         const network = await provider.detectNetwork();
-        if (![77, 100, 1337].includes(network.chainId)) {
+        if (!Object.values(SUPPORTED_CHAIN_IDS).includes(network.chainId)) {
           web3Modal.clearCachedProvider();
           return window.alert("Error: Wallet is not connected to xDai chain. Please connect the wallet to xDai chain and try again.")
         }

@@ -39,10 +39,17 @@ const getNetwork = () => {
   }
 };
 
+const SUPPORTED_CHAIN_IDS = {
+  sokol: 77,
+  xdai: 100,
+  ganache: 1337
+};
+
 export {
   addressDisplayed,
   one,
   networks,
   getNetwork,
+  SUPPORTED_CHAIN_IDS,
   Logger
 };
