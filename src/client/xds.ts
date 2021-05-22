@@ -63,7 +63,10 @@ export interface UIImportantLink {
 }
 
 export interface INetworks {
-  [key: string]: string;
+  [key: string]: {
+    endpoint: string,
+    chainId: number
+  }
 }
 
 export interface INetworkContracts {

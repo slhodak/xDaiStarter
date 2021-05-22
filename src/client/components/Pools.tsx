@@ -15,7 +15,7 @@ export default (props: any) => {
   const logger = Logger("Pools");
   const [pools, setPools] = useState([]);
 
-  const provider = providers.getDefaultProvider(getNetwork());
+  const provider = providers.getDefaultProvider(getNetwork()?.endpoint);
   const networkAddresses: any = addresses[__NETWORK__];
   const xdsInfoAddress = networkAddresses.XDaiStarterInfo;
   const xdsInfo = new Contract(

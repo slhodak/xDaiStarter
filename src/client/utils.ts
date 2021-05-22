@@ -19,9 +19,18 @@ function Logger (clazz: string) {
 };
 
 const networks: INetworks = {
-  xdai: "https://dai.poa.network",
-  sokol: "https://sokol.poa.network",
-  development: "http://127.0.0.1:8545"
+  xdai: {
+    endpoint: "https://dai.poa.network",
+    chainId: 100
+  },
+  sokol: {
+    endpoint: "https://sokol.poa.network",
+    chainId: 77
+  },
+  development: {
+    endpoint: "http://127.0.0.1:8545",
+    chainId: 1337
+  }
 };
 
 const addressDisplayed = (address: string) => {
@@ -39,11 +48,7 @@ const getNetwork = () => {
   }
 };
 
-const SUPPORTED_CHAIN_IDS = {
-  sokol: 77,
-  xdai: 100,
-  ganache: 1337
-};
+const SUPPORTED_CHAIN_IDS = Object.values(networks).map(network => network.chainId);
 
 export {
   addressDisplayed,

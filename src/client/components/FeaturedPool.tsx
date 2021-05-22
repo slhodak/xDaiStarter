@@ -19,7 +19,7 @@ export default (props: { address: string }) => {
   const { address } = props;
   const [presaleDetails, setPresaleDetails] = useState<PresaleDetails>();
   
-  const provider = providers.getDefaultProvider(getNetwork());
+  const provider = providers.getDefaultProvider(getNetwork()?.endpoint);
   const xdPresale = new Contract(
     address,
     abis.xdPresale,

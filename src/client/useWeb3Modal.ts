@@ -14,7 +14,7 @@ const useWeb3Modal = function() {
     logger.log("Creating Web3Modal with network url: ", getNetwork());
     try {
       return new Web3Modal({
-        network: getNetwork(),
+        network: "https://bogus.network.com/",
         cacheProvider: true,
         // Metamask available by default
         providerOptions: {
@@ -44,7 +44,7 @@ const useWeb3Modal = function() {
         const network = await provider.detectNetwork();
         if (!Object.values(SUPPORTED_CHAIN_IDS).includes(network.chainId)) {
           web3Modal.clearCachedProvider();
-          return window.alert("Error: Wallet is not connected to xDai chain. Please connect the wallet to xDai chain and try again.")
+          return window.alert("Error: Wallet is not connected to xDai chain. Please connect the wallet to xDai chain and try again.");
         }
         logger.log("Web3Modal connecting to provider", provider);
         setProvider(provider);
@@ -56,9 +56,10 @@ const useWeb3Modal = function() {
       }
     }
   }, [web3Modal]);
-  
+
   const logoutOfWeb3Modal = useCallback(() => {
     if (web3Modal) {
+      logger.log("Disconnecting wallet");
       web3Modal.clearCachedProvider();
       setProvider(undefined);
       setAccount(undefined);
