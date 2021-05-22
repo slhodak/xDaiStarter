@@ -40,6 +40,7 @@ const addressDisplayed = (address: string) => {
 const one = BigNumber.from("1000000000000000000");
 
 // Use a method in case __NETWORK__ is undefined or invalid
+// If __NETWORK__ is invalid, make sure the build parameter --env NETWORK="" is set correctly
 const getNetwork = () => {
   try {
     return networks[__NETWORK__];

@@ -42,15 +42,16 @@ const useWeb3Modal = function() {
         const newProvider = await web3Modal.connect();
         const provider = new Web3Provider(newProvider);
         const network = await provider.detectNetwork();
-        if (!SUPPORTED_CHAIN_IDS.includes(network.chainId)) {
+        if (getNetwork()?.chainId != network.chainId) {
           web3Modal.clearCachedProvider();
-          return window.alert("Error: Wallet is not connected to xDai chain. Please connect the wallet to xDai chain and try again.");
+          logger.log(`Wallet connected to invalid chain for this build, chainId ${network.chainId} should be ${getNetwork()?.chainId}`);
+          return window.alert(`Error: Wallet is not connected to xDai chain. Please connect the wallet to xDai at chainId ${getNetwork()?.chainId} and try again.`);
         }
         logger.log("Web3Modal connecting to provider", provider);
         setProvider(provider);
         const accounts = await provider.listAccounts();
         setAccount(accounts[0]);
-        window.xds.web3 = { web3Modal, provider }; // Debugging...
+        window.xds.web3 = { web3Modal, provider, network }; // Debugging...
       } catch (error) {
         logger.error("Following occurred during loadWeb3Modal: ", error);
       }
