@@ -11,14 +11,6 @@ import "./XDaiStarterLiquidityLock.sol";
 import "./XDPToken.sol";
 import "./XDaiStarterStaking.sol";
 
-// Not used?
-interface IHoneySwapV2Factory {
-    function getPair(address tokenA, address tokenB)
-        external
-        view
-        returns (address pair);
-}
-
 contract XDaiStarterFactory is ReentrancyGuard {
     using SafeMath for uint256;
 
