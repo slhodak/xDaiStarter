@@ -54,6 +54,9 @@
       @extend .medium_descriptor;
       font-size: 2em;
     }
+    .buy_descriptor.cost {
+      margin-top: 15px;
+    }
     .amount_input {
       display: flex;
       align-items: center;

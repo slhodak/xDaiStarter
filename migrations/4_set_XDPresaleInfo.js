@@ -18,7 +18,7 @@ module.exports = async (deployer, network, accounts) => {
     hardCapInWei:    one.mul(BigNumber.from("100000")),     // 100,000 xDai
     softCapInWei:    one.mul(BigNumber.from("25000")),      // 25,000 xDai
     maxInvestInWei:  one.mul(BigNumber.from("5000")),       // 5000 xDai
-    minInvestInWei:  one.mul(BigNumber.from("500")),        // 500 xDai
+    minInvestInWei:  one,                                   // 1 xDai
     openTime: Math.floor(Date.now() / 1000),                // Javascript time is in milliseconds by default
     closeTime: Math.floor(Date.now() / 1000) + (30 * secondsInADay),
   };

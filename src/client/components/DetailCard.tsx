@@ -19,7 +19,7 @@ export default (props: any) => {
   const { state } = location;
   const { presaleDetails, percentHardcapInvested } = state;
 
-  const [amount, setAmount] = useState<BigNumber>(presaleDetails.minInvestInWei);
+  const [amount, setAmount] = useState<BigNumber>(BigNumber.from("0"));
   const [buying, setBuying] = useState(false);
   const [walletInvestment, setWalletInvestment] = useState<BigNumber>(BigNumber.from("0"));
   const [xdPresale, setXDPresale] = useState<Contract>();
@@ -74,11 +74,11 @@ export default (props: any) => {
   async function invest() {
     logger.log("Investing");
     if (signer && xdPresale) {
-      const amountInWei = BigNumber.from(amount.toString()).mul(one);
-      logger.log(`Address ${signerAddress} buying ${amountInWei}`);
+      const value = amount.mul(presaleDetails.tokenPriceInWei);
+      logger.log(`Address ${signerAddress} spending ${value.toString()} wei for ${amount.toString()} ${presaleDetails.symbol} tokens`);
       const tx = {
         to: xdPresale.address,
-        value: amountInWei._hex
+        value: value._hex
       };
       await signer.sendTransaction(tx);
     }
@@ -101,7 +101,7 @@ export default (props: any) => {
     { title: 'Hardcap', value: presaleDetails.hardcapInWei, unit: presaleDetails.symbol },
     { title: 'Min Per Wallet', value: presaleDetails.minInvestInWei, unit: presaleDetails.symbol },
     { title: 'Max Per wallet', value: presaleDetails.maxInvestInWei, unit: presaleDetails.symbol },
-    { title: 'Presale Rate', value: presaleDetails.tokenPriceInWei, unit: presaleDetails.symbol },
+    { title: 'Presale Rate', value: presaleDetails.tokenPriceInWei, unit: presaleDetails.symbol   },
     { title: 'Hard HoneySwap Listing Ratio', value: BigNumber.from('0'), unit: presaleDetails.symbol },
     { title: 'Liquidity Allocation', value: BigNumber.from('0'), unit: '%' },
     { title: 'Liquidity Lock Duration', value: BigNumber.from('0'), unit: 'Days' }
@@ -116,14 +116,14 @@ export default (props: any) => {
     },
     {
       title: 'Your Tokens',
-      value: BigNumber.from("0"),
+      value: walletInvestment.div(presaleDetails.tokenPriceInWei),
       unit: presaleDetails.symbol,
       button: { text: 'Claim Token', emphasis: 2 }
     },
     {
       title: 'Your XDAI Investment',
       value: walletInvestment,
-      unit: presaleDetails.symbol,
+      unit: "XDAI",
       button: { text: 'Buy', emphasis: 1 },
       handleClick: () => setBuying(true)
     },
@@ -142,7 +142,14 @@ export default (props: any) => {
   ];
   return (
     <div>
-      {buying && <BuyModal symbol={presaleDetails.symbol} amount={amount} setAmount={setAmount} handleBuy={handleBuy} setBuying={setBuying} />}
+      {buying && <BuyModal
+                    symbol={presaleDetails.symbol}
+                    tokenPriceInWei={presaleDetails.tokenPriceInWei}
+                    amount={amount}
+                    setAmount={setAmount}
+                    handleBuy={handleBuy}
+                    setBuying={setBuying}
+                />}
       <div className="detail_card">
         <section className="pool_detail detail_section">
           <div className="pool_detail_top">

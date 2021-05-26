@@ -1,5 +1,8 @@
+import { BigNumber, utils } from 'ethers';
+const { formatEther } = utils;
+
 export default (props: any) => {
-  const { unit, amount, setAmount, handleBuy, setBuying } = props;
+  const { symbol, tokenPriceInWei, amount, setAmount, handleBuy, setBuying } = props;
   return (
     // Clicking on the background closes the modal
     <div onClick={() => setBuying(false)} className="buy_modal">
@@ -13,10 +16,10 @@ export default (props: any) => {
             </g>
           </svg>
         </div>
-        <p className="medium_title">Buy {unit}</p>
+        <p className="medium_title">Buy {symbol}</p>
         <div className="amount_input">
         <div className="amount_buttons">
-            <button className="amount_button" onClick={() => setAmount(amount + 1)}>
+            <button className="amount_button" onClick={() => setAmount(amount.add(BigNumber.from("1")))}>
               <svg className="arrow_top" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g>
                   <line strokeLinecap="round" id="svg_3" y2="5" x2="10" y1="8" x1="0" strokeWidth="2" stroke="#000" fill="none"/>
@@ -24,7 +27,7 @@ export default (props: any) => {
                 </g>
               </svg>
             </button>
-            <button className="amount_button" onClick={() => setAmount(amount - 1)}>
+            <button className="amount_button" onClick={() => setAmount(amount.sub(BigNumber.from("1")))}>
               <svg className="arrow_bottom" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g>
                   <line strokeLinecap="round" id="svg_3" y2="5" x2="10" y1="0" x1="0" strokeWidth="2" stroke="#000" fill="none"/>
@@ -33,9 +36,10 @@ export default (props: any) => {
               </svg>
             </button>
           </div>
-          <input className="amount_number" onChange={(e) => setAmount(e.target.value)} type="number" value={amount}></input>
-          <p className="buy_descriptor">{unit}</p>
+          <input className="amount_number" onChange={(e) => setAmount(BigNumber.from(e.target.value.toString()))} type="number" value={amount}></input>
+          <p className="buy_descriptor">{symbol}</p>
         </div>
+        <p className="buy_descriptor cost">Cost: {formatEther(amount.mul(tokenPriceInWei))} XDAI</p>
         <button className="btn buy_button" onClick={handleBuy}>Buy</button>
       </div>
     </div>
