@@ -100,7 +100,7 @@ export default (props: any) => {
           <div className="application_inputs">
             <h2 className="medium_title">Founder & Progress Information</h2>
             <div className="labeled_input">
-              <div>
+              <div className="label_container">
                 <label className="textarea" htmlFor="founders">Founder Profiles</label>
                 <p>Please separate by a comma</p>
               </div>

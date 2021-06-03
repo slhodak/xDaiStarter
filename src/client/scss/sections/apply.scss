@@ -112,6 +112,12 @@
           flex-direction: column;
           align-items: flex-start;
         }
+        .label_container {
+          width: 18%;
+          p {
+            text-align: left;
+          }
+        }
         label {
           @extend .medium_descriptor;
           width: 18%;
