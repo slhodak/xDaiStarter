@@ -117,7 +117,7 @@ export default (props: any) => {
                 <textarea name="stateOfDevelopment" placeholder="Any Product & MVP live? Testnet?"></textarea>
               </div>
               <div className="labeled_input">
-                <label className="textarea" htmlFor="amountRaised">How much of raised?</label>
+                <label className="textarea" htmlFor="amountRaised">How much raised so far?</label>
                 <textarea name="amountRaised" placeholder="Example 100k Seed, 500k Private sale"></textarea>
               </div>
             </div>
@@ -192,9 +192,7 @@ export default (props: any) => {
                   </div>
                 </div>
               </div>
-              <div className="form_btn-wrap">
-                <input type="submit" value="Submit Application" className="btn"></input>
-              </div>
+              <input className="form_btn" type="submit" value="Submit Application"></input>
             </div>
           </div>
         </form>

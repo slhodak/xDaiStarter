@@ -230,6 +230,12 @@
           }
         }
       }
+      .form_btn {
+        @extend .btn;
+        margin-top: 28px;
+        width: 100%;
+        color: #ffffff;
+      }
     }
   }
 }
@@ -278,23 +284,5 @@
         border-top: none;
       }
     }
-  }
-}
-.form_btn-wrap {
-  margin-top: 28px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  .btn {
-    width: 227px;
-    height: 68px;
-    font-family: Poppins;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 17px;
-    letter-spacing: -0.02em;
-    color: #ffffff;
   }
 }
