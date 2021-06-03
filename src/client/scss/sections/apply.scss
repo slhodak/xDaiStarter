@@ -109,22 +109,6 @@
         font-size: 2.5em;
       }
     }
-    .applicant_info {
-      @extend .applicant_info_box;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      h4 {
-        @extend .medium_title;
-        font-size: 1.3em;
-      }
-      span {
-        @extend .medium_descriptor;
-        margin: 0px 0px 0px 1%;
-        color: #979797;
-        opacity: 1;
-      }
-    }
     .application_inputs {
       @extend .applicant_info_box;
       .labeled_input {
@@ -148,8 +132,7 @@
       }
       input {
         width: 80%;
-        height: 62px;
-        padding: 0 20px;
+        padding: 7px 10px;
         background: $xdsGreyBlue;
         border: 1px solid #606061;
         box-sizing: border-box;
@@ -158,7 +141,7 @@
         font-weight: 500;
         font-size: 20px;
         line-height: 25px;
-        color: #979797;
+        color: #d3d3d3;
         outline: none;
         cursor: text;
         @media (max-width: $screen-xlg) {
