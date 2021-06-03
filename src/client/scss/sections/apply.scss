@@ -101,14 +101,6 @@
         font-size: 1em;
       }
     }
-    .applicant_info_header {
-      @extend .applicant_info_box;
-      padding: 40px 50px 10px 50px;
-      h2 {
-        @extend .medium_title;
-        font-size: 2.5em;
-      }
-    }
     .application_inputs {
       @extend .applicant_info_box;
       .labeled_input {
@@ -131,6 +123,7 @@
         }
       }
       input {
+        height: 100%;
         width: 80%;
         padding: 7px 10px;
         background: $xdsGreyBlue;
@@ -187,84 +180,14 @@
           input {
             width: 100%;
           }
-          .form_date {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            @media (max-width: $screen-md) {
-              flex-direction: column;
-            }
-            .date_input {
-              width: 30%;
-              @media (max-width: $screen-md) {
-                width: 100%;
-                margin-top: 1%;
-              }
-            }
-            /* Chrome, Safari, Edge, Opera */
-            input::-webkit-inner-spin-button {
-              -webkit-appearance: none;
-              margin: 0;
-            }
-            /* Firefox */
-            input[type=number] {
-              -moz-appearance: textfield;
-            }
-          }
         }
       }
       .form_btn {
         @extend .btn;
         margin-top: 28px;
+        padding: 15px 0px;
         width: 100%;
         color: #ffffff;
-      }
-    }
-  }
-}
-.input_select {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 62px;
-  padding: 0 20px;
-  background: $xdsGreyBlue;
-  border: 1px solid #606061;
-  box-sizing: border-box;
-  border-radius: 10px;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 25px;
-  color: #979797;
-  &::after {
-    border-bottom: 2px solid #fff;
-    border-right: 2px solid #fff;
-    height: 10px;
-    width: 10px;
-    right: 20px;
-  }
-  .list {
-    background: $xdsGreyBlue;
-    border: 1px solid #606061;
-    width: 100%;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    li {
-      background: $xdsGreyBlue !important;
-      border-top: 1px solid #606061;
-      padding: 5% 10%;
-      font-family: Poppins;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 25px;
-      color: #979797;
-      display: flex;
-      align-items: center;
-      &:first-child {
-        border-top: none;
       }
     }
   }

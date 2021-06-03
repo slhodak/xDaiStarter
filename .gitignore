@@ -13,3 +13,7 @@ dist/*.tar.gz
 public/img
 public/fonts
 public/bundle.*
+
+### projects
+src/server/data/projects/*
+src/server/data/sampleProjects/*
