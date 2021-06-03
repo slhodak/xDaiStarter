@@ -114,6 +114,9 @@
         }
         .label_container {
           width: 18%;
+          @media (max-width: $screen-xlg) {
+            width: 100%;
+          }
           p {
             text-align: left;
           }
