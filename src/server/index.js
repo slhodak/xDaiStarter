@@ -28,7 +28,7 @@ app.post("/application", async (req, res) => {
     try {
       const fileName = req.body.github.replace(/\//g, "_");
       await fs.writeFile(
-              path.join(__dirname, `${fileName}.txt`),
+              path.join(__dirname, `./data/projects/${fileName}.json`),
               JSON.stringify(req.body)
             );
       const success = encodeURI("Application submitted successfully.");

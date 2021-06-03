@@ -78,34 +78,35 @@ export default (props: any) => {
               <span>mail#mail.com</span>
             </div>
             <div className="application_inputs">
-              <h2 className="medium_title">Basic information</h2>
+              <h2 className="medium_title">Basic Information</h2>
               <div className="labeled_input">
                 <label htmlFor="projectName">Project Name</label>
-                <input name="projectName" type="text" placeholder="Project Name "/>
+                <input name="projectName" type="text" placeholder="Project Name"/>
               </div>
               <div className="labeled_input">
                 <label htmlFor="websiteURL">Website URL</label>
-                <input name="websiteURL" type="text" placeholder="Website URL "/>
+                <input name="websiteURL" type="text" placeholder="Website URL"/>
               </div>
               <div className="labeled_input">
-                <label htmlFor="whitepaper">White paper</label>
-                <input name="whitepaper" type="text" placeholder="White paper "/>
+                <label htmlFor="whitepaper">Whitepaper</label>
+                <input name="whitepaper" type="text" placeholder="Whitepaper URL"/>
               </div>
               <div className="labeled_input">
-                <label htmlFor="telegram">Telegram Handle</label>
-                <input name="telegram" type="text" placeholder="@project "/>
+                <label htmlFor="socialHandle">Social Media Handle</label>
+                <input name="socialHandle" type="text" placeholder="@us"/>
               </div>
               <div className="labeled_input">
                 <label className="textarea" htmlFor="description">Description</label>
                 <textarea name="description" placeholder="Paper Description"></textarea>
               </div>
-              <p>We will use the description to showcase your project on the pool page if application approved.</p>
+              <p>We will use the description to showcase your project on the pool page if the application is approved.</p>
             </div>
             <div className="application_inputs">
-              <h2 className="medium_title">Founder & progress information</h2>
+              <h2 className="medium_title">Founder & Progress Information</h2>
               <div className="labeled_input">
-                <label className="textarea" htmlFor="linkedins">Founder Linkedins</label>
-                <textarea name="linkedins" placeholder="Linkdin URL of founders"></textarea>
+                <label className="textarea" htmlFor="founders">Founder Profiles</label>
+                <p className="">Please separate by a comma</p>
+                <textarea name="founders" placeholder="Professional Bios, Personal Sites, LinkedIn URLs, etc, of founders"></textarea>
               </div>
               <div className="labeled_input">
                 <label className="textarea" htmlFor="github">Github URL</label>
@@ -121,7 +122,7 @@ export default (props: any) => {
               </div>
             </div>
             <div className="application_inputs">
-              <h2 className="medium_title">Founder & progress information</h2>
+              <h2 className="medium_title">Capital & Timeline</h2>
               <div className="column_inputs">
                 <div className="column_input">
                   <p className="medium_descriptor">How much are you looking to raise with us?</p>

@@ -1,0 +1,4 @@
+{
+  "watch": ["src/server/*", "src/abis.js", "src/addresses.json"],
+  "ignore": ["src/server/data/*"]
+}
