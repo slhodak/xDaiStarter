@@ -33,6 +33,29 @@ export interface PresaleDetails {
   // what is "Hard Honeyswap Listing Ratio" in UI?
 }
 
+export interface XDSPresaleDetails {
+  tokenAddress: string,
+  unsoldTokensDumpAddress: string,
+  whitelistedAddresses: string[],
+  tokenPriceInWei: BigNumber,
+  hardCapInWei: BigNumber,
+  softCapInWei: BigNumber,
+  maxInvestInWei: BigNumber,
+  minInvestInWei: BigNumber,
+  openTime: BigNumber,
+  closeTime: BigNumber,
+  listingPriceInWei: BigNumber,
+  liquidityAddingTime: BigNumber,
+  lpTokensLockDurationInDays: BigNumber,
+  liquidityPercentageAllocation: BigNumber,
+  saleTitle: string,
+  linkChat: string,
+  linkGithub: string,
+  linkTwitter: string,
+  linkWebsite: string,
+  linkLogo: string
+}
+
 export interface InvestmentDetails {
   // why softcap again?
   // Calculate # of tokens from this and token price

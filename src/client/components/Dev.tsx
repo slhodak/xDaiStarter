@@ -1,9 +1,13 @@
-import abis from '../../abis.js';
-import Header from './Header';
+import abis from '../../abis';
 import useWeb3Modal from '../useWeb3Modal';
 import { useState } from 'react';
 import { Contract, Signer, BigNumber } from 'ethers';
 import { one, Logger } from '../utils';
+import { XDSPresaleDetails, __NETWORK__, INetworkContracts } from '../xds';
+import _addresses from '../../addresses.json';
+const addresses: INetworkContracts = _addresses;
+const networkAddresses: any = addresses[__NETWORK__];
+const { XDaiStarterFactory } = networkAddresses;
 
 export default (props: any) => {
   const logger = Logger("Dev");
@@ -11,11 +15,70 @@ export default (props: any) => {
   const [xdPresaleAddress, setXDPresaleAddress] = useState<string>("");
   const [whitelistAddress, setWhitelistAddress] = useState<string>("");
   const [xdPresale, setXDPresale] = useState<Contract>();
+  const [xdsPresale, setXDSPresale] = useState<any>();
   const [whitelistedAddressToBeChecked, setWhitelistedAddressToBeChecked] = useState<string>("");
   const [isWhitelistedAddress, setIsWhitelistedAddress] = useState<boolean>();
   const [etherToSend, setEtherToSend] = useState<BigNumber>();
   const { provider } = useWeb3Modal();
   logger.log("Provider for Dev: ", provider);
+
+  async function chooseXDSPresale(files?: FileList) {
+    if (files) {
+      const text = await files[0].text();
+      logger.log(text);
+      setXDSPresale(text);
+    }
+  }
+  
+  async function createXDSPresale() {
+    logger.log("Beginning create XDSPresale");
+    if (!provider) {
+      return logger.error("Error while connecting to XDSFactory", new Error("No provider"));
+    } else if (!xdsPresale) {
+      return logger.error("Error while connecting to XDSFactory", new Error("No XDSPresale details"));
+    } else {
+      logger.log("Mid-begin XDSPresale");
+      // Parse json application into PresaleInfo, HoneySwapInfo, and StringInfo
+      const presaleInfo = {
+        tokenAddress: xdsPresale.tokenAddress,
+        unsoldTokensDumpAddress: xdsPresale.unsoldTokensDumpAddress,
+        whitelistedAddresses: [xdsPresale.whitelistedAddresses],
+        tokenPriceInWei: xdsPresale.tokenPriceInWei,
+        hardCapInWei: xdsPresale.hardCapInWei,
+        softCapInWei: xdsPresale.softCapInWei,
+        maxInvestInWei: xdsPresale.maxInvestInWei,
+        minInvestInWei: xdsPresale.minInvestInWei,
+        openTime: xdsPresale.openTime,
+        closeTime: xdsPresale.closeTime
+      };
+      const honeySwapInfo = {
+        listingPriceInWei: xdsPresale.listingPriceInWei,
+        liquidityAddingTime: xdsPresale.liquidityAddingTime,
+        lpTokensLockDurationInDays: xdsPresale.lpTokensLockDurationInDays,
+        liquidityPercentageAllocation: xdsPresale.liquidityPercentageAllocation
+      };
+      const StringInfo = {
+        saleTitle: xdsPresale.saleTitle,
+        linkChat: xdsPresale.linkChat,
+        linkGithub: xdsPresale.linkGithub,
+        linkTwitter: xdsPresale.linkTwitter,
+        linkWebsite: xdsPresale.linkWebsite,
+        linkLogo: xdsPresale.linkLogo
+      };
+      // Initialize XDSFactory Contract
+      logger.log("Creating Signer for XDSPresale");
+      const xdsFactoryContract = new Contract(
+        XDaiStarterFactory,
+        abis.xdsFactory,
+        provider
+      );
+      const signer = provider.getSigner();
+      const signingXdsFactoryContract = xdsFactoryContract.connect(signer);
+      logger.log("About to create XDSPresale");
+      // Send PresaleInfo, HoneySwapInfo, and StringInfo to XDSFactory.createPresale
+      signingXdsFactoryContract.createPresale(presaleInfo, honeySwapInfo, StringInfo);
+    }
+  }
 
   async function connectToXDPresale() {
     if (provider) {
@@ -93,6 +156,11 @@ export default (props: any) => {
           <h3>XDPresale</h3>
           <p>{xdPresale?.address}</p>
           <textarea className="presale" value={JSON.stringify(xdPresale, null, 2)}></textarea>
+        </div>
+        <div>
+          <h3>Create Presale</h3>
+          <input type="file" onChange={(e) => chooseXDSPresale(e.target.files ? e.target.files : undefined)}></input>
+          <button onClick={createXDSPresale}>Create</button>
         </div>
       </div>
     </div>

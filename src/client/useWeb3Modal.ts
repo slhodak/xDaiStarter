@@ -14,7 +14,7 @@ const useWeb3Modal = function() {
     logger.log("Creating Web3Modal with network: ", getNetwork());
     try {
       return new Web3Modal({
-        network: "https://bogus.network.com/",
+        network: getNetwork()?.endpoint || "127.0.0.1:8545",
         cacheProvider: true,
         // Metamask available by default
         providerOptions: {
