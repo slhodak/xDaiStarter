@@ -7,7 +7,7 @@ import { XDSPresaleDetails, __NETWORK__, INetworkContracts } from '../xds';
 import _addresses from '../../addresses.json';
 const addresses: INetworkContracts = _addresses;
 const networkAddresses: any = addresses[__NETWORK__];
-const { XDaiStarterFactory } = networkAddresses;
+const xdsFactoryAddress = networkAddresses.XDaiStarterFactory;
 
 export default (props: any) => {
   const logger = Logger("Dev");
@@ -68,7 +68,7 @@ export default (props: any) => {
       // Initialize XDSFactory Contract
       logger.log("Creating Signer for XDSPresale");
       const xdsFactoryContract = new Contract(
-        XDaiStarterFactory,
+        xdsFactoryAddress,
         abis.xdsFactory,
         provider
       );
