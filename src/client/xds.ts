@@ -14,7 +14,7 @@ export interface PresaleDetails {
   symbol: string,
   address: string,
   saleTitle: string,
-  linkTelegram: string,
+  linkChat: string,
   linkTwitter: string,
   linkGithub: string,
   linkWebsite: string,

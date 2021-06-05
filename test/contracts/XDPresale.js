@@ -40,7 +40,7 @@ contract("XDPresale (successful)", async accounts => {
     };
     stringInfo = {
       saleTitle: stringToPaddedBytes32("token_presale"),
-      linkTelegram: stringToPaddedBytes32("telegram.com/project"),
+      linkChat: stringToPaddedBytes32("chat.com/project"),
       linkGithub: stringToPaddedBytes32("github.com/project"),
       linkTwitter: stringToPaddedBytes32("twitter.com/project"),
       linkWebsite: stringToPaddedBytes32("project.com"),
@@ -98,7 +98,7 @@ contract("XDPresale (successful)", async accounts => {
   it("should allow the dev to set String Info", async () => {
     await xdPresale.setStringInfo(
       stringInfo.saleTitle,
-      stringInfo.linkTelegram,
+      stringInfo.linkChat,
       stringInfo.linkGithub,
       stringInfo.linkTwitter,
       stringInfo.linkWebsite,

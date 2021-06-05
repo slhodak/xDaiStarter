@@ -1,4 +1,4 @@
-import abis from '../../abis';
+import abis from '../../abis.js';
 import { PresaleDetails } from '../xds';
 import { Contract, providers, utils } from 'ethers';
 const {
@@ -36,7 +36,7 @@ export default (props: { address: string }) => {
   async function getPresaleDetails() {
     try {
       const saleTitle = toUtf8String(stripZeros(await xdPresale.saleTitle()));
-      const linkTelegram = toUtf8String(stripZeros(await xdPresale.linkTelegram()));
+      const linkChat = toUtf8String(stripZeros(await xdPresale.linkChat()));
       const linkTwitter = toUtf8String(stripZeros(await xdPresale.linkTwitter()));
       const linkGithub = toUtf8String(stripZeros(await xdPresale.linkGithub()));
       const linkWebsite = toUtf8String(stripZeros(await xdPresale.linkWebsite()));
@@ -59,7 +59,7 @@ export default (props: { address: string }) => {
         symbol: "XDP",
         address,
         saleTitle,
-        linkTelegram,
+        linkChat,
         linkTwitter,
         linkGithub,
         linkWebsite,

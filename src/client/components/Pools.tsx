@@ -1,4 +1,4 @@
-import abis from '../../abis';
+import abis from '../../abis.js';
 import _addresses from '../../addresses.json';
 import {
   providers,

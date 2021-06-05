@@ -67,7 +67,7 @@ contract XDaiStarterFactory is ReentrancyGuard {
 
     struct PresaleStringInfo {
         bytes32 saleTitle;
-        bytes32 linkTelegram;
+        bytes32 linkChat;
         bytes32 linkGithub;
         bytes32 linkTwitter;
         bytes32 linkWebsite;
@@ -127,7 +127,7 @@ contract XDaiStarterFactory is ReentrancyGuard {
         );
         _presale.setStringInfo(
             _stringInfo.saleTitle,
-            _stringInfo.linkTelegram,
+            _stringInfo.linkChat,
             _stringInfo.linkGithub,
             _stringInfo.linkTwitter,
             _stringInfo.linkWebsite,

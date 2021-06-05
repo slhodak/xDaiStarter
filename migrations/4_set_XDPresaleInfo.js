@@ -24,7 +24,7 @@ module.exports = async (deployer, network, accounts) => {
   };
   const stringInfo = {
     saleTitle: stringToPaddedBytes32("xDaiStarter"),
-    linkTelegram: stringToPaddedBytes32("telegram.com/project"),
+    linkChat: stringToPaddedBytes32("chat.com/project"),
     linkGithub: stringToPaddedBytes32("github.com/project"),
     linkTwitter: stringToPaddedBytes32("twitter.com/project"),
     linkWebsite: stringToPaddedBytes32("project.com"),
@@ -62,7 +62,7 @@ module.exports = async (deployer, network, accounts) => {
     // Set String Info
     await xdPresale.setStringInfo(
       stringInfo.saleTitle,
-      stringInfo.linkTelegram,
+      stringInfo.linkChat,
       stringInfo.linkGithub,
       stringInfo.linkTwitter,
       stringInfo.linkWebsite,

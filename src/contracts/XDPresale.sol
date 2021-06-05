@@ -37,7 +37,7 @@ contract XDPresale {
 
     bool public isAudited = false; // if true, it's passed, false, it's not failed.
     bytes32 public saleTitle;
-    bytes32 public linkTelegram;
+    bytes32 public linkChat;
     bytes32 public linkTwitter;
     bytes32 public linkGithub;
     bytes32 public linkWebsite;
@@ -188,14 +188,14 @@ contract XDPresale {
 
     function setStringInfo(
         bytes32 _saleTitle,
-        bytes32 _linkTelegram,
+        bytes32 _linkChat,
         bytes32 _linkGithub,
         bytes32 _linkTwitter,
         bytes32 _linkWebsite,
         bytes32 _linkLogo
     ) external onlyXdsDev {
         saleTitle = _saleTitle;
-        linkTelegram = _linkTelegram;
+        linkChat = _linkChat;
         linkGithub = _linkGithub;
         linkTwitter = _linkTwitter;
         linkWebsite = _linkWebsite;

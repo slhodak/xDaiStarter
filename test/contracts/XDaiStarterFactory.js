@@ -44,9 +44,9 @@ before(async () => {
 
   presaleStringInfo = {
     saleTitle: "token_presale",
-    linkTelegram: "telegram.com/project",
+    linkChat: "@project",
     linkGithub: "github.com/project",
-    linkTwitter: "twitter.com/project",
+    linkTwitter: "@project",
     linkWebsite: "project.com",
     linkLogo: "project.com/logo",
   }

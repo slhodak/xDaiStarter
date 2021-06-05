@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BigNumber, Contract, Signer, utils } from 'ethers';
 const { formatEther } = utils;
-import abis from '../../abis';
+import abis from '../../abis.js';
 import Footer from './Footer';
 import Disclaimer from './Disclaimer';
 import DetailInfoBlock from './DetailInfoBlock';

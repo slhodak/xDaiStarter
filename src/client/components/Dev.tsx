@@ -1,4 +1,4 @@
-import abis from '../../abis';
+import abis from '../../abis.js';
 import Header from './Header';
 import useWeb3Modal from '../useWeb3Modal';
 import { useState } from 'react';
