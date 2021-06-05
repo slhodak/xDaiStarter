@@ -88,8 +88,12 @@ export default (props: any) => {
               <input name="whitepaper" type="text" placeholder="Whitepaper URL"/>
             </div>
             <div className="labeled_input">
-              <label htmlFor="socialHandle">Social Media Handle</label>
-              <input name="socialHandle" type="text" placeholder="@us"/>
+              <label htmlFor="linkChat">Community Chat (Discord, Telegram...)</label>
+              <input name="linkChat" type="text" placeholder="discord.com/ourserver"/>
+            </div>
+            <div className="labeled_input">
+              <label htmlFor="linkTwitter">Project Twitter</label>
+              <input name="linkTwitter" type="text" placeholder="@ourproject"/>
             </div>
             <div className="labeled_input">
               <label className="textarea" htmlFor="description">Description</label>
