@@ -75,6 +75,9 @@ export default (props: any) => {
       const signer = provider.getSigner();
       const signingXdsFactoryContract = xdsFactoryContract.connect(signer);
       logger.log("About to create XDSPresale");
+      // Error here, see:
+      // https://github.com/ethers-io/ethers.js/issues/1051
+      
       // Send PresaleInfo, HoneySwapInfo, and StringInfo to XDSFactory.createPresale
       signingXdsFactoryContract.createPresale(presaleInfo, honeySwapInfo, StringInfo);
     }
